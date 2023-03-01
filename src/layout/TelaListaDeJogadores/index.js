@@ -18,7 +18,7 @@ import { useNavigate } from 'react-router-dom';
     if (!usuarioLocalStorage) {
       h("/")
     }
-
+    var usuario = JSON.parse(usuarioLocalStorage) 
     useEffect(()=>{
       const p = lista.filter(e=>{
         if (e.CLUBE.includes(value)) {
@@ -30,8 +30,12 @@ import { useNavigate } from 'react-router-dom';
 
     return (
       <div className='TelaListaJogadores'>
-          <h1 className='listaDeJogadoresTitulo'>Compra de jogadores</h1>
-          <div className='autocomplete'>
+         <div className='TelaListaJogadoresTitulo'>
+          <div className='TelaListaJogadoresTituloLeft'>
+            <h1 style={{marginRight:"20px"}}>Usuario {usuario.nome}</h1>
+            <button onClick={()=>h("/")} className='btn btn-primary' >voltar</button>
+          </div>
+          <div className='TelaListaJogadoresTituloRigth'>
             <Autocomplete
               value={value}
               onChange={(event, newValue) => {
@@ -43,6 +47,9 @@ import { useNavigate } from 'react-router-dom';
               renderInput={(params) => <TextField {...params} label="Selecione o clube" />}
             />
           </div>
+         </div>
+
+
           <div className='tabela'>
             <table className="table">
               <thead className="thead-dark">
@@ -62,7 +69,7 @@ import { useNavigate } from 'react-router-dom';
                           <td>{elem.label}</td>
                           <td>{elem.OVER}</td>
                           <td>{elem.Posição}</td>
-                          <td className='btnComprar'><button className='btn btn-primary '>Comprar</button></td>
+                          <td className='btnComprar'><button className='btn btn-success '>Comprar</button></td>
                       </tr>
                   )
                 })}

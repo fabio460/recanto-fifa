@@ -11,6 +11,10 @@ export default function CardUsuarios({usuario}:userType) {
     localStorage.setItem("usuarioSelecionado",JSON.stringify(usuario))
     h("/elencos")
   }
+  const comprarJogador = ()=>{
+    localStorage.setItem("usuarioSelecionado",JSON.stringify(usuario))
+    h("/TelaListaDeJogadores")
+  }
   return (
     <div className='CardUsuarios'>
       <div className='UsuarioNome'>{usuario.nome}</div>
@@ -18,7 +22,7 @@ export default function CardUsuarios({usuario}:userType) {
       <div className='UsuarioSaldo'>R$ {usuario.saldo}</div>
       <button  
         className="btn btn-success w-100 m-1"
-        onClick={()=>h("/TelaListaDeJogadores")}
+        onClick={comprarJogador}
       >Comprar jogador</button>
       <button onClick={selecionarElenco} className="btn btn-success w-100 m-1">Meu elenco</button>
     </div>

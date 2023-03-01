@@ -1,3 +1,34 @@
 .TelaListaJogadores{
     padding: 5%;
 }
+.TelaListaJogadoresTitulo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.TelaListaJogadoresTituloLeft{
+  display: flex;
+  align-items: center;    
+}
+.TelaListaJogadoresTituloRigth{
+    min-width: 400px;
+}
+
+.btnComprar{
+    display: flex;
+    justify-content: flex-end;
+}
+@media (max-width:800px) {
+ 
+   .autocomplete{
+    width: 100%;
+   }
+   .TelaListaJogadoresTituloLeft{
+    
+    margin: 20px 0px;
+   }
+   .TelaListaJogadoresTitulo{
+      display: block;
+   }
+}

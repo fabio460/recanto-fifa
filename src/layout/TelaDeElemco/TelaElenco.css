@@ -2,24 +2,3 @@
     width: 90%;
     margin: auto;
 }
-.autocomplete{
-    width: 30%;
-    margin-bottom: 30px;
-}
-.listaDeJogadoresTitulo{
-    text-align: center;
-    margin-bottom: 50px;
-}
-.btnComprar{
-    display: flex;
-    justify-content: flex-end;
-}
-@media (max-width:500px) {
-    .tabela{
-        width: 90vw;
-        overflow-x: scroll;
-   } 
-   .autocomplete{
-    width: 100%;
-   }
-}
