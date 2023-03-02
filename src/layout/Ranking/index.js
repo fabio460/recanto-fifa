@@ -43,9 +43,9 @@ export default function Ranking() {
         {dados.empates.map((e,key)=>{
           return<div>{e.nome} - {e.empates}</div>
         })}
-        
+
       </div>
-      <Button variant='outlined' sx={{margin:"20px 0px"}}>Encerrar temporada</Button>
+      <Button variant='outlined' size='small' sx={{margin:"20px 0px",height:"40px",marginTop:"auto"}}>Encerrar temporada</Button>
     </div>
   )
 }

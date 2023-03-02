@@ -8,11 +8,14 @@ import ModalComprar from './modalCompraJogador';
 
   export default function TelaListaDeJogadores() {
     const [listaJogadores, setlistaJogadores] = useState([])
+    
+    // separando a lista por times
     var clubesComRepetocoes = []
     lista.map((elem,key)=>{
       clubesComRepetocoes.push(elem.CLUBE)   
     })
     const clubes = [...new Set(clubesComRepetocoes)]
+
     const [value, setValue] = React.useState(null);
     let usuarioLocalStorage = localStorage.getItem("usuarioSelecionado")
     const h = useNavigate()

@@ -6,7 +6,7 @@ export default function TelaDeElenco() {
   let usuarioLocalStorage = localStorage.getItem("usuarioSelecionado") || ""  
   var usuario = JSON.parse(usuarioLocalStorage) 
   const h = useNavigate()
-  console.log(usuario)
+  
   return (
     <div className='TelaDeElencoContainer'>
         <h1>Usuario {usuario.nome}</h1>
