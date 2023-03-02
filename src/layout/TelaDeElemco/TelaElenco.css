@@ -1,4 +1,8 @@
 .tabelaDeElencos{
-    width: 90%;
+    
     margin: auto;
+}
+
+.TelaDeElencoContainer{
+    padding: 5%;
 }

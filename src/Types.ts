@@ -8,7 +8,7 @@ export interface usuarioType{
             over:number,
             salario:number,
             posicao:string
-        }
+        }[]
     ] | [],
     folha:number
 }

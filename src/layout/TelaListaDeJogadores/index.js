@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import "./ListaDeJogadores.css"
 import { useNavigate } from 'react-router-dom';
+import ModalComprar from './modalCompraJogador';
 
   export default function TelaListaDeJogadores() {
     const [listaJogadores, setlistaJogadores] = useState([])
@@ -69,7 +70,9 @@ import { useNavigate } from 'react-router-dom';
                           <td>{elem.label}</td>
                           <td>{elem.OVER}</td>
                           <td>{elem.Posição}</td>
-                          <td className='btnComprar'><button className='btn btn-success '>Comprar</button></td>
+                          <td className='btnComprar'>
+                             <ModalComprar elem={elem}/>
+                          </td>
                       </tr>
                   )
                 })}
