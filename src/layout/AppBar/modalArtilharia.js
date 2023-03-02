@@ -11,7 +11,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import {listaDeUsuarios} from "../../Uteis" 
 import { useDispatch } from 'react-redux/es/exports';
-export default function Artilharia() {
+export default function ModalArtilharia() {
   const [open, setOpen] = React.useState(false);
   const [primeiro, setPrimeiro] = React.useState('');
   const [segundo, setSegundo] = React.useState('');

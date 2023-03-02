@@ -3,8 +3,9 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useNavigate } from 'react-router-dom';
-import Artilharia from './Artilharia';
-import InserirResultado from './InserirResultado';
+import ModalArtilharia from './modalArtilharia';
+import ModalColocacao from './modalColocacao';
+import ModalVitoriasEGols from './modalVitoriasEGols';
 
 
 function Appbar() {
@@ -19,8 +20,9 @@ function Appbar() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="">Criar Usuário</Nav.Link>
-            <Nav.Link href="" ><InserirResultado/></Nav.Link>
-            <Nav.Link href="" ><Artilharia/></Nav.Link>
+            <Nav.Link href="" ><ModalColocacao/></Nav.Link>
+            <Nav.Link href="" ><ModalArtilharia/></Nav.Link>
+            <Nav.Link href="" ><ModalVitoriasEGols/></Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
