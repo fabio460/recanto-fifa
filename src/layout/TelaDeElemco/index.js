@@ -9,9 +9,14 @@ export default function TelaDeElenco() {
   
   return (
     <div className='TelaDeElencoContainer'>
-        <h1>Usuario {usuario.nome}</h1>
-        <button onClick={()=>h("/")} className='btn btn-primary' >voltar</button>
-
+        <div className='TelaDeElencoHeader'>
+            <h1>Usuario {usuario.nome}</h1>
+            <button 
+              onClick={()=>h("/")}
+              className='btn btn-primary '
+              
+             >Voltar</button>
+        </div>
         <div className='tabelaDeElencos'>
             <table className="table">
                 <thead className="thead-dark">

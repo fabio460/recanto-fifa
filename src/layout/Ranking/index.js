@@ -6,6 +6,12 @@ export default function Ranking() {
   const colocacao = useSelector(state=>state.colocacaoRedux.colocacao)  
   const artilharia = useSelector(state=>state.artilhariaRedux.artilheiros)
   const dados = useSelector(state=>state.golsEmpVitoriasRedux.dados)
+
+  var saldoRodrigo=100;
+  var saldoFabio = 50;
+  const finalizarTemporada = ()=>{
+     
+  }
   return (
     <div className='rankingContainer'>
       <div>
@@ -45,7 +51,13 @@ export default function Ranking() {
         })}
 
       </div>
-      <Button variant='outlined' size='small' sx={{margin:"20px 0px",height:"40px",marginTop:"auto"}}>Encerrar temporada</Button>
+      <Button 
+        variant='outlined' size='small'
+        sx={{margin:"20px 0px",height:"40px",marginTop:"auto"}}
+        onClick={finalizarTemporada}
+      >
+        Encerrar temporada
+      </Button>
     </div>
   )
 }

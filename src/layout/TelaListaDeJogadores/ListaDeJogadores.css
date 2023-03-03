@@ -24,11 +24,26 @@
    .autocomplete{
     width: 100%;
    }
-   .TelaListaJogadoresTituloLeft{
-    
-    margin: 20px 0px;
+   .TelaListaJogadoresTituloLeft{   
+      margin: 20px 0px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
    }
+   .TelaListaJogadoresTituloRigth{
+    min-width: 100%;
+}
    .TelaListaJogadoresTitulo{
       display: block;
+   }
+   .table{
+    width: 600px;
+}
+   .tabela{
+       overflow-x: scroll;
+   }
+   .TelaDeElencoHeader{
+    display: flex;
+    justify-content: space-between;
    }
 }
