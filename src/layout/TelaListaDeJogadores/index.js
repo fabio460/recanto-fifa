@@ -1,28 +1,23 @@
 import React,{useEffect, useState} from 'react'
 import { lista } from '../../Lista'
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
+
 import "./ListaDeJogadores.css"
 import { useNavigate } from 'react-router-dom';
 import ModalComprar from './modalCompraJogador';
+import AutoComplete from './AutoComplete';
+import { getUsuariosPorIdApi } from '../../api';
 
   export default function TelaListaDeJogadores() {
     const [listaJogadores, setlistaJogadores] = useState([])
-    
-    // separando a lista por times
-    var clubesComRepetocoes = []
-    lista.map((elem,key)=>{
-      clubesComRepetocoes.push(elem.CLUBE)   
-    })
-    const clubes = [...new Set(clubesComRepetocoes)]
-
     const [value, setValue] = React.useState(null);
+    const [Usuario, setUsuario] = useState()
     let usuarioLocalStorage = localStorage.getItem("usuarioSelecionado")
     const h = useNavigate()
+
     if (!usuarioLocalStorage) {
       h("/")
     }
-    var usuario = JSON.parse(usuarioLocalStorage) 
+    var id = JSON.parse(usuarioLocalStorage).id
     useEffect(()=>{
       const p = lista.filter(e=>{
         if (e.CLUBE.includes(value)) {
@@ -32,24 +27,23 @@ import ModalComprar from './modalCompraJogador';
       setlistaJogadores(p)
     },[value])
 
+    async function getUsuarioPorId() {
+      const p = await getUsuariosPorIdApi(id)
+      setUsuario(p)
+    }
+  
+    useEffect(()=>{
+      getUsuarioPorId()
+    },[])
     return (
       <div className='TelaListaJogadores'>
          <div className='TelaListaJogadoresTitulo'>
           <div className='TelaListaJogadoresTituloLeft'>
-            <h1 style={{marginRight:"20px"}}>Usuario {usuario.nome}</h1>
+            <h1 style={{marginRight:"20px"}}>Usuario {Usuario?.nome}</h1>
             <button onClick={()=>h("/")} className='btn btn-primary' >voltar</button>
           </div>
           <div className='TelaListaJogadoresTituloRigth'>
-            <Autocomplete
-              value={value}
-              onChange={(event, newValue) => {
-                setValue(newValue);
-              }}
-              id="combo-box-demo"
-              options={clubes}
-              sx={{ width: "100%" }}
-              renderInput={(params) => <TextField {...params} label="Selecione o clube" />}
-            />
+            <AutoComplete  value={value} setValue={setValue}/>
           </div>
          </div>
 
@@ -74,7 +68,7 @@ import ModalComprar from './modalCompraJogador';
                           <td>{elem.OVER}</td>
                           <td>{elem.Posição}</td>
                           <td className='btnComprar'>
-                             <ModalComprar elem={elem}/>
+                             <ModalComprar jogador={elem} idUsuario={Usuario.id}/>
                           </td>
                       </tr>
                   )

@@ -1,16 +1,34 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import { useNavigate } from 'react-router-dom'
+import { deletarJogadorApi, getUsuariosPorIdApi } from '../../api'
 import { usuarioType } from '../../Types'
 import "./TelaElenco.css"
 export default function TelaDeElenco() {
+  const [usuario, setusuario] = useState({})
+  const [atualizar, setatualizar] = useState(false)
   let usuarioLocalStorage = localStorage.getItem("usuarioSelecionado") || ""  
-  var usuario = JSON.parse(usuarioLocalStorage) 
+  var id = JSON.parse(usuarioLocalStorage).id 
   const h = useNavigate()
-  
+
+  async function getUsuarioPorId(params) {
+    const p = await getUsuariosPorIdApi(id)
+    setusuario(p)
+  }
+
+  useEffect(()=>{
+    getUsuarioPorId()
+  },[atualizar])
+
+  const despensar = (Id)=>{
+    deletarJogadorApi(Id,atualizar,setatualizar)
+  }
   return (
     <div className='TelaDeElencoContainer'>
         <div className='TelaDeElencoHeader'>
-            <h1>Usuario {usuario.nome}</h1>
+            <h5>Usuario: {usuario.nome}</h5>
+            {/* <h5>Time: {usuario.time}</h5>
+            <h5>Saldo: {usuario.saldo}</h5>
+            <h5>Folha: {usuario.folha}</h5> */}
             <button 
               onClick={()=>h("/")}
               className='btn btn-primary '
@@ -29,14 +47,14 @@ export default function TelaDeElenco() {
                     </tr>
                 </thead>
                 <tbody>
-                   {usuario.elenco.map((elem,key)=>{
+                   {usuario.jogadore?.map((elem,key)=>{
                     return(
                         <tr>
                             <td >{elem.label}</td>
-                            <td>{elem.Posição}</td>
+                            <td>{elem.Posicao}</td>
                             <td>{elem.OVER}</td>
                             <td>{elem.CLUBE}</td>
-                            <td><button className='btn btn-danger'>Despensar</button></td>
+                            <td><button onClick={()=> despensar(elem.id)} className='btn btn-danger'>Despensar</button></td>
                         </tr>
                     )
                    })}

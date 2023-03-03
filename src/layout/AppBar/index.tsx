@@ -5,6 +5,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useNavigate } from 'react-router-dom';
 import ModalArtilharia from './modalArtilharia';
 import ModalColocacao from './modalColocacao';
+import ModalCriarUsuario from './modalCriarUsuario';
 import ModalVitoriasEGols from './modalVitoriasEGols';
 
 
@@ -19,7 +20,7 @@ function Appbar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="">Criar Usuário</Nav.Link>
+            <Nav.Link href=""><ModalCriarUsuario/></Nav.Link>
             <Nav.Link href="" ><ModalColocacao/></Nav.Link>
             <Nav.Link href="" ><ModalArtilharia/></Nav.Link>
             <Nav.Link href="" ><ModalVitoriasEGols/></Nav.Link>

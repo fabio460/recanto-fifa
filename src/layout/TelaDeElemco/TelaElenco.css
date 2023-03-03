@@ -7,17 +7,17 @@
     padding: 5%;
 }
 
+.TelaDeElencoHeader{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
 @media (max-width:800px) {
     .table{
         width: 600px;
     }
     .tabelaDeElencos{
         overflow-x: scroll;
-    }
-    .TelaDeElencoHeader{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
     }
 }
