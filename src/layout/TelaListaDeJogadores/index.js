@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import ModalComprar from './modalCompraJogador';
 import AutoComplete from './AutoComplete';
 import { getUsuariosPorIdApi } from '../../api';
+import { useSelector } from 'react-redux';
 
   export default function TelaListaDeJogadores() {
     const [listaJogadores, setlistaJogadores] = useState([])
@@ -35,12 +36,15 @@ import { getUsuariosPorIdApi } from '../../api';
     useEffect(()=>{
       getUsuarioPorId()
     },[])
+    const loading = useSelector(state=>state.loadingReducer.loading)
+    
     return (
       <div className='TelaListaJogadores'>
          <div className='TelaListaJogadoresTitulo'>
           <div className='TelaListaJogadoresTituloLeft'>
             <h1 style={{marginRight:"20px"}}>Usuario {Usuario?.nome}</h1>
             <button onClick={()=>h("/")} className='btn btn-primary' >voltar</button>
+             {loading&&<div>carregando ...</div>}
           </div>
           <div className='TelaListaJogadoresTituloRigth'>
             <AutoComplete  value={value} setValue={setValue}/>

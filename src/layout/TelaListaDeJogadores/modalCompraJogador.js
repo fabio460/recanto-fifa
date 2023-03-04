@@ -6,6 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { adicionarJogadorApi } from '../../api';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function ModalComprar({jogador, idUsuario}) {
   const [open, setOpen] = React.useState(false);
@@ -18,13 +19,16 @@ export default function ModalComprar({jogador, idUsuario}) {
     setOpen(false);
   };
 
+  const dispatch = useDispatch()
+ 
   const comprarJogador = ()=>{
     adicionarJogadorApi(
       jogador.label,
       jogador.Posicao,
       jogador.OVER,
       jogador.CLUBE,
-      idUsuario 
+      idUsuario,
+      dispatch 
     )
    
     handleClose()
@@ -32,7 +36,7 @@ export default function ModalComprar({jogador, idUsuario}) {
   return (
     <div>
       <div className='btn btn-success ' onClick={handleClickOpen}>
-        Comprar
+        Comprar 
       </div>
       <Dialog
         open={open}

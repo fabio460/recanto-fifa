@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import ModalArtilharia from './modalArtilharia';
 import ModalColocacao from './modalColocacao';
 import ModalCriarUsuario from './modalCriarUsuario';
+import ModalDeletarUsuario from './modalDeletarUsuario';
 import ModalVitoriasEGols from './modalVitoriasEGols';
 
 
@@ -21,6 +22,7 @@ function Appbar() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href=""><ModalCriarUsuario/></Nav.Link>
+            <Nav.Link href=""><ModalDeletarUsuario/></Nav.Link>
             <Nav.Link href="" ><ModalColocacao/></Nav.Link>
             <Nav.Link href="" ><ModalArtilharia/></Nav.Link>
             <Nav.Link href="" ><ModalVitoriasEGols/></Nav.Link>

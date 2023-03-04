@@ -1,4 +1,5 @@
 import React,{useState,useEffect} from 'react'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { deletarJogadorApi, getUsuariosPorIdApi } from '../../api'
 import { usuarioType } from '../../Types'
@@ -19,6 +20,7 @@ export default function TelaDeElenco() {
     getUsuarioPorId()
   },[atualizar])
 
+  const loading = useSelector(state=>state.loadingReducer.loading)
   const despensar = (Id)=>{
     deletarJogadorApi(Id,atualizar,setatualizar)
   }
@@ -32,9 +34,9 @@ export default function TelaDeElenco() {
             <button 
               onClick={()=>h("/")}
               className='btn btn-primary '
-              
              >Voltar</button>
         </div>
+        
         <div className='tabelaDeElencos'>
             <table className="table">
                 <thead className="thead-dark">

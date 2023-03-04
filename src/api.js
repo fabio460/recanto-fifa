@@ -27,7 +27,25 @@ export const criarUsuarioApi = async(nome, saldo, folha, jogadores)=>{
       })
    })
    .then(res=>res.json())
-   .then(res=>console.log(res))
+   .then(res=>{
+      window.location.reload()
+   })
+}
+
+export const deletarUsuarioApi = async(id)=>{
+   return await fetch(local+"usuario",{
+      method:'delete',
+      headers:{
+         "Content-Type":"application/json"
+      },
+      body:JSON.stringify({
+         id
+      })
+   })
+   .then(res=>res.json())
+   .then(res=>{
+      window.location.reload()
+   })
 }
 
 export const deletarJogadorApi = async(id,atualizar,setatualizar)=>{
@@ -51,7 +69,8 @@ export const adicionarJogadorApi = async(
    Posicao,
    OVER,
    CLUBE,
-   idUsuario 
+   idUsuario,
+   dispatch 
 )=>{
    return await fetch(local+"jogador",{
       method:'post',
@@ -68,6 +87,14 @@ export const adicionarJogadorApi = async(
    })
    .then(res=>res.json())
    .then(res=>{
+      dispatch({
+         type:"loading",
+         payload:{loading:true}
+      })
       alert("O jogador "+label+" foi adicionado ao seu time")
+      dispatch({
+         type:"loading",
+         payload:{loading:false}
+      })
    })
 }
