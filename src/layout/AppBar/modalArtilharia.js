@@ -11,7 +11,21 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import {listaDeUsuarios} from "../../Uteis" 
 import { useDispatch } from 'react-redux/es/exports';
+import { listaDeUsuariosApi } from '../../api';
 export default function ModalArtilharia() {
+
+  const [usuarios, setListaDeUsuarios] = React.useState([])
+
+  async function getUsuarios() {
+    const u = await listaDeUsuariosApi()
+    setListaDeUsuarios(u)
+    console.log(u)
+    console.log(listaDeUsuarios)
+  }
+  React.useEffect(()=>{
+    getUsuarios()
+  },[])
+  
   const [open, setOpen] = React.useState(false);
   const [primeiro, setPrimeiro] = React.useState('');
   const [segundo, setSegundo] = React.useState('');
@@ -81,8 +95,8 @@ export default function ModalArtilharia() {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                {listaDeUsuarios?.map((elem,key)=>{
-                  return elem.elenco.map((e,key)=>{
+                {usuarios?.map((elem,key)=>{
+                  return elem.jogadore?.map((e,key)=>{
                     return <MenuItem value={e.label}>{e.label}</MenuItem>
                   })
                 })}
@@ -101,8 +115,8 @@ export default function ModalArtilharia() {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                {listaDeUsuarios?.map((elem,key)=>{
-                  return elem.elenco.map((e,key)=>{
+                {usuarios?.map((elem,key)=>{
+                  return elem.jogadore?.map((e,key)=>{
                     return <MenuItem value={e.label}>{e.label}</MenuItem>
                   })
                 })}
@@ -121,8 +135,8 @@ export default function ModalArtilharia() {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                {listaDeUsuarios?.map((elem,key)=>{
-                  return elem.elenco.map((e,key)=>{
+                {usuarios?.map((elem,key)=>{
+                  return elem.jogadore?.map((e,key)=>{
                     return <MenuItem value={e.label}>{e.label}</MenuItem>
                   })
                 })}
@@ -140,8 +154,8 @@ export default function ModalArtilharia() {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                {listaDeUsuarios?.map((elem,key)=>{
-                  return elem.elenco.map((e,key)=>{
+                {usuarios?.map((elem,key)=>{
+                  return elem.jogadore?.map((e,key)=>{
                     return <MenuItem value={e.label}>{e.label}</MenuItem>
                   })
                 })}

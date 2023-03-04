@@ -9,26 +9,36 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import {listaDeUsuarios} from "../../Uteis" 
+
 import { useDispatch } from 'react-redux/es/exports';
+import { listaDeUsuariosApi } from '../../api';
 export default function ModalColocacao() {
   const [open, setOpen] = React.useState(false);
   const [primeiro, setPrimeiro] = React.useState('');
   const [segundo, setSegundo] = React.useState('');
   const [terceiro, setTerceiro] = React.useState('');
   const [quarto, setQuarto] = React.useState('');
-  
+  const [usuarios, setListaDeUsuarios] = React.useState([])
 
-  const handleChangePrimeiro = (event: SelectChangeEvent) => {
+  async function getUsuarios() {
+    const u = await listaDeUsuariosApi()
+    setListaDeUsuarios(u)
+    console.log(u)
+  }
+  React.useEffect(()=>{
+    getUsuarios()
+  },[])
+
+  const handleChangePrimeiro = (event) => {
     setPrimeiro(event.target.value);
   };
-  const handleChangeSegundo = (event: SelectChangeEvent) => {
+  const handleChangeSegundo = (event) => {
     setSegundo(event.target.value);
   };
-  const handleChangeTerceiro = (event: SelectChangeEvent) => {
+  const handleChangeTerceiro = (event) => {
     setTerceiro(event.target.value);
   };
-  const handleChangeQuarto = (event: SelectChangeEvent) => {
+  const handleChangeQuarto = (event) => {
     setQuarto(event.target.value);
   };
   const handleClickOpen = () => {
@@ -80,7 +90,7 @@ export default function ModalColocacao() {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                {listaDeUsuarios.map((elem,key)=>{
+                {usuarios.map((elem,key)=>{
                   return <MenuItem value={elem.nome}>{elem.nome}</MenuItem>
                 })}
               </Select>
@@ -98,7 +108,7 @@ export default function ModalColocacao() {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                {listaDeUsuarios.map((elem,key)=>{
+                {usuarios.map((elem,key)=>{
                   return <MenuItem value={elem.nome}>{elem.nome}</MenuItem>
                 })}
               </Select>
@@ -116,7 +126,7 @@ export default function ModalColocacao() {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                {listaDeUsuarios.map((elem,key)=>{
+                {usuarios.map((elem,key)=>{
                   return <MenuItem value={elem.nome}>{elem.nome}</MenuItem>
                 })}
               </Select>
@@ -133,7 +143,7 @@ export default function ModalColocacao() {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                {listaDeUsuarios.map((elem,key)=>{
+                {usuarios.map((elem,key)=>{
                   return <MenuItem value={elem.nome}>{elem.nome}</MenuItem>
                 })}
               </Select>
