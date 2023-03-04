@@ -68,7 +68,7 @@ export default function ModalArtilharia() {
   return (
     <div>
       <div onClick={handleClickOpen}>
-        Inserir artilharia
+        Artilharia
       </div>
       <Dialog
         open={open}

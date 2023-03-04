@@ -63,7 +63,7 @@ export default function ModalColocacao() {
   return (
     <div>
       <div onClick={handleClickOpen}>
-        Inserir resultado
+        Colocação
       </div>
       <Dialog
         open={open}
