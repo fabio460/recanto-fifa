@@ -4,13 +4,12 @@ import {useSelector} from 'react-redux'
 import { Button, CircularProgress } from '@mui/material'
 import { adicionarSaldoApi } from '../../api'
 import { Box } from '@mui/system'
-export default function Ranking() {
+export default function Ranking({Lista}) {
   const colocacao = useSelector(state=>state.colocacaoRedux.colocacao)  
   const artilharia = useSelector(state=>state.artilhariaRedux.artilheiros)
   const dados = useSelector(state=>state.golsEmpVitoriasRedux.dados)
   const [carregando, setCarregando] = useState(false)
-  var saldoRodrigo=100;
-  var saldoFabio = 50;
+  
   const finalizarTemporada = async()=>{
      setCarregando(true)
      await adicionarSaldoApi(colocacao.primeiro,30)
@@ -33,9 +32,36 @@ export default function Ranking() {
         })
      }, 2000);
      setTimeout(() => {
+    }, 3000);
+    
+    setTimeout(() => {
+      adicionarSaldoApi(buscaUsuarioPeloJogador(artilharia.primeiro),15)
+      adicionarSaldoApi(buscaUsuarioPeloJogador(artilharia.segundo),10)
+      adicionarSaldoApi(buscaUsuarioPeloJogador(artilharia.terceiro),5)
       window.location.reload()  
-     }, 3000);
+     }, 4000);
+
+  
+    }
+   
+ 
+
+  function buscaUsuarioPeloJogador(jogador) {
+    let n = ''
+    Lista.map(use=>{
+       let sim = use.jogadore.find(e=>{
+        if (e.label === jogador) {
+          return true
+        }
+       })
+       if (sim) {
+        n = use.nome
+       }
+    })
+    return n
   }
+  
+ 
   return (
     <div>
       {carregando? 

@@ -23,7 +23,7 @@ export default function ModalColocacao() {
   async function getUsuarios() {
     const u = await listaDeUsuariosApi()
     setListaDeUsuarios(u)
-    console.log(u)
+  
   }
   React.useEffect(()=>{
     getUsuarios()

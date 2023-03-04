@@ -3,16 +3,9 @@ import { listaDeUsuariosApi } from '../../api'
 import { listaDeUsuarios } from '../../Uteis'
 import CardUsuarios from './CardUsuarios'
 import "./Usuarios.css"
-export default function Usuarios() {
-  const usuarios = listaDeUsuarios  
-  const [Lista, setLista] = useState([])
-  async function ListaDeUsuarios() {
-    const l = await listaDeUsuariosApi()
-    setLista(l)
-  }
-  useEffect(()=>{
-    ListaDeUsuarios()
-  },[])
+export default function Usuarios({Lista}) {
+  
+
   return (
     <div className='UsuariosContainer'>
         {Lista.map((elem,key)=>{

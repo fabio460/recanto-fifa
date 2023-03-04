@@ -19,8 +19,6 @@ export default function ModalArtilharia() {
   async function getUsuarios() {
     const u = await listaDeUsuariosApi()
     setListaDeUsuarios(u)
-    console.log(u)
-    console.log(listaDeUsuarios)
   }
   React.useEffect(()=>{
     getUsuarios()
