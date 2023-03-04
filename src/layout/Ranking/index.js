@@ -14,7 +14,8 @@ export default function Ranking() {
     //console.log(colocacao)
      adicionarSaldoApi(colocacao.primeiro,30)
      adicionarSaldoApi(colocacao.segundo,15)
-     adicionarSaldoApi(colocacao.terceiro,7)
+     adicionarSaldoApi(colocacao.terceiro,7.5)
+     adicionarSaldoApi(colocacao.quarto,3.5)
      //window.location.reload()
   }
   return (

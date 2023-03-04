@@ -104,7 +104,7 @@ export const atualizarUsuarioApi = async(id, nome, saldo, folha)=>{
        .then(res=>res.json())
        .then(res=>{
          console.log(usuario[0])
-          //window.location.reload()
+          window.location.reload()
        })
    }
  }
