@@ -1,8 +1,9 @@
 import React,{useState} from 'react'
 import "./ranking.css"
 import {useSelector} from 'react-redux'
-import { Button } from '@mui/material'
+import { Button, CircularProgress } from '@mui/material'
 import { adicionarSaldoApi } from '../../api'
+import { Box } from '@mui/system'
 export default function Ranking() {
   const colocacao = useSelector(state=>state.colocacaoRedux.colocacao)  
   const artilharia = useSelector(state=>state.artilhariaRedux.artilheiros)
@@ -38,7 +39,9 @@ export default function Ranking() {
   return (
     <div>
       {carregando? 
-      <div>carregando ...</div>:
+        <Box sx={{ display: 'flex',justifyContent:"center", alignItems:"center", height:200 }}>
+          <CircularProgress />
+        </Box>:
       <div className='rankingContainer'>
         <div>
           <h3>Colocação</h3>
