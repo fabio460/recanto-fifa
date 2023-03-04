@@ -1,5 +1,6 @@
-const local = "http://localhost:4001/"
+//const local = "http://localhost:4000/"
 
+const local = "https://recanto-fifa-backend.vercel.app/"
 export const listaDeUsuariosApi = async()=>{
    const l = await fetch(local+"usuario")
       .then(r=>r.json())
