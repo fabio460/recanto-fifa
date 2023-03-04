@@ -7,6 +7,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { adicionarJogadorApi } from '../../api';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 export default function ModalComprar({jogador, idUsuario}) {
   const [open, setOpen] = React.useState(false);
@@ -20,7 +21,7 @@ export default function ModalComprar({jogador, idUsuario}) {
   };
 
   const dispatch = useDispatch()
- 
+  const h = useNavigate()
   const comprarJogador = ()=>{
     adicionarJogadorApi(
       jogador.label,
@@ -30,7 +31,10 @@ export default function ModalComprar({jogador, idUsuario}) {
       idUsuario,
       dispatch 
     )
-   
+    setTimeout(() => {
+      h("/elencos")
+      
+    }, 500);
     handleClose()
   }
   return (
