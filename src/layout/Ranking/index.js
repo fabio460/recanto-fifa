@@ -2,6 +2,7 @@ import React from 'react'
 import "./ranking.css"
 import {useSelector} from 'react-redux'
 import { Button } from '@mui/material'
+import { adicionarSaldoApi } from '../../api'
 export default function Ranking() {
   const colocacao = useSelector(state=>state.colocacaoRedux.colocacao)  
   const artilharia = useSelector(state=>state.artilhariaRedux.artilheiros)
@@ -10,7 +11,11 @@ export default function Ranking() {
   var saldoRodrigo=100;
   var saldoFabio = 50;
   const finalizarTemporada = ()=>{
-     
+    //console.log(colocacao)
+     adicionarSaldoApi(colocacao.primeiro,30)
+     adicionarSaldoApi(colocacao.segundo,15)
+     adicionarSaldoApi(colocacao.terceiro,7)
+     //window.location.reload()
   }
   return (
     <div className='rankingContainer'>

@@ -15,6 +15,14 @@ export const getUsuariosPorIdApi = async(id)=>{
       .catch(r=>r)
    return l
 }
+
+export const getUsuariosPeloNomeApi = async(id)=>{
+   const l = await fetch(local+"usuario/pelonome/"+id)
+      .then(r=>r.json())
+      .catch(r=>r)
+   return l
+}
+
 export const criarUsuarioApi = async(nome, saldo, folha, jogadores)=>{
   return await fetch(local+"usuario",{
       method:'post',
@@ -31,6 +39,75 @@ export const criarUsuarioApi = async(nome, saldo, folha, jogadores)=>{
       window.location.reload()
    })
 }
+
+export const atualizarUsuarioApi = async(id, nome, saldo, folha)=>{
+   return await fetch(local+"usuario",{
+       method:'put',
+       headers:{
+          "Content-Type":"application/json"
+       },
+       body:JSON.stringify({
+          id, nome, folha, saldo
+       })
+    })
+    .then(res=>res.json())
+    .then(res=>{
+       window.location.reload()
+    })
+ }
+
+ export const alterarSaldoApi = async(id, saldo)=>{
+   return await fetch(local+"usuario",{
+       method:'put',
+       headers:{
+          "Content-Type":"application/json"
+       },
+       body:JSON.stringify({
+          id, saldo
+       })
+    })
+    .then(res=>res.json())
+    .then(res=>{
+       window.location.reload()
+    })
+ }
+
+ export const alterarFolhaApi = async(id, folha)=>{
+   return await fetch(local+"usuario",{
+       method:'put',
+       headers:{
+          "Content-Type":"application/json"
+       },
+       body:JSON.stringify({
+          id, folha
+       })
+    })
+    .then(res=>res.json())
+    .then(res=>{
+       window.location.reload()
+    })
+ }
+
+ export const adicionarSaldoApi = async(id, valor=0)=>{
+
+   if (id) {      
+      const usuario =await getUsuariosPeloNomeApi(id)
+      return await fetch(local+"usuario",{
+          method:'put',
+          headers:{
+             "Content-Type":"application/json"
+          },
+          body:JSON.stringify({
+             id:usuario[0].id, saldo:(usuario[0].saldo + valor)
+          })
+       })
+       .then(res=>res.json())
+       .then(res=>{
+         console.log(usuario[0])
+          //window.location.reload()
+       })
+   }
+ }
 
 export const deletarUsuarioApi = async(id)=>{
    return await fetch(local+"usuario",{
