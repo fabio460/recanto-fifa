@@ -88,9 +88,12 @@ export const atualizarUsuarioApi = async(id, nome, saldo, folha)=>{
     })
  }
 
- export const adicionarSaldoApi = async(id, valor=0)=>{
-
-   if (id) {      
+ export const adicionarSaldoApi = async(id, valor=0,dispatch, loading)=>{
+    if (id) {      
+      dispatch({
+         type:"loading",
+         payload:{loading:true}
+      }) 
       const usuario =await getUsuariosPeloNomeApi(id)
       return await fetch(local+"usuario",{
           method:'put',
@@ -104,7 +107,10 @@ export const atualizarUsuarioApi = async(id, nome, saldo, folha)=>{
        .then(res=>res.json())
        .then(res=>{
          console.log(res)
-          
+         dispatch({
+            type:"loading",
+            payload:{loading:false}
+         }) 
        })
    }
  }

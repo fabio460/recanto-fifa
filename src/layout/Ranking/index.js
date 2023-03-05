@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import "./ranking.css"
-import {useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import { Button, CircularProgress } from '@mui/material'
 import { adicionarSaldoApi } from '../../api'
 import { Box } from '@mui/system'
@@ -9,39 +9,34 @@ export default function Ranking({Lista}) {
   const artilharia = useSelector(state=>state.artilhariaRedux.artilheiros)
   const dados = useSelector(state=>state.golsEmpVitoriasRedux.dados)
   const [carregando, setCarregando] = useState(false)
+  const dispatch = useDispatch()
+  const loading = useSelector(state=>state.loadingReducer.loading)
   
   const finalizarTemporada = async()=>{
-     setCarregando(true)
-     await adicionarSaldoApi(colocacao.primeiro,30)
-     await adicionarSaldoApi(colocacao.segundo,15)
-     await adicionarSaldoApi(colocacao.terceiro,7.5)
-     await adicionarSaldoApi(colocacao.quarto,3.5)
+
+     await adicionarSaldoApi(colocacao.primeiro,1,dispatch, loading)
+     await adicionarSaldoApi(colocacao.segundo,1,dispatch, loading)
+     await adicionarSaldoApi(colocacao.terceiro,7.5,dispatch, loading)
+     await adicionarSaldoApi(colocacao.quarto,3.5,dispatch, loading)
      
-     await dados.gols.map((e,key)=>{
-        adicionarSaldoApi(e.nome,1*e.gols)
-     })
-     setTimeout(() => {      
-        dados.vitorias.map((e,key)=>{
-         adicionarSaldoApi(e.nome,1*e.vitorias)
-       })
-     }, 1000);
-
-     setTimeout(() => {     
-        dados.empates.map((e,key)=>{
-          adicionarSaldoApi(e.nome,1*e.empates)
-        })
-     }, 2000);
-     setTimeout(() => {
-    }, 3000);
-    
-    setTimeout(() => {
-      adicionarSaldoApi(buscaUsuarioPeloJogador(artilharia.primeiro),15)
-      adicionarSaldoApi(buscaUsuarioPeloJogador(artilharia.segundo),10)
-      adicionarSaldoApi(buscaUsuarioPeloJogador(artilharia.terceiro),5)
-      window.location.reload()  
-     }, 4000);
-
-  
+     await adicionarSaldoApi(buscaUsuarioPeloJogador(artilharia.primeiro),1, dispatch, loading)
+     await adicionarSaldoApi(buscaUsuarioPeloJogador(artilharia.segundo),1, dispatch, loading)
+     await adicionarSaldoApi(buscaUsuarioPeloJogador(artilharia.terceiro),1, dispatch, loading)
+      setTimeout(() => {        
+        dados.gols.map(async(e,key)=>{
+          await adicionarSaldoApi(e.nome,1*e.gols,dispatch, loading)
+        })  
+        setTimeout(() => {         
+          dados.vitorias.map(async(e,key)=>{
+            await adicionarSaldoApi(e.nome,1*e.vitorias,dispatch, loading)
+          })
+          setTimeout(() => {         
+            dados.empates.map(async(e,key)=>{
+                await adicionarSaldoApi(e.nome,1*e.empates,dispatch, loading)
+            })
+          }, 1000);
+        }, 1000);
+      }, 1000);
     }
    
  
@@ -63,58 +58,52 @@ export default function Ranking({Lista}) {
   
  
   return (
-    <div>
-      {carregando? 
-        <Box sx={{ display: 'flex',justifyContent:"center", alignItems:"center", height:200 }}>
-          <CircularProgress />
-        </Box>:
-      <div className='rankingContainer'>
-        <div>
-          <h3>Colocação</h3>
-          <ol>
-            <li>{colocacao.primeiro}</li>
-            <li>{colocacao.segundo}</li>
-            <li>{colocacao.terceiro}</li>
-            <li>{colocacao.quarto}</li>
-          </ol>
-        </div>
-        <div>
-          <h3>Atilharia</h3>
-          <ol>
-            <li>{artilharia.primeiro}</li>
-            <li>{artilharia.segundo}</li>
-            <li>{artilharia.terceiro}</li>
-            <li>{artilharia.quarto}</li>
-          </ol>
-        </div>
-        <div>
-          <h3>Quantidade de gols</h3>
-          {dados.gols.map((e,key)=>{
-            return<div>{e.nome} - {e.gols}</div>
-          })}
-        </div>
-        <div>
-          <h3>Quantidade de vitorias</h3>
-          {dados.vitorias.map((e,key)=>{
-            return<div>{e.nome} - {e.vitorias}</div>
-          })}
-        </div>
-        <div>
-          <h3>Quantidade de empates</h3>
-          {dados.empates.map((e,key)=>{
-            return<div>{e.nome} - {e.empates}</div>
-          })}
-  
-        </div>
-      
-        <Button 
-          variant='outlined' size='small'
-          sx={{margin:"20px 0px",height:"40px",marginTop:"auto"}}
-          onClick={finalizarTemporada}
-        >
-          Encerrar temporada
-        </Button>
-      </div>}
+    <div className='rankingContainer'>
+      <div>
+        <h3>Colocação</h3>
+        <ol>
+          <li>{colocacao.primeiro}</li>
+          <li>{colocacao.segundo}</li>
+          <li>{colocacao.terceiro}</li>
+          <li>{colocacao.quarto}</li>
+        </ol>
+      </div>
+      <div>
+        <h3>Atilharia</h3>
+        <ol>
+          <li>{artilharia.primeiro}</li>
+          <li>{artilharia.segundo}</li>
+          <li>{artilharia.terceiro}</li>
+          <li>{artilharia.quarto}</li>
+        </ol>
+      </div>
+      <div>
+        <h3>Quantidade de gols</h3>
+        {dados.gols.map((e,key)=>{
+          return<div>{e.nome} - {e.gols}</div>
+        })}
+      </div>
+      <div>
+        <h3>Quantidade de vitorias</h3>
+        {dados.vitorias.map((e,key)=>{
+          return<div>{e.nome} - {e.vitorias}</div>
+        })}
+      </div>
+      <div>
+        <h3>Quantidade de empates</h3>
+        {dados.empates.map((e,key)=>{
+          return<div>{e.nome} - {e.empates}</div>
+        })}
+
+      </div>
+    
+      <Button 
+        variant='outlined' size='small'
+        sx={{margin:"20px 0px",height:"40px",marginTop:"auto"}}
+        onClick={finalizarTemporada}
+      >
+        Encerrar temporada
+      </Button>
     </div>
   )
 }
