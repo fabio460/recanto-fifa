@@ -3,7 +3,6 @@ import "./ranking.css"
 import {useDispatch, useSelector} from 'react-redux'
 import { Button, CircularProgress } from '@mui/material'
 import { adicionarSaldoApi } from '../../api'
-import { Box } from '@mui/system'
 export default function Ranking({Lista}) {
   const colocacao = useSelector(state=>state.colocacaoRedux.colocacao)  
   const artilharia = useSelector(state=>state.artilhariaRedux.artilheiros)
@@ -11,27 +10,41 @@ export default function Ranking({Lista}) {
   const dispatch = useDispatch()
   const loading = useSelector(state=>state.loadingReducer.loading)
   
+  const campeao = 30000;
+  const viceCampeao = 15000;
+  const terceiroColocado = 7500;
+  const quartoColocado = 3500;
+  const artilheiro = 15000;
+  const viceArtilheiro = 7500;
+  const terceiroArtilheiro = 3500;
+  const gols = 50;
+  const vitoria = 1500;
+  const empates = 750;
+  const assistencia = 15000;
+  const viceAssistencia = 7500;
+  const terceiroAssistencia = 3500;
+
   const finalizarTemporada = async()=>{
 
-     await adicionarSaldoApi(colocacao.primeiro,1,dispatch, loading)
-     await adicionarSaldoApi(colocacao.segundo,1,dispatch, loading)
-     await adicionarSaldoApi(colocacao.terceiro,7.5,dispatch, loading)
-     await adicionarSaldoApi(colocacao.quarto,3.5,dispatch, loading)
+     await adicionarSaldoApi(colocacao.primeiro,campeao,dispatch, loading)
+     await adicionarSaldoApi(colocacao.segundo,viceCampeao,dispatch, loading)
+     await adicionarSaldoApi(colocacao.terceiro,terceiroColocado,dispatch, loading)
+     await adicionarSaldoApi(colocacao.quarto,quartoColocado,dispatch, loading)
      
-     await adicionarSaldoApi(buscaUsuarioPeloJogador(artilharia.primeiro),1, dispatch, loading)
-     await adicionarSaldoApi(buscaUsuarioPeloJogador(artilharia.segundo),1, dispatch, loading)
-     await adicionarSaldoApi(buscaUsuarioPeloJogador(artilharia.terceiro),1, dispatch, loading)
+     await adicionarSaldoApi(buscaUsuarioPeloJogador(artilharia.primeiro),artilheiro, dispatch, loading)
+     await adicionarSaldoApi(buscaUsuarioPeloJogador(artilharia.segundo),viceArtilheiro, dispatch, loading)
+     await adicionarSaldoApi(buscaUsuarioPeloJogador(artilharia.terceiro),terceiroArtilheiro, dispatch, loading)
       setTimeout(() => {        
         dados.gols.map(async(e,key)=>{
-          await adicionarSaldoApi(e.nome,1*e.gols,dispatch, loading)
+          await adicionarSaldoApi(e.nome,(gols)*e.gols,dispatch, loading)
         })  
         setTimeout(() => {         
           dados.vitorias.map(async(e,key)=>{
-            await adicionarSaldoApi(e.nome,1*e.vitorias,dispatch, loading)
+            await adicionarSaldoApi(e.nome,(vitoria)*e.vitorias,dispatch, loading)
           })
           setTimeout(() => {         
             dados.empates.map(async(e,key)=>{
-                await adicionarSaldoApi(e.nome,1*e.empates,dispatch, loading)
+                await adicionarSaldoApi(e.nome,(empates)*e.empates,dispatch, loading)
             })
           }, 1000);
         }, 1000);

@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { deletarJogadorApi, getUsuariosPorIdApi } from '../../api'
 import { usuarioType } from '../../Types'
+import ModalAtualizarUsuario from './modalAtualizarUsuario'
 import "./TelaElenco.css"
 export default function TelaDeElenco() {
   const [usuario, setusuario] = useState({})
@@ -27,16 +28,20 @@ export default function TelaDeElenco() {
   return (
     <div className='TelaDeElencoContainer'>
         <div className='TelaDeElencoHeader'>
-            <h5>Usuario: {usuario.nome}</h5>
-            {/* <h5>Time: {usuario.time}</h5>
-            <h5>Saldo: {usuario.saldo}</h5>
-            <h5>Folha: {usuario.folha}</h5> */}
-            <button 
-              onClick={()=>h("/")}
-              className='btn btn-primary '
-             >Voltar</button>
+            <h5>Usuario: {usuario?.nome}</h5>
+             <div style={{display:"flex", alignItems:"center"}}>
+                <button 
+                  onClick={()=>h("/")}
+                  className='btn btn-primary m-2'
+                >Voltar</button>
+                <ModalAtualizarUsuario id={id} usuario={usuario}/>
+             </div>
         </div>
-        
+        <div>
+            <h5>Time: {usuario.time}</h5>
+            <h5>Saldo: {usuario.saldo?.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h5>
+            <h5>Folha: {usuario.folha?.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h5>
+        </div>
         <div className='tabelaDeElencos'>
             <table className="table">
                 <thead className="thead-dark">

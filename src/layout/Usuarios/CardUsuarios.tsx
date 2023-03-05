@@ -19,7 +19,10 @@ export default function CardUsuarios({usuario}:userType) {
     <div className='CardUsuarios'>
       <div className='UsuarioNome'>{usuario.nome}</div>
       <div className='UsuarioSaldoLabel'>Saldo</div>
-      <div className='UsuarioSaldo'>R$ {usuario.saldo}</div>
+      <div className='UsuarioSaldo'>R$ {usuario.saldo.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</div>
+      <div className='UsuarioSaldoLabel'>Folha</div>
+      <div className='UsuarioSaldo'>R$ {usuario.folha.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</div>
+
       <button  
         className="btn btn-success w-100 m-1"
         onClick={comprarJogador}
