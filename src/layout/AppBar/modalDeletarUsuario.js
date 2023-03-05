@@ -91,7 +91,7 @@ export default function ModalDeletarUsuario() {
                             label="Usuarios"
                             onChange={handleChange}
                             >
-                                {usuarios.map((e,key)=>{
+                                { usuarios?.map((e,key)=>{
                                     return <MenuItem value={e.id}>{e.nome}</MenuItem>
                                 })}
                             </Select>

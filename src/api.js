@@ -1,11 +1,10 @@
 //const local = "http://localhost:4000/"
 
 const local = "https://recanto-fifa-backend.vercel.app/"
+
 export const listaDeUsuariosApi = async()=>{
-   const l = await fetch(local+"usuario")
+   return await fetch(local+"usuario")
       .then(r=>r.json())
-      .catch(r=>r)
-   return l
 }
 
 
@@ -106,7 +105,6 @@ export const atualizarUsuarioApi = async(id, nome, saldo, folha)=>{
        })
        .then(res=>res.json())
        .then(res=>{
-         console.log(res)
          dispatch({
             type:"loading",
             payload:{loading:false}

@@ -90,7 +90,7 @@ export default function ModalColocacao() {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                {usuarios.map((elem,key)=>{
+                {usuarios?.map((elem,key)=>{
                   return <MenuItem value={elem.nome}>{elem.nome}</MenuItem>
                 })}
               </Select>
@@ -108,7 +108,7 @@ export default function ModalColocacao() {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                {usuarios.map((elem,key)=>{
+                {usuarios?.map((elem,key)=>{
                   return <MenuItem value={elem.nome}>{elem.nome}</MenuItem>
                 })}
               </Select>
@@ -126,7 +126,7 @@ export default function ModalColocacao() {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                {usuarios.map((elem,key)=>{
+                {usuarios?.map((elem,key)=>{
                   return <MenuItem value={elem.nome}>{elem.nome}</MenuItem>
                 })}
               </Select>
@@ -143,7 +143,7 @@ export default function ModalColocacao() {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                {usuarios.map((elem,key)=>{
+                {usuarios?.map((elem,key)=>{
                   return <MenuItem value={elem.nome}>{elem.nome}</MenuItem>
                 })}
               </Select>

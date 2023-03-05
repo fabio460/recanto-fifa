@@ -8,7 +8,6 @@ export default function Ranking({Lista}) {
   const colocacao = useSelector(state=>state.colocacaoRedux.colocacao)  
   const artilharia = useSelector(state=>state.artilhariaRedux.artilheiros)
   const dados = useSelector(state=>state.golsEmpVitoriasRedux.dados)
-  const [carregando, setCarregando] = useState(false)
   const dispatch = useDispatch()
   const loading = useSelector(state=>state.loadingReducer.loading)
   

@@ -100,7 +100,7 @@ dispatch({
         <DialogContent sx={dialogStyle}>
           <DialogContentText id="alert-dialog-description" >
             gols = {Gols.nome}, {Gols.gols}
-            {usuarios.map((u,key)=>{
+            {usuarios?.map((u,key)=>{
                 return (
                     <div style={{display:"flex",alignItems:"center",justifyContent:"space-around"}}>
                         <div style={{width:"130px"}}>
