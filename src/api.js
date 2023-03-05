@@ -22,7 +22,7 @@ export const getUsuariosPeloNomeApi = async(id)=>{
    return l
 }
 
-export const criarUsuarioApi = async(nome, saldo, folha, jogadores)=>{
+export const criarUsuarioApi = async(nome, saldo, folha, jogadores, time)=>{
   return await fetch(local+"usuario",{
       method:'post',
       //body:form
@@ -30,7 +30,7 @@ export const criarUsuarioApi = async(nome, saldo, folha, jogadores)=>{
          "Content-Type":"application/json"
       },
       body:JSON.stringify({
-         nome, folha, saldo, jogadores
+         nome, folha, saldo, jogadores, time
       })
    })
    .then(res=>res.json())
@@ -39,14 +39,15 @@ export const criarUsuarioApi = async(nome, saldo, folha, jogadores)=>{
    })
 }
 
-export const atualizarUsuarioApi = async(id, nome, saldo, folha)=>{
+export const atualizarUsuarioApi = async(id, nome, saldo, folha, time)=>{
+   console.log({id,nome,saldo,folha, time})
    return await fetch(local+"usuario",{
        method:'put',
        headers:{
           "Content-Type":"application/json"
        },
        body:JSON.stringify({
-          id, nome, folha, saldo
+          id, nome, folha, saldo, time
        })
     })
     .then(res=>res.json())

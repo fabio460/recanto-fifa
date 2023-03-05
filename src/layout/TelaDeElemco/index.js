@@ -41,6 +41,7 @@ export default function TelaDeElenco() {
             <h5>Time: {usuario.time}</h5>
             <h5>Saldo: {usuario.saldo?.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h5>
             <h5>Folha: {usuario.folha?.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h5>
+            
         </div>
         <div className='tabelaDeElencos'>
             <table className="table">

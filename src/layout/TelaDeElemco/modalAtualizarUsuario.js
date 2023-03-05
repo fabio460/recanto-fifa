@@ -15,8 +15,9 @@ export default function ModalAtualizarUsuario({id, usuario}) {
     const [value, setValue] = React.useState(null);  
     const [open, setOpen] = React.useState(false);
     const [nome, setNome] = useState()
-    const [folha, setFolha] = useState(0)
-    const [saldo, setSaldo] = useState(0)
+    const [folha, setFolha] = useState()
+    const [saldo, setSaldo] = useState()
+    const [time, setTime] = useState()
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -35,9 +36,13 @@ export default function ModalAtualizarUsuario({id, usuario}) {
         }
     }
     const Confirmar = async()=>{
-         atualizarUsuarioApi(id,nome,saldo,folha)
-         let i = await  getUsuariosPorIdApi(id)
-       // handleClose()
+         atualizarUsuarioApi(
+            id,
+            nome || usuario.nome,
+            saldo || usuario.saldo,
+            folha || usuario.folha,
+            time || usuario.time    
+        )
     }
 
     useEffect(()=>{
@@ -48,7 +53,8 @@ export default function ModalAtualizarUsuario({id, usuario}) {
         })
         setlistaJogadores(p)
       },[value])
-      console.log(usuario)
+      
+ 
   return (
     <div>
       <button 
@@ -63,7 +69,7 @@ export default function ModalAtualizarUsuario({id, usuario}) {
         sx={{background:"",width:"100%"}}
       >
         <DialogTitle id="alert-dialog-title">
-          Criar usuario {usuario.nome}
+          Atualizando de dados de {usuario.nome} 
         </DialogTitle>
         <DialogContent sx={dialogStyle}>
           <DialogContentText 
@@ -73,6 +79,7 @@ export default function ModalAtualizarUsuario({id, usuario}) {
                 <TextField defaultValue={usuario.nome} onChange={e=>setNome(e.target.value)} label="Nome" size='small' sx={{marginTop:"12px"}}/>
                 <TextField defaultValue={usuario.saldo} onChange={e=>setSaldo(e.target.value)} label="Saldo" size='small' sx={{marginTop:"12px"}}/>
                 <TextField defaultValue={usuario.folha} onChange={e=>setFolha(e.target.value)} label="Folha dalarial" size='small' sx={{marginTop:"12px"}}/>
+                <TextField defaultValue={usuario.time} onChange={e=>setTime(e.target.value)} label="Time" size='small' sx={{marginTop:"12px"}}/>
               
           </DialogContentText>
         </DialogContent>

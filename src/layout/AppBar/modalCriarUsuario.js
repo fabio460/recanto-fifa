@@ -35,7 +35,8 @@ export default function ModalCriarUsuario() {
         }
     }
     const Confirmar = ()=>{
-         criarUsuarioApi(nome,saldo,folha,listaJogadores)
+      criarUsuarioApi(nome,saldo,folha,listaJogadores,value)
+        
        // handleClose()
     }
 
