@@ -16,7 +16,7 @@ import AutoComplete from '../TelaListaDeJogadores/AutoComplete';
 import { lista } from '../../Lista'
 import { criarUsuarioApi, deletarUsuarioApi, listaDeUsuariosApi } from '../../api';
 import { Autocomplete } from '@mui/material';
-export default function ModalDispensarJogador() {
+export default function ModalDispensarJogador({elem, usuario}) {
     const [usuarios, setUsuarios] = useState([])
     const [value, setValue] = React.useState(null);  
     const [open, setOpen] = React.useState(false);
@@ -41,7 +41,7 @@ export default function ModalDispensarJogador() {
         }
     }
     const Confirmar = ()=>{
-         deletarUsuarioApi(age)
+          
         handleClose()
     }
 
@@ -78,24 +78,10 @@ export default function ModalDispensarJogador() {
             id="alert-dialog-description" 
             sx={{display:"flex",flexDirection:"column"}}
             >
-               <div style={{marginTop:"12px"}}>
-                    <Box sx={{ minWidth: 100 }}>
-                        <FormControl fullWidth>
-                            <InputLabel id="demo-simple-select-label">Usuarios</InputLabel>
-                            <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={age}
-                            label="Usuarios"
-                            onChange={handleChange}
-                            >
-                                { usuarios?.map((e,key)=>{
-                                    return <MenuItem value={e.id}>{e.nome}</MenuItem>
-                                })}
-                            </Select>
-                        </FormControl>
-                    </Box>
-                </div>
+              <div style={{marginTop:"12px"}}>
+                 {/* {elem.label}  {elem.id} {elem.valor} {usuario.saldo} {usuario.folha} */}
+                 falta ainda implementar
+              </div>
           </DialogContentText>
         </DialogContent>
         <DialogActions>

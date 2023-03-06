@@ -122,7 +122,7 @@ export default function TelaDeElenco() {
                             <td>{elem.valor.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</td>
                             <td style={{display:"flex",justifyContent:"flex-end"}}>
                               {/* <button onClick={()=> despensar(elem.id)} className='btn btn-danger me-3'>Despensar</button> */}
-                              <ModalDispensarJogador/>  
+                              <ModalDispensarJogador elem={elem} usuario={usuario}/>  
                               <ModalTransferirJogador id={elem.id}/>
                             </td>
                         </tr>
