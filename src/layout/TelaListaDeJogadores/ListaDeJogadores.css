@@ -19,6 +19,15 @@
     display: flex;
     justify-content: flex-end;
 }
+.TelaListaJogadoresMenu{
+   margin-right: 20px;
+   font-size: 22px;
+   
+   cursor: pointer;
+}
+.TelaListaJogadoresMenu:hover{
+   color: cadetblue;
+}
 @media (max-width:800px) {
  
    .autocomplete{

@@ -1,5 +1,7 @@
 //const local = "http://localhost:4000/"
 
+
+
 const local = "https://recanto-fifa-backend.vercel.app/"
 
 export const listaDeUsuariosApi = async()=>{
@@ -40,8 +42,8 @@ export const criarUsuarioApi = async(nome, saldo, folha, jogadores, time)=>{
 }
 
 export const atualizarUsuarioApi = async(id, nome, saldo, folha, time)=>{
-   console.log({id,nome,saldo,folha, time})
-   return await fetch(local+"usuario",{
+
+   await fetch(local+"usuario",{
        method:'put',
        headers:{
           "Content-Type":"application/json"
@@ -88,7 +90,7 @@ export const atualizarUsuarioApi = async(id, nome, saldo, folha, time)=>{
     })
  }
 
- export const adicionarSaldoApi = async(id, valor=0,dispatch, loading)=>{
+ export const adicionarSaldoApi = async(id, valor=0,dispatch)=>{
     if (id) {      
       dispatch({
          type:"loading",
@@ -152,33 +154,54 @@ export const adicionarJogadorApi = async(
    OVER,
    CLUBE,
    idUsuario,
+   valor,
    dispatch 
 )=>{
-   return await fetch(local+"jogador",{
-      method:'post',
-      headers:{
-         "Content-Type":"application/json"
-      },
-      body:JSON.stringify({
-         label,
-         Posicao,
-         OVER,
-         CLUBE,
-         idUsuario
+      const usuario =await getUsuariosPorIdApi(idUsuario)
+      console.log(usuario)
+         await fetch(local+"usuario",{
+            method:'put',
+            headers:{
+               "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+               id:usuario.id,
+               saldo:(usuario.saldo - valor),
+               folha:(usuario.folha + valor*0.03)
+            })
+         })
+         .then(res=>res.json())
+         .then(res=>{
+            console.log(res)
+         })
+
+      await fetch(local+"jogador",{
+         method:'post',
+         headers:{
+            "Content-Type":"application/json"
+         },
+         body:JSON.stringify({
+            label,
+            Posicao,
+            OVER,
+            CLUBE,
+            idUsuario,
+            valor
+         })
       })
-   })
-   .then(res=>res.json())
-   .then(res=>{
-      dispatch({
-         type:"loading",
-         payload:{loading:true}
+      .then(res=>res.json())
+      .then(res=>{
+         dispatch({
+            type:"loading",
+            payload:{loading:true}
+         })
+         alert("O jogador "+label+" foi adicionado ao seu time")
+         dispatch({
+            type:"loading",
+            payload:{loading:false}
+         })
+         window.location.reload()
       })
-      alert("O jogador "+label+" foi adicionado ao seu time")
-      dispatch({
-         type:"loading",
-         payload:{loading:false}
-      })
-   })
 }
 
 export const transferenciaDeJogadorApi = async(id,idUsuario, valor=0,dispatch, loading)=>{
@@ -215,3 +238,4 @@ export const transferenciaDeJogadorApi = async(id,idUsuario, valor=0,dispatch, l
 
   }
 }
+

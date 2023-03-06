@@ -12,6 +12,13 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+    
+}
+.TelaDeElencoHeaderMobile{
+    display: none;
+}
+.TelaDeElencoHeaderDesktop{
+    display: flex;
 }
 @media (max-width:800px) {
     .table{
@@ -19,5 +26,11 @@
     }
     .tabelaDeElencos{
         overflow-x: scroll;
+    }
+    .TelaDeElencoHeaderMobile{
+        display: block;
+    }
+    .TelaDeElencoHeaderDesktop{
+        display: none;
     }
 }

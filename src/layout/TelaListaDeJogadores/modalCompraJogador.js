@@ -29,6 +29,7 @@ export default function ModalComprar({jogador, idUsuario}) {
       jogador.OVER,
       jogador.CLUBE,
       idUsuario,
+      parseFloat(valor),
       dispatch 
     )
     setTimeout(() => {

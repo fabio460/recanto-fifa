@@ -7,6 +7,7 @@ import ModalComprar from './modalCompraJogador';
 import AutoComplete from './AutoComplete';
 import { getUsuariosPorIdApi } from '../../api';
 import { useSelector } from 'react-redux';
+import MenuItem from '@mui/material/MenuItem';
 
   export default function TelaListaDeJogadores() {
     const [listaJogadores, setlistaJogadores] = useState([])
@@ -40,10 +41,13 @@ import { useSelector } from 'react-redux';
     
     return (
       <div className='TelaListaJogadores'>
+         <div style={{display:"flex"}}>
+          <div className='TelaListaJogadoresMenu' onClick={()=>h("/")}>Inicio</div>
+          <div className='TelaListaJogadoresMenu' onClick={()=>h("/elencos")}>Meu time</div>
+         </div>
          <div className='TelaListaJogadoresTitulo'>
           <div className='TelaListaJogadoresTituloLeft'>
             <h1 style={{marginRight:"20px"}}>Usuario {Usuario?.nome}</h1>
-            <button onClick={()=>h("/")} className='btn btn-primary' >voltar</button>
              {loading&&<div>carregando ...</div>}
           </div>
           <div className='TelaListaJogadoresTituloRigth'>

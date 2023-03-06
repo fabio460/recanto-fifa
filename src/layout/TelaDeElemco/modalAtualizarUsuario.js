@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux/es/exports';
 import AutoComplete from '../TelaListaDeJogadores/AutoComplete';
 import { lista } from '../../Lista'
 import { atualizarUsuarioApi, criarUsuarioApi, getUsuariosPorIdApi } from '../../api';
-export default function ModalAtualizarUsuario({id, usuario}) {
+export default function ModalAtualizarUsuario({id, usuario, fechar}) {
     const [listaJogadores, setlistaJogadores] = useState([])
     const [value, setValue] = React.useState(null);  
     const [open, setOpen] = React.useState(false);
@@ -25,6 +25,7 @@ export default function ModalAtualizarUsuario({id, usuario}) {
     const dispatch = useDispatch()
     const handleClose = () => {
         setOpen(false);
+        fechar()
     };
 
     const dialogStyle = {
@@ -59,7 +60,7 @@ export default function ModalAtualizarUsuario({id, usuario}) {
     <div>
       <button 
         onClick={handleClickOpen}
-        className='btn btn-success '
+        className='btn btn-warning '
       >Atualizar</button>
       <Dialog
         open={open}
