@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import { deletarJogadorApi, getUsuariosPorIdApi } from '../../api'
 import { usuarioType } from '../../Types'
 import ModalAtualizarUsuario from './modalAtualizarUsuario'
+import ModalDispensarJogador from './modalDispensarJogador'
+import ModalTransferirJogador from './modalTransferirJogador'
 import "./TelaElenco.css"
 export default function TelaDeElenco() {
   const [usuario, setusuario] = useState({})
@@ -62,7 +64,11 @@ export default function TelaDeElenco() {
                             <td>{elem.Posicao}</td>
                             <td>{elem.OVER}</td>
                             <td>{elem.CLUBE}</td>
-                            <td><button onClick={()=> despensar(elem.id)} className='btn btn-danger'>Despensar</button></td>
+                            <td style={{display:"flex",justifyContent:"flex-end"}}>
+                              {/* <button onClick={()=> despensar(elem.id)} className='btn btn-danger me-3'>Despensar</button> */}
+                              <ModalDispensarJogador/>  
+                              <ModalTransferirJogador id={elem.id}/>
+                            </td>
                         </tr>
                     )
                    })}

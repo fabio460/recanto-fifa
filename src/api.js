@@ -180,3 +180,38 @@ export const adicionarJogadorApi = async(
       })
    })
 }
+
+export const transferenciaDeJogadorApi = async(id,idUsuario, valor=0,dispatch, loading)=>{
+   if (id && idUsuario) {      
+
+   //   await fetch(local+"jogador/transferenciaMonetaria",{
+   //       method:'put',
+   //       headers:{
+   //          "Content-Type":"application/json"
+   //       },
+   //       body:JSON.stringify({
+   //          id, idUsuario, valor
+   //       })
+   //    })
+   //    .then(res=>res.json())
+   //    .then(res=>{
+   //      console.log(res)
+   //    })
+
+      await fetch(local+"jogador/transferenciaFisica",{
+         method:'put',
+         headers:{
+            "Content-Type":"application/json"
+         },
+         body:JSON.stringify({
+            id, idUsuario, valor
+         })
+      })
+      .then(res=>res.json())
+      .then(res=>{
+        console.log(res)
+        //window.location.reload()
+      })
+
+  }
+}

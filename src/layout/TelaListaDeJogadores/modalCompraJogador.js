@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function ModalComprar({jogador, idUsuario}) {
   const [open, setOpen] = React.useState(false);
-
+  const [valor, setValor] = React.useState()
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -49,11 +49,12 @@ export default function ModalComprar({jogador, idUsuario}) {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          Preço do jogador {jogador.salario}
+          Você esta prestes a adiquirir o jogador {jogador.label}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Tem certeza que deseja comprar o jogador  {jogador.label}?
+             Insira o valor dele 
+             <input onChange={e=>setValor(e.target.value)}/>
           </DialogContentText>
         </DialogContent>
         <DialogActions>

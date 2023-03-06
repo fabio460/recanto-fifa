@@ -59,7 +59,7 @@ import { useSelector } from 'react-redux';
                       <th scope="col">Time</th>
                       <th scope="col">Jogador</th>
                       <th scope="col">Overall</th>
-                      <th scope="col">Posição</th>
+                      <th scope="col">Posição</th>                   
                       <th scope="col"> </th>
                   </tr>
               </thead>
@@ -70,7 +70,7 @@ import { useSelector } from 'react-redux';
                           <td >{elem.CLUBE}</td>
                           <td>{elem.label}</td>
                           <td>{elem.OVER}</td>
-                          <td>{elem.Posição}</td>
+                          <td>{elem.Posicao}</td> 
                           <td className='btnComprar'>
                              <ModalComprar jogador={elem} idUsuario={Usuario.id}/>
                           </td>
