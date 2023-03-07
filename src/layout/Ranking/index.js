@@ -35,15 +35,15 @@ export default function Ranking({Lista}) {
      await adicionarSaldoApi(buscaUsuarioPeloJogador(artilharia.segundo),viceArtilheiro, dispatch, loading)
      await adicionarSaldoApi(buscaUsuarioPeloJogador(artilharia.terceiro),terceiroArtilheiro, dispatch, loading)
       setTimeout(() => {        
-        dados.gols.map(async(e,key)=>{
+        dados.gols?.map(async(e,key)=>{
           await adicionarSaldoApi(e.nome,(gols)*e.gols,dispatch, loading)
         })  
         setTimeout(() => {         
-          dados.vitorias.map(async(e,key)=>{
+          dados.vitorias?.map(async(e,key)=>{
             await adicionarSaldoApi(e.nome,(vitoria)*e.vitorias,dispatch, loading)
           })
           setTimeout(() => {         
-            dados.empates.map(async(e,key)=>{
+            dados.empates?.map(async(e,key)=>{
                 await adicionarSaldoApi(e.nome,(empates)*e.empates,dispatch, loading)
             })
           }, 1000);
@@ -55,7 +55,7 @@ export default function Ranking({Lista}) {
 
   function buscaUsuarioPeloJogador(jogador) {
     let n = ''
-    Lista.map(use=>{
+    Lista?.map(use=>{
        let sim = use.jogadore.find(e=>{
         if (e.label === jogador) {
           return true
@@ -91,19 +91,19 @@ export default function Ranking({Lista}) {
       </div>
       <div>
         <h3>Quantidade de gols</h3>
-        {dados.gols.map((e,key)=>{
+        {dados.gols?.map((e,key)=>{
           return<div>{e.nome} - {e.gols}</div>
         })}
       </div>
       <div>
         <h3>Quantidade de vitorias</h3>
-        {dados.vitorias.map((e,key)=>{
+        {dados.vitorias?.map((e,key)=>{
           return<div>{e.nome} - {e.vitorias}</div>
         })}
       </div>
       <div>
         <h3>Quantidade de empates</h3>
-        {dados.empates.map((e,key)=>{
+        {dados.empates?.map((e,key)=>{
           return<div>{e.nome} - {e.empates}</div>
         })}
 

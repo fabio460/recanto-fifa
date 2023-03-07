@@ -1,14 +1,16 @@
 export interface usuarioType{
     nome:string,
     saldo:number,
-    elenco:[
+    jogadore:[
         {
             time:string,
             jogador:string,
             over:number,
             salario:number,
-            posicao:string
+            posicao:string,
+            valor:number
         }[]
     ] | [],
-    folha:number
+    folha:number,
+    time:string
 }

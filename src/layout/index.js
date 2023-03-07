@@ -1,4 +1,5 @@
 import { CircularProgress } from '@mui/material'
+import Container from '@mui/material/Container'
 import { Box } from '@mui/system'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -27,18 +28,20 @@ export default function Layout() {
   return (
     <div>
       <AppBar/>
-      <Ranking Lista={Lista}/>
-      {
-        carregando?
-          <div>
-            <Box sx={{ display: 'flex',justifyContent:"center", alignItems:"center", height:200 }}>
-              <CircularProgress />
-            </Box>
-          </div>:
-          <div>
-            <Usuarios Lista={Lista}/>
-          </div>
-        }
+      <Container maxWidth="xl">
+        <Ranking Lista={Lista}/>
+        {
+          carregando?
+            <div>
+              <Box sx={{ display: 'flex',justifyContent:"center", alignItems:"center", height:200 }}>
+                <CircularProgress />
+              </Box>
+            </div>:
+            <div>
+              <Usuarios Lista={Lista}/>
+            </div>
+          }
+      </Container>
     </div>
   )
 }
