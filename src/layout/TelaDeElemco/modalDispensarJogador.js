@@ -14,15 +14,11 @@ import TextField from '@mui/material/TextField';
 import { useDispatch } from 'react-redux/es/exports';
 import AutoComplete from '../TelaListaDeJogadores/AutoComplete';
 import { lista } from '../../Lista'
-import { criarUsuarioApi, deletarUsuarioApi, listaDeUsuariosApi } from '../../api';
+import { adicionarSaldoApi, alterarSaldoApi, criarUsuarioApi, deletarJogadorApi, deletarUsuarioApi, listaDeUsuariosApi } from '../../api';
 import { Autocomplete } from '@mui/material';
-export default function ModalDispensarJogador({elem, usuario}) {
-    const [usuarios, setUsuarios] = useState([])
-    const [value, setValue] = React.useState(null);  
+export default function ModalDispensarJogador({jogador, usuario}) { 
+    const formatoMonetario = ()=> toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})
     const [open, setOpen] = React.useState(false);
-    const [nome, setNome] = useState()
-    const [folha, setFolha] = useState(0)
-    const [saldo, setSaldo] = useState(0)
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -33,33 +29,22 @@ export default function ModalDispensarJogador({elem, usuario}) {
     };
 
     const dialogStyle = {
-        width:"600px",
-        height:"",
-        padding:"20px",
-        "@media (max-width:800px)":{
-        width:"100%"
-        }
+      width:"600px",
+      height:"",
+      padding:"20px",
+      "@media (max-width:800px)":{
+      width:"100%"
+      }
     }
+    
+    const valorGanho = (jogador.valor)*0.4
+    const novoValorDoSaldo = usuario.saldo + valorGanho
     const Confirmar = ()=>{
-          
+        deletarJogadorApi(jogador.id)
+        alterarSaldoApi(usuario.id,novoValorDoSaldo)
+        alert("Jogador "+jogador.label+" libarado, você recebeu "+valorGanho.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}))
         handleClose()
     }
-
-    async function getUsuarios() {
-        const p =await listaDeUsuariosApi()
-        setUsuarios(p)
-       
-    }
-    useEffect(()=>{
-        getUsuarios()
-      },[value])
-
-    const [age, setAge] = React.useState('');
-
-    const handleChange = (event) => {
-        setAge(event.target.value);
-    };  
-      
   return (
     <div>
       <button onClick={handleClickOpen} className='btn btn-primary'>Despensar</button>           
@@ -71,7 +56,7 @@ export default function ModalDispensarJogador({elem, usuario}) {
         sx={{background:"",width:"100%"}}
       >
         <DialogTitle id="alert-dialog-title">
-           Deseja realmente dispensar o jogador?
+           Deseja realmente dispensar o jogador {jogador.label}?
         </DialogTitle>
         <DialogContent sx={dialogStyle}>
           <DialogContentText 
@@ -79,8 +64,8 @@ export default function ModalDispensarJogador({elem, usuario}) {
             sx={{display:"flex",flexDirection:"column"}}
             >
               <div style={{marginTop:"12px"}}>
-                 {/* {elem.label}  {elem.id} {elem.valor} {usuario.saldo} {usuario.folha} */}
-                 falta ainda implementar
+                 Essa solicitação não poderá ser revertida.
+                 <div>Você ganhara {valorGanho.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</div>
               </div>
           </DialogContentText>
         </DialogContent>

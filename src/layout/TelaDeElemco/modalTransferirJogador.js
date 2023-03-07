@@ -12,10 +12,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import { useDispatch } from 'react-redux/es/exports';
-import AutoComplete from '../TelaListaDeJogadores/AutoComplete';
-import { lista } from '../../Lista'
-import { criarUsuarioApi, deletarUsuarioApi, listaDeUsuariosApi, transferenciaDeJogadorApi } from '../../api';
-import { Autocomplete } from '@mui/material';
+import {listaDeUsuariosApi, transferenciaDeJogadorApi } from '../../api';
 export default function ModalTransferirJogador({id}) {
     const [usuarios, setUsuarios] = useState([])
     const [value, setValue] = React.useState(null);  
@@ -53,7 +50,6 @@ export default function ModalTransferirJogador({id}) {
     }
     useEffect(()=>{
         getUsuarios()
-        console.log(value)
       },[value])
 
     const [age, setAge] = React.useState('');
