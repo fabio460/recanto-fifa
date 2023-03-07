@@ -45,7 +45,9 @@ export default function Ranking({Lista}) {
           setTimeout(() => {         
             dados.empates?.map(async(e,key)=>{
                 await adicionarSaldoApi(e.nome,(empates)*e.empates,dispatch, loading)
-            })
+              })
+              alert("temporada finalizada com sucesso!")
+              window.location.reload()
           }, 1000);
         }, 1000);
       }, 1000);
