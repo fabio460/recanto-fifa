@@ -8,6 +8,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { adicionarJogadorApi } from '../../api';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import TextField from '@mui/material/TextField';
+import InputLabel from '@mui/material/InputLabel/InputLabel';
 
 export default function ModalComprar({jogador, idUsuario}) {
   const [open, setOpen] = React.useState(false);
@@ -23,20 +25,34 @@ export default function ModalComprar({jogador, idUsuario}) {
   const dispatch = useDispatch()
   const h = useNavigate()
   const comprarJogador = ()=>{
-    adicionarJogadorApi(
-      jogador.label,
-      jogador.Posicao,
-      jogador.OVER,
-      jogador.CLUBE,
-      idUsuario,
-      parseFloat(valor),
-      dispatch 
-    )
-    setTimeout(() => {
-      h("/elencos")
-      
-    }, 500);
-    handleClose()
+    let invalido =  (/^(?=.*[ a-zA-Z@#$%º¢£&!'"-+/\(\)\ \`\\\|\{\}\[\]\~\^\:\; ])/); 
+    let valorComVirgula = valor.replace(",",".")
+    if (valor < 0 ) {
+      alert("valor não pode ser negativo")
+     } else {
+       if (invalido.test(valor)) {
+          alert("Este campo contem caractere não numerico")
+       } else {
+         if (valor === "" || !valor) {
+          alert("Este campo não pode estar em branco")
+         } else {
+           adicionarJogadorApi(
+             jogador.label,
+             jogador.Posicao,
+             jogador.OVER,
+             jogador.CLUBE,
+             idUsuario,
+             parseFloat(valorComVirgula),
+             dispatch 
+           )
+           setTimeout(() => {
+             h("/elencos")
+             
+           }, 500);
+           handleClose()
+         }
+       }
+     }  
   }
   return (
     <div>
@@ -54,8 +70,12 @@ export default function ModalComprar({jogador, idUsuario}) {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-             Insira o valor dele 
-             <input onChange={e=>setValor(e.target.value)}/>
+            <TextField 
+              size='small'
+              label="Preço do jogador" 
+              onChange={e=>setValor(e.target.value)}
+              sx={{width:"100%",margin:"10px 0px"}}
+            />
           </DialogContentText>
         </DialogContent>
         <DialogActions>

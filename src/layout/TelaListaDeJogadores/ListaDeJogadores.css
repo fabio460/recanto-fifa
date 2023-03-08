@@ -22,11 +22,18 @@
 .TelaListaJogadoresMenu{
    margin-right: 20px;
    font-size: 22px;
-   
    cursor: pointer;
 }
 .TelaListaJogadoresMenu:hover{
    color: cadetblue;
+}
+.TelaListaJogadoresMenuSaldo{
+    margin-right: 20px;
+    font-size: 22px;
+    color: red;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-end;
 }
 @media (max-width:800px) {
  

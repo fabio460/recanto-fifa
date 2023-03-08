@@ -146,10 +146,9 @@ export default function TelaDeElenco() {
                 </table>
             </div>
         </div>:
-         <Box sx={{ display: 'flex',justifyContent:"center", alignItems:"center", height:"100vh" }}>
+        <Box sx={{ display: 'flex',justifyContent:"center", alignItems:"center", height:"100vh" }}>
          <CircularProgress />
-       </Box>
-        
+        </Box>
       }
     </div>
   )
