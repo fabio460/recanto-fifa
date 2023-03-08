@@ -122,7 +122,7 @@ export default function ModalTransferirJogador({id, usuario}) {
         </DialogContent>
         <DialogActions>
           <Button onClick={Confirmar}>Confirmar</Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button onClick={handleClose} autoFocus color='error'>
             Cancelar
           </Button>
         </DialogActions>

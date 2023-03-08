@@ -163,7 +163,7 @@ export default function ModalArtilharia() {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Confirmar</Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button color='error' onClick={handleClose} autoFocus>
             Cancelar
           </Button>
         </DialogActions>

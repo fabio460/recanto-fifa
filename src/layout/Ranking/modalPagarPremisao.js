@@ -47,7 +47,7 @@ export default function ModalPagarPremiasao({finalizarTemporada}) {
         </DialogContent>
         <DialogActions>
           <Button onClick={confirmar}>Confirmar</Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button color='error' onClick={handleClose} autoFocus>
             Cancelar
           </Button>
         </DialogActions>

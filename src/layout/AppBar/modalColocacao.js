@@ -153,7 +153,7 @@ export default function ModalColocacao() {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Confirmar</Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button color='error' color='error' onClick={handleClose} autoFocus>
             Cancelar
           </Button>
         </DialogActions>

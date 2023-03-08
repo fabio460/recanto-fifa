@@ -79,14 +79,14 @@ export default function ModalAtualizarUsuario({id, usuario, fechar}) {
             >
                 <TextField defaultValue={usuario.nome} onChange={e=>setNome(e.target.value)} label="Nome" size='small' sx={{marginTop:"12px"}}/>
                 <TextField defaultValue={usuario.saldo} onChange={e=>setSaldo(e.target.value)} label="Saldo" size='small' sx={{marginTop:"12px"}}/>
-                <TextField defaultValue={usuario.folha} onChange={e=>setFolha(e.target.value)} label="Folha dalarial" size='small' sx={{marginTop:"12px"}}/>
+                {/* <TextField defaultValue={usuario.folha} onChange={e=>setFolha(e.target.value)} label="Folha dalarial" size='small' sx={{marginTop:"12px"}}/> */}
                 <TextField defaultValue={usuario.time} onChange={e=>setTime(e.target.value)} label="Time" size='small' sx={{marginTop:"12px"}}/>
               
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={Confirmar}>Confirmar</Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button color='error' onClick={handleClose} autoFocus>
             Cancelar
           </Button>
         </DialogActions>

@@ -83,7 +83,7 @@ export default function ModalCriarUsuario() {
         </DialogContent>
         <DialogActions>
           <Button onClick={Confirmar}>Confirmar</Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button color='error' onClick={handleClose} autoFocus>
             Cancelar
           </Button>
         </DialogActions>

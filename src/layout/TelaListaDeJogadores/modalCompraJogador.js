@@ -88,7 +88,7 @@ export default function ModalComprar({jogador, idUsuario}) {
         </DialogContent>
         <DialogActions>
           <Button onClick={comprarJogador}>Confirmar</Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button color='error' onClick={handleClose} autoFocus>
             Cancelar
           </Button>
         </DialogActions>
