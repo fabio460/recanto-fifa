@@ -246,3 +246,19 @@ export const transferenciaDeJogadorApi = async(id,idUsuario, valor=0,dispatch, l
   }
 }
 
+//temporadas
+
+export const selecionarTemporadaApi = async()=>{
+   return await fetch(local+"temporada")
+      .then(r=>r.json())
+}
+
+export const alterarTemporadaApi = async()=>{
+   return await fetch(local+"temporada",{
+      method:'put',
+      headers:{
+         "Content-Type":"application/json"
+      },
+   })
+      .then(r=>r.json())
+}
