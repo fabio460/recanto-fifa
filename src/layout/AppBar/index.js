@@ -4,7 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import PersonIcon from '@mui/icons-material/Person';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
-import { useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import ModalArtilharia from './modalArtilharia';
 import ModalColocacao from './modalColocacao';
 import ModalCriarUsuario from './modalCriarUsuario';
@@ -29,7 +29,10 @@ const pages = [
   <ModalColocacao/>,
   <ModalArtilharia/>,
   <ModalAssistecia/>,
-  <ModalVitoriasEGols/>
+  <ModalVitoriasEGols/>,
+  <Link to={"/regras"}>
+    <div style={{color:"white"}}>Regras</div>
+  </Link>
 ];
 const settings = [<ModalCriarUsuario/>, <ModalDeletarUsuario/>];
 
