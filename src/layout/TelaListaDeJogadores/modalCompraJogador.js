@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel/InputLabel';
 
-export default function ModalComprar({jogador, idUsuario}) {
+export default function ModalComprar({jogador, idUsuario, Saldo}) {
   const [open, setOpen] = React.useState(false);
   const [valor, setValor] = React.useState()
   const handleClickOpen = () => {
@@ -29,37 +29,42 @@ export default function ModalComprar({jogador, idUsuario}) {
   const comprarJogador = async()=>{
     let invalido =  (/^(?=.*[ a-zA-Z@#$%º¢£&!'"-+/\(\)\ \`\\\|\{\}\[\]\~\^\:\; ])/); 
     let valorComVirgula = valor.replace(",",".")
+
     const jogadorDisponivel = await getJogadorPeloNomeApi(jogador.label)
-    if (jogadorDisponivel) {
-      console.log(jogadorDisponivel.usuario.nome)
-      alert("Voçê não pode adiquirir este jogador, pois ele pertence ao "+jogadorDisponivel.usuario.nome)
-    } else {  
-      if (valor < 0 ) {
-        alert("valor não pode ser negativo")
-       } else {
-         if (invalido.test(valor)) {
-            alert("Este campo contem caractere não numerico")
+    if (valor >= Saldo) {
+      alert("Você não tem saldo suficiente")
+    } else {      
+      if (jogadorDisponivel) {
+        console.log(jogadorDisponivel.usuario.nome)
+        alert("Voçê não pode adiquirir este jogador, pois ele pertence ao "+jogadorDisponivel.usuario.nome)
+      } else {  
+        if (valor < 0 ) {
+          alert("valor não pode ser negativo")
          } else {
-           if (valor === "" || !valor) {
-            alert("Este campo não pode estar em branco")
+           if (invalido.test(valor)) {
+              alert("Este campo contem caractere não numerico")
            } else {
-             adicionarJogadorApi(
-               jogador.label,
-               jogador.Posicao,
-               jogador.OVER,
-               jogador.CLUBE,
-               idUsuario,
-               parseFloat(valorComVirgula),
-               dispatch 
-             )
-             setTimeout(() => {
-               h("/elencos")
-               
-             }, 500);
-             handleClose()
+             if (valor === "" || !valor) {
+              alert("Este campo não pode estar em branco")
+             } else {
+               adicionarJogadorApi(
+                 jogador.label,
+                 jogador.Posicao,
+                 jogador.OVER,
+                 jogador.CLUBE,
+                 idUsuario,
+                 parseFloat(valorComVirgula),
+                 dispatch 
+               )
+               setTimeout(() => {
+                 h("/elencos")
+                 
+               }, 500);
+               handleClose()
+             }
            }
-         }
-       }  
+         }  
+      }
     }
   }
   return (
@@ -75,6 +80,7 @@ export default function ModalComprar({jogador, idUsuario}) {
       >
         <DialogTitle id="alert-dialog-title">
           Você esta prestes a adiquirir o jogador {jogador.label}
+          <p>Seu saldo atual é {Saldo.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</p>
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
