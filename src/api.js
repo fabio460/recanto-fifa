@@ -17,8 +17,15 @@ export const getUsuariosPorIdApi = async(id)=>{
    return l
 }
 
-export const getUsuariosPeloNomeApi = async(id)=>{
-   const l = await fetch(local+"usuario/pelonome/"+id)
+export const getUsuariosPeloNomeApi = async(nome)=>{
+   const l = await fetch(local+"usuario/pelonome/"+nome)
+      .then(r=>r.json())
+      .catch(r=>r)
+   return l
+}
+
+export const getJogadorPeloNomeApi = async(nome)=>{
+   const l = await fetch(local+"jogador/nome/"+nome)
       .then(r=>r.json())
       .catch(r=>r)
    return l

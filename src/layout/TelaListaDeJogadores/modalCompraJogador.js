@@ -5,7 +5,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { adicionarJogadorApi } from '../../api';
+import { adicionarJogadorApi, getJogadorPeloNomeApi } from '../../api';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
@@ -24,35 +24,39 @@ export default function ModalComprar({jogador, idUsuario}) {
 
   const dispatch = useDispatch()
   const h = useNavigate()
-  const comprarJogador = ()=>{
-    let invalido =  (/^(?=.*[ a-zA-Z@#$%º¢£&!'"-+/\(\)\ \`\\\|\{\}\[\]\~\^\:\; ])/); 
-    let valorComVirgula = valor.replace(",",".")
-    if (valor < 0 ) {
-      alert("valor não pode ser negativo")
-     } else {
-       if (invalido.test(valor)) {
-          alert("Este campo contem caractere não numerico")
-       } else {
-         if (valor === "" || !valor) {
-          alert("Este campo não pode estar em branco")
-         } else {
-           adicionarJogadorApi(
-             jogador.label,
-             jogador.Posicao,
-             jogador.OVER,
-             jogador.CLUBE,
-             idUsuario,
-             parseFloat(valorComVirgula),
-             dispatch 
-           )
-           setTimeout(() => {
-             h("/elencos")
+  // let invalido =  (/^(?=.*[ a-zA-Z@#$%º¢£&!'"-+/\(\)\ \`\\\|\{\}\[\]\~\^\:\; ])/); 
+  // let valorComVirgula = valor.replace(",",".")
+
+
+  const comprarJogador = async()=>{
+    const jogadorDisponivel = await getJogadorPeloNomeApi(jogador.label)
+    console.log(jogadorDisponivel)
+    // if (valor < 0 ) {
+    //   alert("valor não pode ser negativo")
+    //  } else {
+    //    if (invalido.test(valor)) {
+    //       alert("Este campo contem caractere não numerico")
+    //    } else {
+    //      if (valor === "" || !valor) {
+    //       alert("Este campo não pode estar em branco")
+    //      } else {
+    //        adicionarJogadorApi(
+    //          jogador.label,
+    //          jogador.Posicao,
+    //          jogador.OVER,
+    //          jogador.CLUBE,
+    //          idUsuario,
+    //          parseFloat(valorComVirgula),
+    //          dispatch 
+    //        )
+    //        setTimeout(() => {
+    //          h("/elencos")
              
-           }, 500);
-           handleClose()
-         }
-       }
-     }  
+    //        }, 500);
+    //        handleClose()
+    //      }
+    //    }
+    //  }  
   }
   return (
     <div>
