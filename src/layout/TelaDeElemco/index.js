@@ -108,7 +108,7 @@ export default function TelaDeElenco() {
               </div>
               </div>
             <div>
-                <h5>Elenco: {usuario.time}</h5>
+                <h5>Clube: {usuario.time}</h5>
                 <h5>Saldo: {usuario.saldo?.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h5>
                 <h5>Folha: {folhaSalarial?.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h5>
                 
