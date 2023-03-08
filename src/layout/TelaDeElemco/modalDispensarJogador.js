@@ -37,7 +37,8 @@ export default function ModalDispensarJogador({jogador, usuario}) {
       }
     }
     
-    const valorGanho = (jogador.valor)*0.4
+    const valorGanho = jogador.OVER >= 90 ? (jogador.valor)*0.6 : (jogador.valor)*0.4 
+  
     const novoValorDoSaldo = usuario.saldo + valorGanho
     const Confirmar = ()=>{
         deletarJogadorApi(jogador.id)
