@@ -121,7 +121,7 @@ export default function TelaDeElenco() {
                             <th scope="col">Posição</th>
                             <th scope="col">Overall</th>
                             <th scope="col">Clube</th>
-                            <th scope="col">Preço</th>
+                            <th scope="col">Salário</th>
                             <th scope="col"> </th>
                         </tr>
                     </thead>
