@@ -24,39 +24,43 @@ export default function ModalComprar({jogador, idUsuario}) {
 
   const dispatch = useDispatch()
   const h = useNavigate()
-  // let invalido =  (/^(?=.*[ a-zA-Z@#$%º¢£&!'"-+/\(\)\ \`\\\|\{\}\[\]\~\^\:\; ])/); 
-  // let valorComVirgula = valor.replace(",",".")
-
-
+  
+  
   const comprarJogador = async()=>{
+    let invalido =  (/^(?=.*[ a-zA-Z@#$%º¢£&!'"-+/\(\)\ \`\\\|\{\}\[\]\~\^\:\; ])/); 
+    let valorComVirgula = valor.replace(",",".")
     const jogadorDisponivel = await getJogadorPeloNomeApi(jogador.label)
-    console.log(jogadorDisponivel)
-    // if (valor < 0 ) {
-    //   alert("valor não pode ser negativo")
-    //  } else {
-    //    if (invalido.test(valor)) {
-    //       alert("Este campo contem caractere não numerico")
-    //    } else {
-    //      if (valor === "" || !valor) {
-    //       alert("Este campo não pode estar em branco")
-    //      } else {
-    //        adicionarJogadorApi(
-    //          jogador.label,
-    //          jogador.Posicao,
-    //          jogador.OVER,
-    //          jogador.CLUBE,
-    //          idUsuario,
-    //          parseFloat(valorComVirgula),
-    //          dispatch 
-    //        )
-    //        setTimeout(() => {
-    //          h("/elencos")
-             
-    //        }, 500);
-    //        handleClose()
-    //      }
-    //    }
-    //  }  
+    if (jogadorDisponivel) {
+      console.log(jogadorDisponivel.usuario.nome)
+      alert("Voçê não pode adiquirir este jogador, pois ele pertence ao "+jogadorDisponivel.usuario.nome)
+    } else {  
+      if (valor < 0 ) {
+        alert("valor não pode ser negativo")
+       } else {
+         if (invalido.test(valor)) {
+            alert("Este campo contem caractere não numerico")
+         } else {
+           if (valor === "" || !valor) {
+            alert("Este campo não pode estar em branco")
+           } else {
+             adicionarJogadorApi(
+               jogador.label,
+               jogador.Posicao,
+               jogador.OVER,
+               jogador.CLUBE,
+               idUsuario,
+               parseFloat(valorComVirgula),
+               dispatch 
+             )
+             setTimeout(() => {
+               h("/elencos")
+               
+             }, 500);
+             handleClose()
+           }
+         }
+       }  
+    }
   }
   return (
     <div>
