@@ -82,13 +82,14 @@ export default function ModalDeletarUsuario() {
             >
                <div style={{marginTop:"12px"}}>
                     <Box sx={{ minWidth: 100 }}>
-                        <FormControl fullWidth>
+                        <FormControl sx={{ m: "5px 0px", minWidth: "100%" }} size="small">
                             <InputLabel id="demo-simple-select-label">Usuarios</InputLabel>
                             <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
                             value={age}
                             label="Usuarios"
+                            size='small'
                             onChange={handleChange}
                             >
                                 { usuarios?.map((e,key)=>{

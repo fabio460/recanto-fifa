@@ -81,7 +81,13 @@ dispatch({
     }}
   })
 
-
+  const inputStyle = {
+    margin:"0px 20px",
+    "@media (max-width:800px)":{
+      margin:"0px 2px",
+      padding:"0px",
+    }
+  }
   return (
     <div>
       <div onClick={handleClickOpen}>
@@ -98,32 +104,33 @@ dispatch({
           Insira dados do torneio
         </DialogTitle>
         <DialogContent sx={dialogStyle}>
-          <DialogContentText id="alert-dialog-description" >
-            gols = {Gols.nome}, {Gols.gols}
+          <DialogContentText id="alert-dialog-description" sx={{padding:"0px",}}>
             {usuarios?.map((u,key)=>{
                 return (
-                    <div style={{display:"flex",alignItems:"center",justifyContent:"space-around"}}>
-                        <div style={{width:"130px"}}>
-                          {u.nome}
-                        </div>
-                        <TextField 
-                          size='small'
-                          label="gols" 
-                          sx={{margin:1}}
-                          onChange={e=> handleGols(e.target.value,u.nome)}
-                        />
-                        <TextField 
-                           size='small' 
-                           label="vitórias" 
-                           sx={{margin:1}}
-                           onChange={e=> handleVitorias(e.target.value,u.nome)}
-                        />
-                        <TextField 
+                    <div>
+                      <div style={{width:""}}>
+                        {u.nome}
+                      </div>
+                      <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                          <TextField 
+                            size='small'
+                            label="gols" 
+                            sx={{}}
+                            onChange={e=> handleGols(e.target.value,u.nome)}
+                          />
+                          <TextField 
                             size='small' 
-                            label="empates" 
-                            sx={{margin:1}}
-                            onChange={e=> handleEmpates(e.target.value,u.nome)}
-                        />
+                            label="vitórias" 
+                            sx={inputStyle}
+                            onChange={e=> handleVitorias(e.target.value,u.nome)}
+                          />
+                          <TextField 
+                              size='small' 
+                              label="empates" 
+                              sx={{}}
+                              onChange={e=> handleEmpates(e.target.value,u.nome)}
+                          />
+                      </div>
                     </div>
                 )
             })}

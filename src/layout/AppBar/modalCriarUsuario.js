@@ -35,9 +35,11 @@ export default function ModalCriarUsuario() {
         }
     }
     const Confirmar = ()=>{
-      criarUsuarioApi(nome,saldo,folha,listaJogadores,value)
-        
-       // handleClose()
+      if (!nome || nome.trim() ==="") {
+        alert("O campo nome não pode estar em branco")
+      } else {   
+        criarUsuarioApi(nome,saldo,folha,listaJogadores,value)
+      }
     }
 
     useEffect(()=>{

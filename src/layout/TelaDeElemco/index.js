@@ -50,7 +50,6 @@ export default function TelaDeElenco() {
     setAnchorEl(null);
   };
   
-
   return (
     <div>
       {
@@ -138,7 +137,7 @@ export default function TelaDeElenco() {
                                 <td style={{display:"flex",justifyContent:"flex-end"}}>
                                   {/* <button onClick={()=> despensar(elem.id)} className='btn btn-danger me-3'>Despensar</button> */}
                                   <ModalDispensarJogador jogador={elem} usuario={usuario}/>  
-                                  <ModalTransferirJogador id={elem.id}/>
+                                  <ModalTransferirJogador id={elem.id} usuario={usuario}/>
                                 </td>
                             </tr>
                         )

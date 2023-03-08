@@ -13,7 +13,7 @@ import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import { useDispatch } from 'react-redux/es/exports';
 import {listaDeUsuariosApi, transferenciaDeJogadorApi } from '../../api';
-export default function ModalTransferirJogador({id}) {
+export default function ModalTransferirJogador({id, usuario}) {
     const [usuarios, setUsuarios] = useState([])
     const [value, setValue] = React.useState(null);  
     const [open, setOpen] = React.useState(false);
@@ -35,18 +35,36 @@ export default function ModalTransferirJogador({id}) {
         width:"100%"
         }
     }
+    
     const Confirmar = ()=>{
-         //deletarUsuarioApi(age)
-        //handleClose()
         let idUsuario = age
-       
-        transferenciaDeJogadorApi(id, idUsuario, parseFloat(valor))
+        let invalido =  (/^(?=.*[ a-zA-Z@#$%º¢£&!'"-+/\(\)\ \`\\\|\{\}\[\]\~\^\:\; ])/);   
+        let valorComVirgula = valor.replace(",",".")
+  
+         if (valor < 0 ) {
+          alert("valor não pode ser negativo")
+         } else {
+           if (invalido.test(valor)) {
+              alert("Este campo contem caractere não numerico")
+           } else {
+             if (valor === "" || !valor) {
+              alert("Este campo não pode estar em branco")
+             } else {
+               transferenciaDeJogadorApi(id, idUsuario, parseFloat(valorComVirgula))
+             }
+           }
+         }       
     }
 
     async function getUsuarios() {
         const p =await listaDeUsuariosApi()
-        setUsuarios(p)
-       
+        const l = p.filter(e=>{
+          if (e.nome !== usuario.nome) {
+            return e
+          }
+        })
+        setUsuarios(l)
+        
     }
     useEffect(()=>{
         getUsuarios()
@@ -75,12 +93,12 @@ export default function ModalTransferirJogador({id}) {
         <DialogContent sx={dialogStyle}>
           <DialogContentText 
             id="alert-dialog-description" 
-            sx={{display:"flex",flexDirection:"column"}}
+            sx={{display:"flex",flexDirection:"column",minHeight:200}}
             >
                <div style={{}}>
                 
-                    <Box sx={{ minWidth: 100, minHeight:180 }}>
-                        <FormControl fullWidth sx={{margin:"10px 0px"}}>
+                    <Box sx={{ minWidth: 100 }}>
+                        <FormControl sx={{ m: "5px 0px", minWidth: "100%" }} size="small">
                             <InputLabel id="demo-simple-select-label">Transferir para</InputLabel>
                             <Select
                               sx={{}}
