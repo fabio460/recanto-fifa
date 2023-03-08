@@ -42,7 +42,7 @@ export default function ModalPagarPremiasao({finalizarTemporada}) {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-             Ao finalizar as premiações serâo pagas
+             Ao finalizar as premiações serâo pagas somente se houver dados selecionados!
           </DialogContentText>
         </DialogContent>
         <DialogActions>
