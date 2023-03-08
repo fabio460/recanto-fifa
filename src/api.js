@@ -97,13 +97,30 @@ export const atualizarUsuarioApi = async(id, nome, saldo, folha, time)=>{
     })
  }
 
- export const adicionarSaldoApi = async(id, valor=0,dispatch)=>{
-    if (id) {      
+ export const pagarFolhaApi = async(id, saldo)=>{
+   return await fetch(local+"usuario",{
+       method:'put',
+       headers:{
+          "Content-Type":"application/json"
+       },
+       body:JSON.stringify({
+          id, saldo
+       })
+    })
+    .then(res=>res.json())
+    .then(res=>{
+       console.log(res)
+       window.location.reload()
+    })
+ }
+
+ export const adicionarSaldoApi = async(nome, valor=0,dispatch)=>{
+    if (nome) {      
       dispatch({
          type:"loading",
          payload:{loading:true}
       }) 
-      const usuario =await getUsuariosPeloNomeApi(id)
+      const usuario =await getUsuariosPeloNomeApi(nome)
       return await fetch(local+"usuario",{
           method:'put',
           headers:{
@@ -249,8 +266,10 @@ export const transferenciaDeJogadorApi = async(id,idUsuario, valor=0,dispatch, l
 //temporadas
 
 export const selecionarTemporadaApi = async()=>{
-   return await fetch(local+"temporada")
+   const t = await fetch(local+"temporada")
       .then(r=>r.json())
+      .then(r=>console.log(r))
+   return t   
 }
 
 export const alterarTemporadaApi = async()=>{

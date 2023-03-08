@@ -3,7 +3,7 @@ import Container from '@mui/material/Container'
 import { Box } from '@mui/system'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { listaDeUsuariosApi } from '../api'
+import { listaDeUsuariosApi, selecionarTemporadaApi } from '../api'
 
 import AppBar from './AppBar'
 import Ranking from './Ranking'
@@ -25,6 +25,8 @@ export default function Layout() {
   },[loading])
   
 
+    
+    
   return (
     <div>
       <AppBar/>

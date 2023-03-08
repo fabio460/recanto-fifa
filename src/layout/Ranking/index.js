@@ -2,7 +2,9 @@ import React,{useEffect, useState} from 'react'
 import "./ranking.css"
 import {useDispatch, useSelector} from 'react-redux'
 import { Button, CircularProgress } from '@mui/material'
-import { adicionarSaldoApi, selecionarTemporadaApi } from '../../api'
+import { adicionarSaldoApi, listaDeUsuariosApi, pagarFolhaApi, selecionarTemporadaApi } from '../../api'
+import ModalPagarPremiasao from './modalPagarPremisao'
+import ModalPagarFolha from './modalPagarFolha'
 export default function Ranking({Lista}) {
   const colocacao = useSelector(state=>state.colocacaoRedux.colocacao)  
   const artilharia = useSelector(state=>state.artilhariaRedux.artilheiros)
@@ -26,7 +28,7 @@ export default function Ranking({Lista}) {
   const terceiroAssistencia = 3500;
 
 
-  const [Temporada, setTemporada] = useState()
+  const [Temporada, setTemporada] = useState([])
 
   const finalizarTemporada = async()=>{
 
@@ -83,18 +85,22 @@ export default function Ranking({Lista}) {
     return n
   }
   
-  async function SelecionarTemporada() {
-    const t = await selecionarTemporadaApi()
-    console.log(t)
-    setTemporada(t)
-  }
-  useEffect(()=>{
-     SelecionarTemporada()
-  },[])
- 
+  const folha = useSelector(state=>state.pagamentoDeFolhaReducer.folha)
+  
+  async function pagarFolha() {
+     const usuarios = await listaDeUsuariosApi()
+     usuarios?.map(e=>{
+      let soma = 0
+      e.jogadore?.map(j=>{
+        soma+= j.valor
+      })
+      let total = soma*0.03
+      let novoSaldo = e.saldo - total
+      pagarFolhaApi(e.id, novoSaldo)
+     })
+  }  
   return (
     <div>
-      <div>Temporada {Temporada?.numero}</div>
       <div className='rankingContainer'>
         <div>
           <h3>Colocação</h3>
@@ -143,13 +149,10 @@ export default function Ranking({Lista}) {
 
         </div>
         <div></div>
-        <Button 
-          variant='outlined' size='small'
-          sx={{margin:"20px 0px",height:"40px",marginTop:"auto", width:"100%"}}
-          onClick={finalizarTemporada}
-        >
-          Encerrar temporada
-        </Button>
+        <div>
+          <ModalPagarPremiasao finalizarTemporada={finalizarTemporada}/>
+          <ModalPagarFolha pagarFolha={pagarFolha}/>
+        </div>
       </div>
     </div>
   )

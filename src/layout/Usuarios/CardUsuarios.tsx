@@ -1,4 +1,5 @@
 
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { usuarioType } from '../../Types'
 
@@ -16,12 +17,15 @@ export default function CardUsuarios({usuario}:userType) {
     h("/TelaListaDeJogadores")
   }
 
-  function contadorFolha(arr:any) {
+  const dispatch = useDispatch()
+  const folha = useSelector((state:any)=>state.pagamentoDeFolhaReducer.folha)
+  function contadorFolha(arr:any, nome:string) {
     let soma = 0
     arr.map((elem:any)=>{
        soma += elem.valor
     })
-    return soma*0.03
+    let total = soma*0.03
+    return total
   }
   return (
     <div className='CardUsuarios'>
@@ -29,7 +33,7 @@ export default function CardUsuarios({usuario}:userType) {
       <div className='UsuarioSaldoLabel'>Saldo</div>
       <div className='UsuarioSaldo'> {usuario.saldo.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</div>
       <div className='UsuarioSaldoLabel'>Folha</div>
-           <div>{contadorFolha(usuario.jogadore).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</div>
+           <div>{contadorFolha(usuario.jogadore,usuario.nome).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</div>
       <button  
         className="btn btn-success w-100 m-1"
         onClick={comprarJogador}

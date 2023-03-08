@@ -5,8 +5,10 @@ import colocacaoRedux from './colocacaoRedux'
 import folhaSalarialReducer from './folhaSalarialReducer'
 import golsEmpVitoriasRedux from './golsEmpVitoriasRedux'
 import loadingReducer from './loadingReducer'
+import pagamentoDeFolhaReducer from './pagamentoDeFolhaReducer'
 export const store = configureStore({
     reducer: {
+        pagamentoDeFolhaReducer,
         assisteciaReducer,
         folhaSalarialReducer,
         golsEmpVitoriasRedux,
