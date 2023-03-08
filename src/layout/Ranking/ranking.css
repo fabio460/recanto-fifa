@@ -1,7 +1,8 @@
 .rankingContainer{
     padding:1% 3%;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap:30px
 }
 @media (max-width:800px) {
    .rankingContainer{

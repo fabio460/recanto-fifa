@@ -6,6 +6,7 @@ import { adicionarSaldoApi } from '../../api'
 export default function Ranking({Lista}) {
   const colocacao = useSelector(state=>state.colocacaoRedux.colocacao)  
   const artilharia = useSelector(state=>state.artilhariaRedux.artilheiros)
+  const assistente = useSelector(state=>state.assisteciaReducer.assistentes)
   const dados = useSelector(state=>state.golsEmpVitoriasRedux.dados)
   const dispatch = useDispatch()
   const loading = useSelector(state=>state.loadingReducer.loading)
@@ -34,7 +35,13 @@ export default function Ranking({Lista}) {
      await adicionarSaldoApi(buscaUsuarioPeloJogador(artilharia.primeiro),artilheiro, dispatch, loading)
      await adicionarSaldoApi(buscaUsuarioPeloJogador(artilharia.segundo),viceArtilheiro, dispatch, loading)
      await adicionarSaldoApi(buscaUsuarioPeloJogador(artilharia.terceiro),terceiroArtilheiro, dispatch, loading)
-      setTimeout(() => {        
+     
+
+     await adicionarSaldoApi(buscaUsuarioPeloJogador(assistente.primeiro),assistencia, dispatch, loading)
+     await adicionarSaldoApi(buscaUsuarioPeloJogador(assistente.segundo),viceAssistencia, dispatch, loading)
+     await adicionarSaldoApi(buscaUsuarioPeloJogador(assistente.terceiro),terceiroAssistencia, dispatch, loading)
+
+     setTimeout(() => {        
         dados.gols?.map(async(e,key)=>{
           await adicionarSaldoApi(e.nome,(gols)*e.gols,dispatch, loading)
         })  
@@ -44,10 +51,13 @@ export default function Ranking({Lista}) {
           })
           setTimeout(() => {         
             dados.empates?.map(async(e,key)=>{
-                await adicionarSaldoApi(e.nome,(empates)*e.empates,dispatch, loading)
-              })
-              alert("temporada finalizada com sucesso!")
-              window.location.reload()
+              await adicionarSaldoApi(e.nome,(empates)*e.empates,dispatch, loading)
+            })
+            alert("temporada finalizada com sucesso!")
+            window.location.reload()
+            if (colocacao.primeiro) {
+              alert("O usuário "+colocacao.primeiro+" ganhou o torneio")
+            }
           }, 1000);
         }, 1000);
       }, 1000);
@@ -92,6 +102,15 @@ export default function Ranking({Lista}) {
         </ol>
       </div>
       <div>
+        <h3>Assistências</h3>
+        <ol>
+          <li>{assistente.primeiro}</li>
+          <li>{assistente.segundo}</li>
+          <li>{assistente.terceiro}</li>
+          <li>{assistente.quarto}</li>
+        </ol>
+      </div>
+      <div>
         <h3>Quantidade de gols</h3>
         {dados.gols?.map((e,key)=>{
           return<div>{e.nome} - {e.gols}</div>
@@ -110,10 +129,10 @@ export default function Ranking({Lista}) {
         })}
 
       </div>
-    
+      <div></div>
       <Button 
         variant='outlined' size='small'
-        sx={{margin:"20px 0px",height:"40px",marginTop:"auto"}}
+        sx={{margin:"20px 0px",height:"40px",marginTop:"auto", width:"100%"}}
         onClick={finalizarTemporada}
       >
         Encerrar temporada

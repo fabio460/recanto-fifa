@@ -43,31 +43,45 @@ export default function ModalVitoriasEGols() {
   const handleClickOpen = () => {
     setOpen(true);
   };
+  let invalido =  (/^(?=.*[ a-zA-Z@#$%º¢£&!'"-+/\(\)\ \`\\\|\{\}\[\]\~\^\:\;\.\, ])/); 
  const handleGols = (gols,nome)=>{
-   let filtro = Gols.filter(e=>{
-    if (e.nome !== nome) {
-        return e
-    }
-   }) 
-   setGols([...filtro,{gols:parseInt(gols),nome,item:"gols"}])
+   
+  if (invalido.test(gols)) {
+    alert("Este campo contem caractere não numerico")
+  }else{
+    let filtro = Gols.filter(e=>{
+     if (e.nome !== nome) {
+         return e
+     }
+    }) 
+    setGols([...filtro,{gols:parseInt(gols),nome,item:"gols"}])
+  }
  }
 
  const handleEmpates = (empates,nome)=>{
-    let filtro = Empates.filter(e=>{
-     if (e.nome !== nome) {
-         return e
-     }
-    }) 
-    setEmpates([...filtro,{empates:parseInt(empates),nome,item:"empates"}])
+    if (invalido.test(empates)) {
+      alert("Este campo contem caractere não numerico")
+    }else{
+      let filtro = Empates.filter(e=>{
+       if (e.nome !== nome) {
+           return e
+       }
+      }) 
+      setEmpates([...filtro,{empates:parseInt(empates),nome,item:"empates"}])
+    }
   }
 
   const handleVitorias = (vitorias,nome)=>{
-    let filtro = Vitorias.filter(e=>{
-     if (e.nome !== nome) {
-         return e
-     }
-    }) 
-    setVitorias([...filtro,{vitorias:parseInt(vitorias),nome,item:"vitorias"}])
+    if (invalido.test(vitorias)) {
+      alert("Este campo contem caractere não numerico")
+    }else{
+      let filtro = Vitorias.filter(e=>{
+       if (e.nome !== nome) {
+           return e
+       }
+      }) 
+      setVitorias([...filtro,{vitorias:parseInt(vitorias),nome,item:"vitorias"}])
+    }
 
   }
   

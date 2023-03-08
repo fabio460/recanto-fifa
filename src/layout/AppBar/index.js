@@ -23,10 +23,12 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import ModalAssistecia from "./modalAssistencia";
 
 const pages = [
   <ModalColocacao/>,
   <ModalArtilharia/>,
+  <ModalAssistecia/>,
   <ModalVitoriasEGols/>
 ];
 const settings = [<ModalCriarUsuario/>, <ModalDeletarUsuario/>];
