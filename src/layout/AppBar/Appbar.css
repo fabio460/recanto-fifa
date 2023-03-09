@@ -2,6 +2,17 @@
     display: flex;
     padding: 10px 2%;
 }
-.btnAppbar{
+
+.linkRegras{
+    color: white;
     
 }
+@media (max-width:800px) {
+    .rankingContainer{
+     grid-template-columns: 1fr;
+    }
+    .linkRegras{
+        color: black;
+        
+    }
+  }

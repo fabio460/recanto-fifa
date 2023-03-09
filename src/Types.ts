@@ -12,5 +12,6 @@ export interface usuarioType{
         }[]
     ] | [],
     folha:number,
-    time:string
+    time:string,
+    bugado:string
 }

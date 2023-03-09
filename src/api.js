@@ -1,8 +1,8 @@
 //const local = "http://localhost:4000/"
 
 
-
-const local = "https://recanto-fifa-backend.vercel.app/"
+const local = "https://recanto-fifa-backend2-0.vercel.app/"
+//const local = "https://recanto-fifa-backend2-0.vercel.app"
 
 export const listaDeUsuariosApi = async()=>{
    return await fetch(local+"usuario")
@@ -281,3 +281,44 @@ export const alterarTemporadaApi = async()=>{
    })
       .then(r=>r.json())
 }
+
+
+export const alterarBugadoApi = async(id, bugado, contador)=>{
+
+   if (contador < 3) {
+      return await fetch(local+"usuario/bugado",{
+         method:'put',
+         headers:{
+            "Content-Type":"application/json"
+         },
+         body:JSON.stringify({
+            id, bugado:null
+         })
+      })
+      .then(res=>res.json())
+      .then(res=>{
+         console.log(res)
+         //window.location.reload()
+      })
+      .then(res=>console.log(res))
+   }
+
+   if (bugado === "ouro" || bugado === "prata" || bugado === "bronze" ) {      
+      return await fetch(local+"usuario/bugado",{
+          method:'put',
+          headers:{
+             "Content-Type":"application/json"
+          },
+          body:JSON.stringify({
+             id, bugado
+          })
+       })
+       .then(res=>res.json())
+       .then(res=>{
+          console.log(res)
+          //window.location.reload()
+       })
+       .then(res=>console.log(res))
+   }
+ }
+

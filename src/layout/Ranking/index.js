@@ -2,9 +2,10 @@ import React,{useEffect, useState} from 'react'
 import "./ranking.css"
 import {useDispatch, useSelector} from 'react-redux'
 import { Button, CircularProgress } from '@mui/material'
-import { adicionarSaldoApi, listaDeUsuariosApi, pagarFolhaApi, selecionarTemporadaApi } from '../../api'
+import { adicionarSaldoApi, alterarBugadoApi, listaDeUsuariosApi, pagarFolhaApi, selecionarTemporadaApi } from '../../api'
 import ModalPagarPremiasao from './modalPagarPremisao'
 import ModalPagarFolha from './modalPagarFolha'
+import { buscaUsuarioPeloJogador, CalculaBugado } from '../../Uteis'
 export default function Ranking({Lista}) {
   const colocacao = useSelector(state=>state.colocacaoRedux.colocacao)  
   const artilharia = useSelector(state=>state.artilhariaRedux.artilheiros)
@@ -13,6 +14,17 @@ export default function Ranking({Lista}) {
   const dispatch = useDispatch()
   const loading = useSelector(state=>state.loadingReducer.loading)
   
+  var premioOuro = []
+  var premioPrata = ["Felipe","Felipe","Rafael","Felipe"]
+  var premioBronze = ["José","Rafael","Rafael","Rafael","Felipe"]
+  useEffect(()=>{
+  },[colocacao])
+  premioOuro.push(colocacao.primeiro)
+  premioOuro.push(buscaUsuarioPeloJogador(artilharia.primeiro, Lista))
+  premioOuro.push(buscaUsuarioPeloJogador(artilharia.segundo, Lista))
+  
+  console.log(premioOuro)
+
   const campeao = 30000;
   const viceCampeao = 15000;
   const terceiroColocado = 7500;
@@ -37,16 +49,33 @@ export default function Ranking({Lista}) {
      await adicionarSaldoApi(colocacao.terceiro,terceiroColocado,dispatch, loading)
      await adicionarSaldoApi(colocacao.quarto,quartoColocado,dispatch, loading)
      
-     await adicionarSaldoApi(buscaUsuarioPeloJogador(artilharia.primeiro),artilheiro, dispatch, loading)
-     await adicionarSaldoApi(buscaUsuarioPeloJogador(artilharia.segundo),viceArtilheiro, dispatch, loading)
-     await adicionarSaldoApi(buscaUsuarioPeloJogador(artilharia.terceiro),terceiroArtilheiro, dispatch, loading)
+     await adicionarSaldoApi(buscaUsuarioPeloJogador(artilharia.primeiro, Lista),artilheiro, dispatch, loading)
+     await adicionarSaldoApi(buscaUsuarioPeloJogador(artilharia.segundo, Lista),viceArtilheiro, dispatch, loading)
+     await adicionarSaldoApi(buscaUsuarioPeloJogador(artilharia.terceiro, Lista),terceiroArtilheiro, dispatch, loading)
      
 
-     await adicionarSaldoApi(buscaUsuarioPeloJogador(assistente.primeiro),assistencia, dispatch, loading)
-     await adicionarSaldoApi(buscaUsuarioPeloJogador(assistente.segundo),viceAssistencia, dispatch, loading)
-     await adicionarSaldoApi(buscaUsuarioPeloJogador(assistente.terceiro),terceiroAssistencia, dispatch, loading)
+     await adicionarSaldoApi(buscaUsuarioPeloJogador(assistente.primeiro, Lista),assistencia, dispatch, loading)
+     await adicionarSaldoApi(buscaUsuarioPeloJogador(assistente.segundo, Lista),viceAssistencia, dispatch, loading)
+     await adicionarSaldoApi(buscaUsuarioPeloJogador(assistente.terceiro, Lista),terceiroAssistencia, dispatch, loading)
+     
+     
+     setTimeout(() => {   
+      
+        Lista.map(async(usuario)=>{
+          let obj = CalculaBugado(usuario.nome,premioOuro,"ouro", usuario.id)
+          await alterarBugadoApi(obj.id, obj.premio, obj.contador)
+        })
 
-     setTimeout(() => {        
+        // Lista.map(async(usuario)=>{
+        //   let obj = CalculaBugado(usuario.nome,premioPrata,"prata", usuario.id)
+        //   await alterarBugadoApi(obj.id, obj.premio, obj.contador)
+        // })
+
+        // Lista.map(async(usuario)=>{
+        //   let obj = CalculaBugado(usuario.nome,premioBronze,"bronze", usuario.id)
+        //   await alterarBugadoApi(obj.id, obj.premio, obj.contador)
+        // })
+
         dados.gols?.map(async(e,key)=>{
           await adicionarSaldoApi(e.nome,(gols)*e.gols,dispatch, loading)
         })  
@@ -68,25 +97,19 @@ export default function Ranking({Lista}) {
       }, 1000);
     }
    
- 
 
-  function buscaUsuarioPeloJogador(jogador) {
-    let n = ''
-    Lista?.map(use=>{
-       let sim = use.jogadore.find(e=>{
-        if (e.label === jogador) {
-          return true
-        }
-       })
-       if (sim) {
-        n = use.nome
-       }
-    })
-    return n
-  }
-  
+
+ 
+// console.log(CalculaBugado("Rodrigo",premioOuro,"ouro"))
+
   const folha = useSelector(state=>state.pagamentoDeFolhaReducer.folha)
   
+  const teste = useSelector((state)=>state.artilhariaRedux)
+
+
+
+  
+
   async function pagarFolha() {
      const usuarios = await listaDeUsuariosApi()
      usuarios?.map(e=>{

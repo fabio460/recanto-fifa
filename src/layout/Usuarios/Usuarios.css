@@ -26,6 +26,24 @@
     background-color: green;
     color: white;
 }
+
+.bugadosContainer{
+   display: flex;
+   justify-content: flex-end;
+   width: 100%;
+   margin-bottom: 0px;
+   position: relative;
+   top: 10px;
+   margin-top: -45px;
+}
+.imgBugado{
+    width: 40px;
+    border-radius: 50%;
+}
+.bugadoItens{
+    padding: 2px;
+    border-radius: 50%;
+}
 @media (max-width:600px) {
     .UsuariosContainer{
         grid-template-columns: 1fr;

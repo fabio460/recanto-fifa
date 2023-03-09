@@ -4,7 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import PersonIcon from '@mui/icons-material/Person';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate, useNavigation, useLocation } from 'react-router-dom';
 import ModalArtilharia from './modalArtilharia';
 import ModalColocacao from './modalColocacao';
 import ModalCriarUsuario from './modalCriarUsuario';
@@ -25,21 +25,29 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import ModalAssistecia from "./modalAssistencia";
 
-const pages = [
-  <ModalColocacao/>,
-  <ModalArtilharia/>,
-  <ModalAssistecia/>,
-  <ModalVitoriasEGols/>,
-  <Link to={"/regras"}>
-    <div style={{color:"white"}}>Regras</div>
-  </Link>
-];
+
+const regrasStyle = {
+  color:"",
+  "@media (max-width:800px)":{
+    color:"black"
+  }
+}
+
+
 const settings = [<ModalCriarUsuario/>, <ModalDeletarUsuario/>];
 
 function Appbar() {
+  const navigate = useNavigate()
+  const pages = [
+    <ModalColocacao/>,
+    <ModalArtilharia/>,
+    <ModalAssistecia/>,
+    <ModalVitoriasEGols/>,
+    <div onClick= {()=> navigate("/regras")} style={regrasStyle}>Regras</div>
+  ];
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
+ 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -57,22 +65,6 @@ function Appbar() {
   const h = useNavigate()
   
   return (
-    // <Navbar bg="light" expand="lg">
-    //   <div>
-        
-    //     <Navbar.Brand href="#home">Recanto </Navbar.Brand>
-    //     <Navbar.Toggle aria-controls="basic-navbar-nav" />
-    //     <Navbar.Collapse id="basic-navbar-nav">
-    //       <Nav className="me-auto">
-    //         <Nav.Link href=""><ModalCriarUsuario/></Nav.Link>
-    //         <Nav.Link href=""><ModalDeletarUsuario/></Nav.Link>
-    //         <Nav.Link href="" ><ModalColocacao/></Nav.Link>
-    //         <Nav.Link href="" ><ModalArtilharia/></Nav.Link>
-    //         <Nav.Link href="" ><ModalVitoriasEGols/></Nav.Link>
-    //       </Nav>
-    //     </Navbar.Collapse>
-    //   </div>
-    // </Navbar>
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
@@ -121,12 +113,12 @@ function Appbar() {
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: 'block', md: 'none' },
+                display: { xs: 'block', md: 'none',minHeight:"600px" },
               }}
             >
               {pages?.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page} onClick={handleCloseNavMenu} sx={{  }}>
+                  <Typography textAlign="center" >{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>

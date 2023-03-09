@@ -36,3 +36,34 @@ export const listaDeUsuarios = [
         folha:0
     },
 ]
+
+
+export  function buscaUsuarioPeloJogador(jogador:any, Lista:any) {
+    let n = ''
+    Lista?.map((use:any)=>{
+       let sim = use.jogadore.find((e:any)=>{
+        if (e.label === jogador) {
+          return true
+        }
+       })
+       if (sim) {
+        n = use.nome
+       }
+    })
+    return n
+  }
+
+export  function CalculaBugado(nome:string, array=[], premio:string, id:string) {
+    let contador = 0
+    array.filter(e=>{
+        if (e === nome) {
+            contador++
+        }
+    })
+    return {
+        nome,
+        contador,
+        premio: contador > 2 ? premio : null ,
+        id
+    }
+}
