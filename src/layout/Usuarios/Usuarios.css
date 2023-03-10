@@ -1,11 +1,11 @@
 .UsuariosContainer{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    padding: 2%;
-
+    margin: 2%;
+  
 }
 .CardUsuarios{
-    margin:  10px;
+    margin:  2%;
     border: black solid 1px;
     border-radius: 5px;
     display: flex;
@@ -43,6 +43,13 @@
 .bugadoItens{
     padding: 2px;
     border-radius: 50%;
+}
+
+@media (max-width:900px) {
+    .UsuariosContainer{
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 20px;
+    }
 }
 @media (max-width:600px) {
     .UsuariosContainer{

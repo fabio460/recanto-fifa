@@ -11,6 +11,10 @@ import { adicionarSaldoApi, alterarBugadoApi, bugadoPrataBronze, bugadoPrataBron
 import ModalPagarPremiasao from './modalPagarPremisao'
 import ModalPagarFolha from './modalPagarFolha'
 import { buscaUsuarioPeloJogador, CalculaBugado } from '../../Uteis'
+import ListaDeParticipantes from './listaDeParticipantes';
+
+
+
 export default function Ranking({Lista}) {
   const colocacao = useSelector(state=>state.colocacaoRedux.colocacao)  
   const artilharia = useSelector(state=>state.artilhariaRedux.artilheiros)
@@ -27,8 +31,6 @@ export default function Ranking({Lista}) {
   premioOuro.push(colocacao.primeiro)
   premioOuro.push(buscaUsuarioPeloJogador(artilharia.primeiro, Lista))
   premioOuro.push(buscaUsuarioPeloJogador(artilharia.segundo, Lista))
-  
-  console.log(premioOuro)
 
   const campeao = 30000;
   const viceCampeao = 15000;
@@ -105,23 +107,31 @@ export default function Ranking({Lista}) {
   }
 
 
-
+  
+  const participantes = useSelector(state=>state.participantesReducer.participantes)
   async function pagarFolha() {
      const usuarios = await listaDeUsuariosApi()
-     usuarios?.map(e=>{
+     if (participantes.length === 0) {
+       alert("não há participantes selecionados")
+     }
+     participantes?.map(e=>{
       let soma = 0
-      e.jogadore?.map(j=>{
+      e.selecionado.jogadore?.map(j=>{
         soma+= j.valor
       })
       let total = soma*0.03
-      let novoSaldo = e.saldo - total
-      pagarFolhaApi(e.id, novoSaldo)
+      let novoSaldo = e.selecionado.saldo - total
+      pagarFolhaApi(e.selecionado.id, novoSaldo)
      })
   }  
-  console.log({BugadoBronze,BugadoPrata})
+ 
+ 
   return (
-    <div>
-      <div className='rankingContainer'>
+    <div className='rankingContainer'>
+      <div className='rankingAside'>
+        <ListaDeParticipantes ListaDeUsuarios={Lista}/>
+      </div>
+      <div className='rankingMain'>
         <div>
           <h3>Colocação</h3>
           <ol>
