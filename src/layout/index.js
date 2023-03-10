@@ -3,7 +3,7 @@ import Container from '@mui/material/Container'
 import { Box } from '@mui/system'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { listaDeUsuariosApi, selecionarTemporadaApi } from '../api'
+import { alterarTemporadaApi, getTemporadaApi, listaDeUsuariosApi, selecionarTemporadaApi } from '../api'
 
 import AppBar from './AppBar'
 import Ranking from './Ranking'
@@ -13,15 +13,19 @@ export default function Layout() {
   const [Lista, setLista] = useState([])
   const loading = useSelector(state=>state.loadingReducer.loading)
   const [carregando, setcarregndo] = useState(false)
+  const [temporada, setTemporada] = useState()
   const dispatch = useDispatch()
   async function ListaDeUsuarios() {
     setcarregndo(true)
     const l = await listaDeUsuariosApi(dispatch)
+    const t = await getTemporadaApi()
+    setTemporada(t)
     setLista(l)
     setcarregndo(false)
   }
   useEffect(()=>{
     ListaDeUsuarios() 
+
   },[loading])
   
 
@@ -31,7 +35,7 @@ export default function Layout() {
     <div>
       <AppBar/>
       <Container maxWidth="xl">
-        <Ranking Lista={Lista}/>
+        <Ranking Lista={Lista} temporada={temporada}/>
         {
           carregando?
             <div>

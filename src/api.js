@@ -265,21 +265,42 @@ export const transferenciaDeJogadorApi = async(id,idUsuario, valor=0,dispatch, l
 
 //temporadas
 
-export const selecionarTemporadaApi = async()=>{
-   const t = await fetch(local+"temporada")
-      .then(r=>r.json())
-      .then(r=>console.log(r))
-   return t   
-}
-
-export const alterarTemporadaApi = async()=>{
+export const getTemporadaApi = async()=>{
    return await fetch(local+"temporada",{
-      method:'put',
+      method:'get',
       headers:{
          "Content-Type":"application/json"
       },
    })
       .then(r=>r.json())
+}
+
+
+export const alterarTemporadaApi = async()=>{
+   const temporadaAtual = await getTemporadaApi()
+   if (temporadaAtual.numero === 1) {      
+      return await fetch(local+"temporada",{
+         method:'put',
+         headers:{
+            "Content-Type":"application/json"
+         },
+         body:JSON.stringify({
+            id: temporadaAtual.id, numero:2
+         })
+      })
+      .then(r=>r.json())
+   }else{
+      return await fetch(local+"temporada",{
+         method:'put',
+         headers:{
+            "Content-Type":"application/json"
+         },
+         body:JSON.stringify({
+            id: temporadaAtual.id, numero:1
+         })
+      })
+      .then(r=>r.json())
+   }
 }
 
 export const bugadoPrataBronzeApi = async(id, bugado)=>{

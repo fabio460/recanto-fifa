@@ -46,8 +46,7 @@ function Appbar() {
     getUsuarios()
 
   },[])
-  console.log(usuarios)
-  console.log(participantes)
+
   const pages = [
     <ModalColocacao usuarios={usuarios} participantes={participantes}/>,
     <ModalArtilharia usuarios={usuarios} participantes={participantes}/>,
@@ -75,7 +74,7 @@ function Appbar() {
   const h = useNavigate()
   
   return (
-    <AppBar position="static">
+    <AppBar position="fixed">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <SportsEsportsIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
