@@ -16,6 +16,7 @@ import ListaDeParticipantes from './listaDeParticipantes';
 
 
 export default function Ranking({Lista, temporada}) {
+  
   const colocacao = useSelector(state=>state.colocacaoRedux.colocacao)  
   const artilharia = useSelector(state=>state.artilhariaRedux.artilheiros)
   const assistente = useSelector(state=>state.assisteciaReducer.assistentes)
@@ -126,101 +127,106 @@ export default function Ranking({Lista, temporada}) {
   
   return (
     <div>
-      <h1 className='rankingTituloTemporada' style={{color:temporada?.numero ===1 ?"green":"red"}}> Temporada {temporada?.numero}</h1>
-      <div className='rankingContainer'>
-        <div className='rankingAside'>
-          <ListaDeParticipantes ListaDeUsuarios={Lista}/>
-        </div>
-        <div className='rankingMain'>
-          <div>
-            <h3>Colocação</h3>
-            <ol>
-              <li>{colocacao.primeiro}</li>
-              <li>{colocacao.segundo}</li>
-              <li>{colocacao.terceiro}</li>
-              <li>{colocacao.quarto}</li>
-            </ol>
-          </div>
-          <div>
-            <h3>Atilharia</h3>
-            <ol>
-              <li>{artilharia.primeiro}</li>
-              <li>{artilharia.segundo}</li>
-              <li>{artilharia.terceiro}</li>
-              <li>{artilharia.quarto}</li>
-            </ol>
-          </div>
-          <div>
-            <h3>Assistências</h3>
-            <ol>
-              <li>{assistente.primeiro}</li>
-              <li>{assistente.segundo}</li>
-              <li>{assistente.terceiro}</li>
-              <li>{assistente.quarto}</li>
-            </ol>
-          </div>
-          <div>
-            <h3>Quantidade de gols</h3>
-            {dados.gols?.map((e,key)=>{
-              return<div>{e.nome} - {e.gols}</div>
-            })}
-          </div>
-          <div>
-            <h3>Quantidade de vitorias</h3>
-            {dados.vitorias?.map((e,key)=>{
-              return<div>{e.nome} - {e.vitorias}</div>
-            })}
-          </div>
-          <div>
-            <h3>Quantidade de empates</h3>
-            {dados.empates?.map((e,key)=>{
-              return<div>{e.nome} - {e.empates}</div>
-            })}
+      {
+        temporada && 
+        <div>
+          <h1 className='rankingTituloTemporada' style={{color:temporada?.numero ===1 ?"green":"red"}}> Temporada {temporada?.numero}</h1>
+          <div className='rankingContainer'>
+            <div className='rankingAside'>
+              <ListaDeParticipantes ListaDeUsuarios={Lista}/>
+            </div>
+            <div className='rankingMain'>
+              <div>
+                <h3>Colocação</h3>
+                <ol>
+                  <li>{colocacao.primeiro}</li>
+                  <li>{colocacao.segundo}</li>
+                  <li>{colocacao.terceiro}</li>
+                  <li>{colocacao.quarto}</li>
+                </ol>
+              </div>
+              <div>
+                <h3>Atilharia</h3>
+                <ol>
+                  <li>{artilharia.primeiro}</li>
+                  <li>{artilharia.segundo}</li>
+                  <li>{artilharia.terceiro}</li>
+                  <li>{artilharia.quarto}</li>
+                </ol>
+              </div>
+              <div>
+                <h3>Assistências</h3>
+                <ol>
+                  <li>{assistente.primeiro}</li>
+                  <li>{assistente.segundo}</li>
+                  <li>{assistente.terceiro}</li>
+                  <li>{assistente.quarto}</li>
+                </ol>
+              </div>
+              <div>
+                <h3>Quantidade de gols</h3>
+                {dados.gols?.map((e,key)=>{
+                  return<div>{e.nome} - {e.gols}</div>
+                })}
+              </div>
+              <div>
+                <h3>Quantidade de vitorias</h3>
+                {dados.vitorias?.map((e,key)=>{
+                  return<div>{e.nome} - {e.vitorias}</div>
+                })}
+              </div>
+              <div>
+                <h3>Quantidade de empates</h3>
+                {dados.empates?.map((e,key)=>{
+                  return<div>{e.nome} - {e.empates}</div>
+                })}
 
-          </div>
-          <div>
-            <h3>Bugado prata e bronze</h3>
-            <Box sx={{ minWidth: 120 }}>
-              <FormControl fullWidth sx={{ m: "10px 0px", minWidth: "100%" }} size="small">
-                <InputLabel id="demo-simple-select-label">Hash trick</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={BugadoBronze}
-                  label="BugadoBronze"
-                  onChange={handleBugadoBronze}
-                >
-                  <MenuItem value={null}>---</MenuItem>
-                  {Lista.map(item=>{
-                    return  <MenuItem value={item.id}>{item.nome}</MenuItem>
-                  })}
-                </Select>
-              </FormControl>
-            </Box>
-            <Box sx={{ minWidth: 120 }}>
-              <FormControl fullWidth sx={{ m: "", minWidth: "100%" }} size="small">
-                <InputLabel id="demo-simple-select-label">3 part sem sofrer gols</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={BugadoPrata}
-                  label="BugadoBronze"
-                  onChange={handleBugadoPrata}
-                >
-                  <MenuItem value={null}>---</MenuItem>
-                  {Lista.map(item=>{
-                    return  <MenuItem value={item.id}>{item.nome}</MenuItem>
-                  })}
-                </Select>
-              </FormControl>
-            </Box>
-          </div>
-          <div>
-            <ModalPagarPremiasao finalizarTemporada={finalizarTemporada}/>
-            <ModalPagarFolha pagarFolha={pagarFolha}/>
+              </div>
+              <div>
+                <h3>Bugado prata e bronze</h3>
+                <Box sx={{ minWidth: 120 }}>
+                  <FormControl fullWidth sx={{ m: "10px 0px", minWidth: "100%" }} size="small">
+                    <InputLabel id="demo-simple-select-label">3 Hash trick</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={BugadoBronze}
+                      label="BugadoBronze"
+                      onChange={handleBugadoBronze}
+                    >
+                      <MenuItem value={null}>---</MenuItem>
+                      {participantes?.map(item=>{
+                        return  <MenuItem value={item.id}>{item.nome}</MenuItem>
+                      })}
+                    </Select>
+                  </FormControl>
+                </Box>
+                <Box sx={{ minWidth: 120 }}>
+                  <FormControl fullWidth sx={{ m: "", minWidth: "100%" }} size="small">
+                    <InputLabel id="demo-simple-select-label">3 part sem sofrer gols</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={BugadoPrata}
+                      label="BugadoBronze"
+                      onChange={handleBugadoPrata}
+                    >
+                      <MenuItem value={null}>---</MenuItem>
+                      {participantes?.map(item=>{
+                        return  <MenuItem value={item.id}>{item.nome}</MenuItem>
+                      })}
+                    </Select>
+                  </FormControl>
+                </Box>
+              </div>
+              <div>
+                <ModalPagarPremiasao finalizarTemporada={finalizarTemporada}/>
+                <ModalPagarFolha pagarFolha={pagarFolha}/>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      }
     </div>
   )
 }

@@ -20,8 +20,8 @@ export default function TelaDeElenco() {
   var id = JSON.parse(usuarioLocalStorage).id 
   const h = useNavigate()
   const [carregando, setcarregndo] = useState(false)
-  async function getUsuarioPorId(params) {
-    
+
+  async function getUsuarioPorId() {  
     const p = await getUsuariosPorIdApi(id)
     setusuario(p)
     let soma = 0

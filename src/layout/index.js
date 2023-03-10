@@ -35,15 +35,15 @@ export default function Layout() {
     <div>
       <AppBar/>
       <Container maxWidth="xl">
-        <Ranking Lista={Lista} temporada={temporada}/>
         {
           carregando?
-            <div>
-              <Box sx={{ display: 'flex',justifyContent:"center", alignItems:"center", height:200 }}>
+          <div>
+              <Box sx={{ display: 'flex',justifyContent:"center", alignItems:"center", height:"90vh" }}>
                 <CircularProgress />
               </Box>
             </div>:
             <div>
+              <Ranking Lista={Lista} temporada={temporada}/>
               <Usuarios Lista={Lista}/>
             </div>
           }

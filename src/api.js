@@ -1,6 +1,5 @@
 //const local = "http://localhost:4000/"
 
-
 const local = "https://recanto-fifa-backend2-0.vercel.app/"
 //const local = "https://recanto-fifa-backend2-0.vercel.app"
 
@@ -8,7 +7,6 @@ export const listaDeUsuariosApi = async()=>{
    return await fetch(local+"usuario")
       .then(r=>r.json())
 }
-
 
 export const getUsuariosPorIdApi = async(id)=>{
    const l = await fetch(local+"usuario/"+id)
@@ -138,7 +136,7 @@ export const atualizarUsuarioApi = async(id, nome, saldo, folha, time)=>{
          }) 
        })
    }
- }
+}
 
 export const deletarUsuarioApi = async(id)=>{
    return await fetch(local+"usuario",{
@@ -259,7 +257,6 @@ export const transferenciaDeJogadorApi = async(id,idUsuario, valor=0,dispatch, l
         console.log(res)
         window.location.reload()
       })
-
   }
 }
 
@@ -274,7 +271,6 @@ export const getTemporadaApi = async()=>{
    })
       .then(r=>r.json())
 }
-
 
 export const alterarTemporadaApi = async()=>{
    const temporadaAtual = await getTemporadaApi()

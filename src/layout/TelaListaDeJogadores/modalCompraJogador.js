@@ -5,7 +5,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { adicionarJogadorApi, getJogadorPeloNomeApi } from '../../api';
+import { adicionarJogadorApi, getJogadorPeloNomeApi, getTemporadaApi } from '../../api';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
@@ -27,9 +27,9 @@ export default function ModalComprar({jogador, idUsuario, Saldo}) {
   
   
   const comprarJogador = async()=>{
+    const temporada = await getTemporadaApi()
     let invalido =  (/^(?=.*[ a-zA-Z@#$%º¢£&!'"-+/\(\)\ \`\\\|\{\}\[\]\~\^\:\; ])/); 
     let valorComVirgula = valor.replace(",",".")
-
     const jogadorDisponivel = await getJogadorPeloNomeApi(jogador.label)
     if (valor >= Saldo) {
       alert("Você não tem saldo suficiente")
@@ -42,20 +42,24 @@ export default function ModalComprar({jogador, idUsuario, Saldo}) {
           alert("valor não pode ser negativo")
          } else {
            if (invalido.test(valor)) {
-              alert("Este campo contem caractere não numerico")
-           } else {
-             if (valor === "" || !valor) {
-              alert("Este campo não pode estar em branco")
-             } else {
-               adicionarJogadorApi(
-                 jogador.label,
-                 jogador.Posicao,
-                 jogador.OVER,
-                 jogador.CLUBE,
-                 idUsuario,
-                 parseFloat(valorComVirgula),
-                 dispatch 
-               )
+             alert("Este campo contem caractere não numerico")
+            } else {
+              if (valor === "" || !valor) {
+                alert("Este campo não pode estar em branco")
+              } else {
+               if (temporada.numero === 1) {       
+                 adicionarJogadorApi(
+                   jogador.label,
+                   jogador.Posicao,
+                   jogador.OVER,
+                   jogador.CLUBE,
+                   idUsuario,
+                   parseFloat(valorComVirgula),
+                   dispatch 
+                 )
+               } else {
+                 alert("Voçê só pode comprar jogador na temporada 1")
+               }
                setTimeout(() => {
                  h("/elencos")
                  
