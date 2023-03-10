@@ -9,28 +9,14 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import {listaDeUsuarios} from "../../Uteis" 
 import { useDispatch } from 'react-redux/es/exports';
-import { listaDeUsuariosApi } from '../../api';
-export default function ModalArtilharia() {
-
-  const [usuarios, setListaDeUsuarios] = React.useState([])
-
-  async function getUsuarios() {
-    const u = await listaDeUsuariosApi()
-    setListaDeUsuarios(u)
-  }
-  React.useEffect(()=>{
-    getUsuarios()
-  },[])
+export default function ModalArtilharia({participantes}) {
   
   const [open, setOpen] = React.useState(false);
   const [primeiro, setPrimeiro] = React.useState('');
   const [segundo, setSegundo] = React.useState('');
   const [terceiro, setTerceiro] = React.useState('');
   const [quarto, setQuarto] = React.useState('');
-
-  
 
   const handleChangePrimeiro = (event) => {
     setPrimeiro(event.target.value);
@@ -93,8 +79,8 @@ export default function ModalArtilharia() {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                {usuarios?.map((elem,key)=>{
-                  return elem.jogadore?.map((e,key)=>{
+                {participantes?.map((elem,key)=>{
+                  return elem.selecionado.jogadore?.map((e,key)=>{
                     return <MenuItem value={e.label}>{e.label}</MenuItem>
                   })
                 })}
@@ -113,8 +99,8 @@ export default function ModalArtilharia() {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                {usuarios?.map((elem,key)=>{
-                  return elem.jogadore?.map((e,key)=>{
+                {participantes?.map((elem,key)=>{
+                  return elem.selecionado.jogadore?.map((e,key)=>{
                     return <MenuItem value={e.label}>{e.label}</MenuItem>
                   })
                 })}
@@ -133,8 +119,8 @@ export default function ModalArtilharia() {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                {usuarios?.map((elem,key)=>{
-                  return elem.jogadore?.map((e,key)=>{
+                {participantes?.map((elem,key)=>{
+                  return elem.selecionado.jogadore?.map((e,key)=>{
                     return <MenuItem value={e.label}>{e.label}</MenuItem>
                   })
                 })}
@@ -152,8 +138,8 @@ export default function ModalArtilharia() {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                {usuarios?.map((elem,key)=>{
-                  return elem.jogadore?.map((e,key)=>{
+                {participantes?.map((elem,key)=>{
+                  return elem.selecionado.jogadore?.map((e,key)=>{
                     return <MenuItem value={e.label}>{e.label}</MenuItem>
                   })
                 })}

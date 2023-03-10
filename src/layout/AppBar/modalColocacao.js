@@ -8,26 +8,15 @@ import DialogTitle from '@mui/material/DialogTitle';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-
+import Select from '@mui/material/Select';
 import { useDispatch } from 'react-redux/es/exports';
-import { listaDeUsuariosApi } from '../../api';
-export default function ModalColocacao() {
+
+export default function ModalColocacao({participantes}) {
   const [open, setOpen] = React.useState(false);
   const [primeiro, setPrimeiro] = React.useState('');
   const [segundo, setSegundo] = React.useState('');
   const [terceiro, setTerceiro] = React.useState('');
   const [quarto, setQuarto] = React.useState('');
-  const [usuarios, setListaDeUsuarios] = React.useState([])
-
-  async function getUsuarios() {
-    const u = await listaDeUsuariosApi()
-    setListaDeUsuarios(u)
-  
-  }
-  React.useEffect(()=>{
-    getUsuarios()
-  },[])
 
   const handleChangePrimeiro = (event) => {
     setPrimeiro(event.target.value);
@@ -91,7 +80,7 @@ export default function ModalColocacao() {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                {usuarios?.map((elem,key)=>{
+                {participantes?.map((elem,key)=>{
                   return <MenuItem value={elem.nome}>{elem.nome}</MenuItem>
                 })}
               </Select>
@@ -109,7 +98,7 @@ export default function ModalColocacao() {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                {usuarios?.map((elem,key)=>{
+                {participantes?.map((elem,key)=>{
                   return <MenuItem value={elem.nome}>{elem.nome}</MenuItem>
                 })}
               </Select>
@@ -127,7 +116,7 @@ export default function ModalColocacao() {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                {usuarios?.map((elem,key)=>{
+                {participantes?.map((elem,key)=>{
                   return <MenuItem value={elem.nome}>{elem.nome}</MenuItem>
                 })}
               </Select>
@@ -144,7 +133,7 @@ export default function ModalColocacao() {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                {usuarios?.map((elem,key)=>{
+                {participantes?.map((elem,key)=>{
                   return <MenuItem value={elem.nome}>{elem.nome}</MenuItem>
                 })}
               </Select>

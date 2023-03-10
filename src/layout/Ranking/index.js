@@ -57,7 +57,7 @@ export default function Ranking({Lista}) {
   }; 
 
   const [Temporada, setTemporada] = useState([])
-
+  
   const finalizarTemporada = async()=>{
     await adicionarSaldoApi(colocacao.primeiro,campeao,dispatch, loading)
     await adicionarSaldoApi(colocacao.segundo,viceCampeao,dispatch, loading)
@@ -69,9 +69,6 @@ export default function Ranking({Lista}) {
     await adicionarSaldoApi(buscaUsuarioPeloJogador(assistente.primeiro, Lista),assistencia, dispatch, loading)
     await adicionarSaldoApi(buscaUsuarioPeloJogador(assistente.segundo, Lista),viceAssistencia, dispatch, loading)
     await adicionarSaldoApi(buscaUsuarioPeloJogador(assistente.terceiro, Lista),terceiroAssistencia, dispatch, loading)
-    
-    
-    
     
     setTimeout(() => {   
       Lista.map(async(usuario)=>{
@@ -110,7 +107,6 @@ export default function Ranking({Lista}) {
   
   const participantes = useSelector(state=>state.participantesReducer.participantes)
   async function pagarFolha() {
-     const usuarios = await listaDeUsuariosApi()
      if (participantes.length === 0) {
        alert("não há participantes selecionados")
      }

@@ -24,7 +24,8 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import ModalAssistecia from "./modalAssistencia";
-
+import { listaDeUsuariosApi } from "../../api";
+import {useDispatch, useSelector} from 'react-redux'
 
 const regrasStyle = {
   color:"",
@@ -32,17 +33,26 @@ const regrasStyle = {
     color:"black"
   }
 }
-
-
 const settings = [<ModalCriarUsuario/>, <ModalDeletarUsuario/>];
-
 function Appbar() {
   const navigate = useNavigate()
+  const [usuarios, setListaDeUsuarios] = React.useState([])
+  const participantes = useSelector(state=>state.participantesReducer.participantes)
+  async function getUsuarios() {
+    const u = await listaDeUsuariosApi  ()
+    setListaDeUsuarios(u)
+  }
+  React.useEffect(()=>{
+    getUsuarios()
+
+  },[])
+  console.log(usuarios)
+  console.log(participantes)
   const pages = [
-    <ModalColocacao/>,
-    <ModalArtilharia/>,
-    <ModalAssistecia/>,
-    <ModalVitoriasEGols/>,
+    <ModalColocacao usuarios={usuarios} participantes={participantes}/>,
+    <ModalArtilharia usuarios={usuarios} participantes={participantes}/>,
+    <ModalAssistecia usuarios={usuarios} participantes={participantes}/>,
+    <ModalVitoriasEGols usuarios={usuarios} participantes={participantes}/>,
     <div onClick= {()=> navigate("/regras")} style={regrasStyle}>Regras</div>
   ];
   const [anchorElNav, setAnchorElNav] = React.useState(null);

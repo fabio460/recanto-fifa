@@ -5,30 +5,15 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import {listaDeUsuarios} from "../../Uteis" 
+
 import { useDispatch } from 'react-redux/es/exports';
 import { TextField } from '@mui/material';
-import { listaDeUsuariosApi } from '../../api';
-export default function ModalVitoriasEGols() {
+
+export default function ModalVitoriasEGols({participantes}) {
   const [open, setOpen] = React.useState(false);
   const [Gols, setGols] = useState([])
   const [Empates, setEmpates] = useState([])
   const [Vitorias, setVitorias] = useState([])
-
-  const [usuarios, setListaDeUsuarios] = React.useState([])
-
-  async function getUsuarios() {
-    const u = await listaDeUsuariosApi()
-    setListaDeUsuarios(u)
-  }
-  React.useEffect(()=>{
-    getUsuarios()
-  },[])
-
   const dispatch = useDispatch()
   const handleClose = () => {
     setOpen(false);
@@ -119,7 +104,7 @@ dispatch({
         </DialogTitle>
         <DialogContent sx={dialogStyle}>
           <DialogContentText id="alert-dialog-description" sx={{padding:"0px",}}>
-            {usuarios?.map((u,key)=>{
+            {participantes?.map((u,key)=>{
                 return (
                     <div>
                       <div style={{width:""}}>
