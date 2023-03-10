@@ -282,9 +282,27 @@ export const alterarTemporadaApi = async()=>{
       .then(r=>r.json())
 }
 
+export const bugadoPrataBronzeApi = async(id, bugado)=>{
+      if (id) {         
+         return await fetch(local+"usuario/bugado",{
+            method:'put',
+            headers:{
+               "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+               id, bugado
+            })
+         })
+         .then(res=>res.json())
+         .then(res=>{
+            console.log(res)
+            window.location.reload()
+         })
+         .then(res=>console.log(res))
+      }
+}
 
 export const alterarBugadoApi = async(id, bugado, contador)=>{
-
    if (contador < 3) {
       return await fetch(local+"usuario/bugado",{
          method:'put',
@@ -297,7 +315,7 @@ export const alterarBugadoApi = async(id, bugado, contador)=>{
       })
       .then(res=>res.json())
       .then(res=>{
-         console.log(res)
+         
          //window.location.reload()
       })
       .then(res=>console.log(res))

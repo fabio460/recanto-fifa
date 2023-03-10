@@ -2,7 +2,12 @@ import React,{useEffect, useState} from 'react'
 import "./ranking.css"
 import {useDispatch, useSelector} from 'react-redux'
 import { Button, CircularProgress } from '@mui/material'
-import { adicionarSaldoApi, alterarBugadoApi, listaDeUsuariosApi, pagarFolhaApi, selecionarTemporadaApi } from '../../api'
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import { adicionarSaldoApi, alterarBugadoApi, bugadoPrataBronze, bugadoPrataBronzeApi, listaDeUsuariosApi, pagarFolhaApi, selecionarTemporadaApi } from '../../api'
 import ModalPagarPremiasao from './modalPagarPremisao'
 import ModalPagarFolha from './modalPagarFolha'
 import { buscaUsuarioPeloJogador, CalculaBugado } from '../../Uteis'
@@ -39,76 +44,67 @@ export default function Ranking({Lista}) {
   const viceAssistencia = 7500;
   const terceiroAssistencia = 3500;
 
+  const [BugadoBronze, setBugadoBronze] = React.useState();
+  const handleBugadoBronze = (event) => {
+    setBugadoBronze(event.target.value);
+  }; 
+
+  const [BugadoPrata, setBugadoPrata] = React.useState();
+  const handleBugadoPrata = (event) => {
+    setBugadoPrata(event.target.value);
+  }; 
 
   const [Temporada, setTemporada] = useState([])
 
   const finalizarTemporada = async()=>{
-
-     await adicionarSaldoApi(colocacao.primeiro,campeao,dispatch, loading)
-     await adicionarSaldoApi(colocacao.segundo,viceCampeao,dispatch, loading)
-     await adicionarSaldoApi(colocacao.terceiro,terceiroColocado,dispatch, loading)
-     await adicionarSaldoApi(colocacao.quarto,quartoColocado,dispatch, loading)
-     
-     await adicionarSaldoApi(buscaUsuarioPeloJogador(artilharia.primeiro, Lista),artilheiro, dispatch, loading)
-     await adicionarSaldoApi(buscaUsuarioPeloJogador(artilharia.segundo, Lista),viceArtilheiro, dispatch, loading)
-     await adicionarSaldoApi(buscaUsuarioPeloJogador(artilharia.terceiro, Lista),terceiroArtilheiro, dispatch, loading)
-     
-
-     await adicionarSaldoApi(buscaUsuarioPeloJogador(assistente.primeiro, Lista),assistencia, dispatch, loading)
-     await adicionarSaldoApi(buscaUsuarioPeloJogador(assistente.segundo, Lista),viceAssistencia, dispatch, loading)
-     await adicionarSaldoApi(buscaUsuarioPeloJogador(assistente.terceiro, Lista),terceiroAssistencia, dispatch, loading)
-     
-     
-     setTimeout(() => {   
-      
-        Lista.map(async(usuario)=>{
-          let obj = CalculaBugado(usuario.nome,premioOuro,"ouro", usuario.id)
-          await alterarBugadoApi(obj.id, obj.premio, obj.contador)
+    await adicionarSaldoApi(colocacao.primeiro,campeao,dispatch, loading)
+    await adicionarSaldoApi(colocacao.segundo,viceCampeao,dispatch, loading)
+    await adicionarSaldoApi(colocacao.terceiro,terceiroColocado,dispatch, loading)
+    await adicionarSaldoApi(colocacao.quarto,quartoColocado,dispatch, loading)
+    await adicionarSaldoApi(buscaUsuarioPeloJogador(artilharia.primeiro, Lista),artilheiro, dispatch, loading)
+    await adicionarSaldoApi(buscaUsuarioPeloJogador(artilharia.segundo, Lista),viceArtilheiro, dispatch, loading)
+    await adicionarSaldoApi(buscaUsuarioPeloJogador(artilharia.terceiro, Lista),terceiroArtilheiro, dispatch, loading)
+    await adicionarSaldoApi(buscaUsuarioPeloJogador(assistente.primeiro, Lista),assistencia, dispatch, loading)
+    await adicionarSaldoApi(buscaUsuarioPeloJogador(assistente.segundo, Lista),viceAssistencia, dispatch, loading)
+    await adicionarSaldoApi(buscaUsuarioPeloJogador(assistente.terceiro, Lista),terceiroAssistencia, dispatch, loading)
+    
+    
+    
+    
+    setTimeout(() => {   
+      Lista.map(async(usuario)=>{
+        let obj = CalculaBugado(usuario.nome,premioOuro,"ouro", usuario.id)
+        await alterarBugadoApi(obj.id, obj.premio, obj.contador)
+      })
+      dados.gols?.map(async(e,key)=>{
+        await adicionarSaldoApi(e.nome,(gols)*e.gols,dispatch, loading)
+      })  
+      setTimeout(() => {         
+        dados.vitorias?.map(async(e,key)=>{
+          await adicionarSaldoApi(e.nome,(vitoria)*e.vitorias,dispatch, loading)
         })
-
-        // Lista.map(async(usuario)=>{
-        //   let obj = CalculaBugado(usuario.nome,premioPrata,"prata", usuario.id)
-        //   await alterarBugadoApi(obj.id, obj.premio, obj.contador)
-        // })
-
-        // Lista.map(async(usuario)=>{
-        //   let obj = CalculaBugado(usuario.nome,premioBronze,"bronze", usuario.id)
-        //   await alterarBugadoApi(obj.id, obj.premio, obj.contador)
-        // })
-
-        dados.gols?.map(async(e,key)=>{
-          await adicionarSaldoApi(e.nome,(gols)*e.gols,dispatch, loading)
-        })  
         setTimeout(() => {         
-          dados.vitorias?.map(async(e,key)=>{
-            await adicionarSaldoApi(e.nome,(vitoria)*e.vitorias,dispatch, loading)
+          dados.empates?.map(async(e,key)=>{
+            await adicionarSaldoApi(e.nome,(empates)*e.empates,dispatch, loading)
           })
-          setTimeout(() => {         
-            dados.empates?.map(async(e,key)=>{
-              await adicionarSaldoApi(e.nome,(empates)*e.empates,dispatch, loading)
-            })
-            alert("temporada finalizada com sucesso!")
-            window.location.reload()
-            if (colocacao.primeiro) {
-              alert("O usuário "+colocacao.primeiro+" ganhou o torneio")
-            }
-          }, 1000);
+          if (BugadoBronze) {
+            bugadoPrataBronzeApi(BugadoBronze,"bronze")
+          }
+           
+          if (BugadoPrata) {
+            bugadoPrataBronzeApi(BugadoPrata,"prata")
+          }
+          alert("temporada finalizada com sucesso!")
+          window.location.reload()
+          if (colocacao.primeiro) {
+            alert("O usuário "+colocacao.primeiro+" ganhou o torneio")
+          }
         }, 1000);
       }, 1000);
-    }
-   
+    }, 1000);
+  }
 
 
- 
-// console.log(CalculaBugado("Rodrigo",premioOuro,"ouro"))
-
-  const folha = useSelector(state=>state.pagamentoDeFolhaReducer.folha)
-  
-  const teste = useSelector((state)=>state.artilhariaRedux)
-
-
-
-  
 
   async function pagarFolha() {
      const usuarios = await listaDeUsuariosApi()
@@ -122,6 +118,7 @@ export default function Ranking({Lista}) {
       pagarFolhaApi(e.id, novoSaldo)
      })
   }  
+  console.log({BugadoBronze,BugadoPrata})
   return (
     <div>
       <div className='rankingContainer'>
@@ -171,7 +168,43 @@ export default function Ranking({Lista}) {
           })}
 
         </div>
-        <div></div>
+        <div>
+          <h3>Bugado prata e bronze</h3>
+          <Box sx={{ minWidth: 120 }}>
+            <FormControl fullWidth sx={{ m: "10px 0px", minWidth: "100%" }} size="small">
+              <InputLabel id="demo-simple-select-label">Hash trick</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={BugadoBronze}
+                label="BugadoBronze"
+                onChange={handleBugadoBronze}
+              >
+                <MenuItem value={null}>---</MenuItem>
+                {Lista.map(item=>{
+                  return  <MenuItem value={item.id}>{item.nome}</MenuItem>
+                })}
+              </Select>
+            </FormControl>
+          </Box>
+          <Box sx={{ minWidth: 120 }}>
+            <FormControl fullWidth sx={{ m: "", minWidth: "100%" }} size="small">
+              <InputLabel id="demo-simple-select-label">3 part sem sofrer gols</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={BugadoPrata}
+                label="BugadoBronze"
+                onChange={handleBugadoPrata}
+              >
+                <MenuItem value={null}>---</MenuItem>
+                {Lista.map(item=>{
+                  return  <MenuItem value={item.id}>{item.nome}</MenuItem>
+                })}
+              </Select>
+            </FormControl>
+          </Box>
+        </div>
         <div>
           <ModalPagarPremiasao finalizarTemporada={finalizarTemporada}/>
           <ModalPagarFolha pagarFolha={pagarFolha}/>
