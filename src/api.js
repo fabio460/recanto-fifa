@@ -63,21 +63,32 @@ export const atualizarUsuarioApi = async(id, nome, saldo, folha, time)=>{
     })
  }
 
- export const alterarSaldoApi = async(id, saldo)=>{
-   return await fetch(local+"usuario",{
-       method:'put',
-       headers:{
-          "Content-Type":"application/json"
-       },
-       body:JSON.stringify({
-          id, saldo
-       })
-    })
-    .then(res=>res.json())
-    .then(res=>{
-       window.location.reload()
-    })
- }
+ export const alterarSaldoApi = async(arrayPagamento, dispatch, loading)=>{
+   var fim = 0
+      dispatch({
+         type:"loading",
+         payload:{loading:true}
+      }) 
+   arrayPagamento.map(async(usuario, key)=>{   
+      fetch(local+"usuario",{
+         method:'put',
+         headers:{
+            "Content-Type":"application/json"
+         },
+         body:JSON.stringify({
+            id: usuario.id,
+            saldo: usuario.total
+         })
+      })
+      .then(res=>res.json())
+      .then(res=>{
+         fim++
+         if (fim === arrayPagamento.length) {
+            window.location.reload()
+         }
+      })
+   })
+}
 
  export const alterarFolhaApi = async(id, folha)=>{
    return await fetch(local+"usuario",{
@@ -111,31 +122,36 @@ export const atualizarUsuarioApi = async(id, nome, saldo, folha, time)=>{
        window.location.reload()
     })
  }
-
+ let arrayNomes = []
  export const adicionarSaldoApi = async(nome, valor=0,dispatch)=>{
-    if (nome) {      
-      dispatch({
-         type:"loading",
-         payload:{loading:true}
-      }) 
-      const usuario =await getUsuariosPeloNomeApi(nome)
-      return await fetch(local+"usuario",{
-          method:'put',
-          headers:{
-             "Content-Type":"application/json"
-          },
-          body:JSON.stringify({
-             id:usuario[0].id, saldo:(usuario[0].saldo + valor)
-          })
-       })
-       .then(res=>res.json())
-       .then(res=>{
-         dispatch({
-            type:"loading",
-            payload:{loading:false}
-         }) 
-       })
+   //  if (nome) {      
+   //    dispatch({
+   //       type:"loading",
+   //       payload:{loading:true}
+   //    }) 
+   //    const usuario =await getUsuariosPeloNomeApi(nome)
+   //    return await fetch(local+"usuario",{
+   //        method:'put',
+   //        headers:{
+   //           "Content-Type":"application/json"
+   //        },
+   //        body:JSON.stringify({
+   //           id:usuario[0].id, saldo:(usuario[0].saldo + valor)
+   //        })
+   //     })
+   //     .then(res=>res.json())
+   //     .then(res=>{
+   //       dispatch({
+   //          type:"loading",
+   //          payload:{loading:false}
+   //       }) 
+   //     })
+   // }
+   //arrayNomes.push({nome, valor})
+   if (nome !== '') {    
+      console.log({nome, valor})
    }
+   
 }
 
 export const deletarUsuarioApi = async(id)=>{

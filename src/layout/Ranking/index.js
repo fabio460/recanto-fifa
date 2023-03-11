@@ -7,7 +7,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { adicionarSaldoApi, alterarBugadoApi, alterarTemporadaApi, bugadoPrataBronze, bugadoPrataBronzeApi, listaDeUsuariosApi, pagarFolhaApi, selecionarTemporadaApi } from '../../api'
+import { adicionarSaldoApi, alterarBugadoApi, alterarSaldoApi, alterarTemporadaApi, bugadoPrataBronze, bugadoPrataBronzeApi, listaDeUsuariosApi, pagarFolhaApi, selecionarTemporadaApi } from '../../api'
 import ModalPagarPremiasao from './modalPagarPremisao'
 import ModalPagarFolha from './modalPagarFolha'
 import { buscaUsuarioPeloJogador, CalculaBugado } from '../../Uteis'
@@ -58,55 +58,120 @@ export default function Ranking({Lista, temporada}) {
   }; 
 
   const [Temporada, setTemporada] = useState([])
-  
+  var arrayPagamento = []
+  var arrayNome = []
+  let pagamento = []
   const finalizarTemporada = async()=>{
-    await adicionarSaldoApi(colocacao.primeiro,campeao,dispatch, loading)
-    await adicionarSaldoApi(colocacao.segundo,viceCampeao,dispatch, loading)
-    await adicionarSaldoApi(colocacao.terceiro,terceiroColocado,dispatch, loading)
-    await adicionarSaldoApi(colocacao.quarto,quartoColocado,dispatch, loading)
-    await adicionarSaldoApi(buscaUsuarioPeloJogador(artilharia.primeiro, Lista),artilheiro, dispatch, loading)
-    await adicionarSaldoApi(buscaUsuarioPeloJogador(artilharia.segundo, Lista),viceArtilheiro, dispatch, loading)
-    await adicionarSaldoApi(buscaUsuarioPeloJogador(artilharia.terceiro, Lista),terceiroArtilheiro, dispatch, loading)
-    await adicionarSaldoApi(buscaUsuarioPeloJogador(assistente.primeiro, Lista),assistencia, dispatch, loading)
-    await adicionarSaldoApi(buscaUsuarioPeloJogador(assistente.segundo, Lista),viceAssistencia, dispatch, loading)
-    await adicionarSaldoApi(buscaUsuarioPeloJogador(assistente.terceiro, Lista),terceiroAssistencia, dispatch, loading)
+    handlePagamentos(colocacao.primeiro,campeao,dispatch, loading)
+    handlePagamentos(colocacao.segundo,viceCampeao,dispatch, loading)
+    handlePagamentos(colocacao.terceiro,terceiroColocado,dispatch, loading)
+    handlePagamentos(colocacao.quarto,quartoColocado,dispatch, loading)
+    handlePagamentos(buscaUsuarioPeloJogador(artilharia.primeiro, Lista),artilheiro, dispatch, loading)
+    handlePagamentos(buscaUsuarioPeloJogador(artilharia.segundo, Lista),viceArtilheiro, dispatch, loading)
+    handlePagamentos(buscaUsuarioPeloJogador(artilharia.terceiro, Lista),terceiroArtilheiro, dispatch, loading)
+    handlePagamentos(buscaUsuarioPeloJogador(assistente.primeiro, Lista),assistencia, dispatch, loading)
+    handlePagamentos(buscaUsuarioPeloJogador(assistente.segundo, Lista),viceAssistencia, dispatch, loading)
+    handlePagamentos(buscaUsuarioPeloJogador(assistente.terceiro, Lista),terceiroAssistencia, dispatch, loading)
     
-    setTimeout(() => {   
-      Lista.map(async(usuario)=>{
-        let obj = CalculaBugado(usuario.nome,premioOuro,"ouro", usuario.id)
-        await alterarBugadoApi(obj.id, obj.premio, obj.contador)
+    dados.gols?.map(async(e,key)=>{
+      handlePagamentos(e.nome,(gols)*e.gols,dispatch, loading)
+    }) 
+
+    dados.vitorias?.map(async(e,key)=>{
+      handlePagamentos(e.nome,(vitoria)*e.vitorias,dispatch, loading)
+    })
+    dados.empates?.map(async(e,key)=>{
+      handlePagamentos(e.nome,(empates)*e.empates,dispatch, loading)
+    })
+
+
+    let Usuarios = selecionarUsuariosPagamento(arrayNome)
+    let UsuariosDaLista = []
+    Usuarios.map(a=>{
+      let aux = Lista.filter(e=>{
+        if (e.nome === a) {
+          UsuariosDaLista.push(e)
+          return e
+        }
       })
-      dados.gols?.map(async(e,key)=>{
-        await adicionarSaldoApi(e.nome,(gols)*e.gols,dispatch, loading)
-      })  
-      setTimeout(() => {         
-        dados.vitorias?.map(async(e,key)=>{
-          await adicionarSaldoApi(e.nome,(vitoria)*e.vitorias,dispatch, loading)
-        })
-        setTimeout(() => {         
-          dados.empates?.map(async(e,key)=>{
-            await adicionarSaldoApi(e.nome,(empates)*e.empates,dispatch, loading)
+     
+    })
+    Usuarios.map(e=>{
+      let soma = 0
+      arrayPagamento.map(u=>{
+        if (e === u.nome) {
+          soma+= u.valor
+        }
+      })
+      let usuario = {nome:e,soma}
+     
+      UsuariosDaLista.map(u=>{
+        if (u.nome === usuario.nome) {
+          return pagamento.push({
+            id: u.id,
+            total: u.saldo + soma
           })
-          if (BugadoBronze) {
-            bugadoPrataBronzeApi(BugadoBronze,"bronze")
-          }
+        }
+      })
+     
+    })
+    alterarSaldoApi(pagamento, dispatch, loading)
+    pagamento = []
+    if (temporada.numero === 2) {
+      pagarFolha()
+    }
+    alterarTemporadaApi()
+
+    function handlePagamentos(nome, valor) {
+      if (nome !== '') {     
+        arrayPagamento.push({nome, valor})
+        arrayNome.push(nome)
+      }
+    }
+  
+    function selecionarUsuariosPagamento(array) {
+      return [... new Set(array)]
+    }
+    // setTimeout(() => {   
+    //   Lista.map(async(usuario)=>{
+    //     let obj = CalculaBugado(usuario.nome,premioOuro,"ouro", usuario.id)
+    //     await alterarBugadoApi(obj.id, obj.premio, obj.contador)
+    //   })
+    //   dados.gols?.map(async(e,key)=>{
+    //     handlePagamentos(e.nome,(gols)*e.gols,dispatch, loading)
+    //   })  
+    //   setTimeout(() => {         
+    //     dados.vitorias?.map(async(e,key)=>{
+    //       handlePagamentos(e.nome,(vitoria)*e.vitorias,dispatch, loading)
+    //     })
+    //     setTimeout(() => {         
+    //       dados.empates?.map(async(e,key)=>{
+    //         handlePagamentos(e.nome,(empates)*e.empates,dispatch, loading)
+    //       })
+    //       if (BugadoBronze) {
+    //         bugadoPrataBronzeApi(BugadoBronze,"bronze")
+    //       }
            
-          if (BugadoPrata) {
-            bugadoPrataBronzeApi(BugadoPrata,"prata")
-          }
-          if (temporada.numero === 2) {
-            pagarFolha()
-          }
-          alterarTemporadaApi()
-          alert("temporada finalizada com sucesso!")
-          window.location.reload()
-          if (colocacao.primeiro) {
-            alert("O usuário "+colocacao.primeiro+" ganhou o torneio")
-          }
-        }, 1000);
-      }, 1000);
-    }, 1000);
+    //       if (BugadoPrata) {
+    //         bugadoPrataBronzeApi(BugadoPrata,"prata")
+    //       }
+    //       if (temporada.numero === 2) {
+    //         pagarFolha()
+    //       }
+    //       alterarTemporadaApi()
+    //       alert("temporada finalizada com sucesso!")
+    //       window.location.reload()
+    //       if (colocacao.primeiro) {
+    //         alert("O usuário "+colocacao.primeiro+" ganhou o torneio")
+    //       }
+    //     }, 1000);
+    //   }, 1000);
+    // }, 1000);
   }
+
+  
+
+  
 
   const participantes = useSelector(state=>state.participantesReducer.participantes)
   async function pagarFolha() {
