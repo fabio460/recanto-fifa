@@ -115,23 +115,22 @@ export default function Ranking({Lista, temporada}) {
       })
      
     })
-    alterarSaldoApi(pagamento, dispatch, loading)
-    pagamento = []
-    if (temporada.numero === 2) {
-      pagarFolha()
-    }
-    alterarTemporadaApi()
-
+    
     function handlePagamentos(nome, valor) {
       if (nome !== '') {     
         arrayPagamento.push({nome, valor})
         arrayNome.push(nome)
       }
     }
-  
+    
     function selecionarUsuariosPagamento(array) {
       return [... new Set(array)]
     }
+
+    alterarSaldoApi(pagamento, dispatch, temporada, pagarFolha)
+    alterarTemporadaApi()
+    pagamento = []
+ 
     // setTimeout(() => {   
     //   Lista.map(async(usuario)=>{
     //     let obj = CalculaBugado(usuario.nome,premioOuro,"ouro", usuario.id)
@@ -170,9 +169,6 @@ export default function Ranking({Lista, temporada}) {
   }
 
   
-
-  
-
   const participantes = useSelector(state=>state.participantesReducer.participantes)
   async function pagarFolha() {
      if (participantes.length === 0) {
@@ -189,6 +185,7 @@ export default function Ranking({Lista, temporada}) {
      })
   }  
  
+
   
   return (
     <div>

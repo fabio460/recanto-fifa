@@ -63,7 +63,7 @@ export const atualizarUsuarioApi = async(id, nome, saldo, folha, time)=>{
     })
  }
 
- export const alterarSaldoApi = async(arrayPagamento, dispatch, loading)=>{
+ export const alterarSaldoApi = async(arrayPagamento, dispatch, temporada, pagarFolha)=>{
    var fim = 0
       dispatch({
          type:"loading",
@@ -83,7 +83,7 @@ export const atualizarUsuarioApi = async(id, nome, saldo, folha, time)=>{
       .then(res=>res.json())
       .then(res=>{
          fim++
-         if (fim === arrayPagamento.length) {
+         if (fim === arrayPagamento.length && fim !== 0) {            
             window.location.reload()
          }
       })
