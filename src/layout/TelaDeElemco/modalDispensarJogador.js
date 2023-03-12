@@ -42,7 +42,7 @@ export default function ModalDispensarJogador({jogador, usuario}) {
     const novoValorDoSaldo = usuario.saldo + valorGanho
     const Confirmar = ()=>{
         deletarJogadorApi(jogador.id)
-        alterarSaldoApi(usuario.id,novoValorDoSaldo)
+        adicionarSaldoApi(usuario.id,novoValorDoSaldo)
         alert("Jogador "+jogador.label+" libarado, você recebeu "+valorGanho.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}))
         handleClose()
     }

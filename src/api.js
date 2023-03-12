@@ -126,40 +126,30 @@ export const atualizarUsuarioApi = async(id, nome, saldo, folha, time)=>{
          console.log(usuariosParaPagar.length)
          if (usuariosParaPagar.length === fim) {      
             alert("Pagamento da folha realizado!")
-            //window.location.reload()
+            window.location.reload()
          }
        })
    })
  }
  let arrayNomes = []
- export const adicionarSaldoApi = async(nome, valor=0,dispatch)=>{
-   //  if (nome) {      
-   //    dispatch({
-   //       type:"loading",
-   //       payload:{loading:true}
-   //    }) 
-   //    const usuario =await getUsuariosPeloNomeApi(nome)
-   //    return await fetch(local+"usuario",{
-   //        method:'put',
-   //        headers:{
-   //           "Content-Type":"application/json"
-   //        },
-   //        body:JSON.stringify({
-   //           id:usuario[0].id, saldo:(usuario[0].saldo + valor)
-   //        })
-   //     })
-   //     .then(res=>res.json())
-   //     .then(res=>{
-   //       dispatch({
-   //          type:"loading",
-   //          payload:{loading:false}
-   //       }) 
-   //     })
-   // }
-   //arrayNomes.push({nome, valor})
-   if (nome !== '') {    
-      console.log({nome, valor})
+ export const adicionarSaldoApi = async(id, valor=0)=>{
+    if (id) {      
+      return await fetch(local+"usuario",{
+          method:'put',
+          headers:{
+             "Content-Type":"application/json"
+          },
+          body:JSON.stringify({
+             id, saldo:valor
+          })
+       })
+       .then(res=>res.json())
+       .then(res=>{
+         alert("Despensa realizada com sucesso!")
+         window.location.reload()
+       })
    }
+ 
    
 }
 
