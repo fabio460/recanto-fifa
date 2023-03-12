@@ -21,6 +21,7 @@ export default function Ranking({Lista, temporada}) {
   const artilharia = useSelector(state=>state.artilhariaRedux.artilheiros)
   const assistente = useSelector(state=>state.assisteciaReducer.assistentes)
   const dados = useSelector(state=>state.golsEmpVitoriasRedux.dados)
+  const participantes = useSelector(state=>state.participantesReducer.participantes)
   const dispatch = useDispatch()
   const loading = useSelector(state=>state.loadingReducer.loading)
   
@@ -61,6 +62,7 @@ export default function Ranking({Lista, temporada}) {
   var arrayPagamento = []
   var arrayNome = []
   let pagamento = []
+
   const finalizarTemporada = async()=>{
     handlePagamentos(colocacao.primeiro,campeao,dispatch, loading)
     handlePagamentos(colocacao.segundo,viceCampeao,dispatch, loading)
@@ -84,7 +86,6 @@ export default function Ranking({Lista, temporada}) {
       handlePagamentos(e.nome,(empates)*e.empates,dispatch, loading)
     })
 
-
     let Usuarios = selecionarUsuariosPagamento(arrayNome)
     let UsuariosDaLista = []
     Usuarios.map(a=>{
@@ -94,8 +95,8 @@ export default function Ranking({Lista, temporada}) {
           return e
         }
       })
-     
     })
+
     Usuarios.map(e=>{
       let soma = 0
       arrayPagamento.map(u=>{
@@ -112,8 +113,7 @@ export default function Ranking({Lista, temporada}) {
             total: u.saldo + soma
           })
         }
-      })
-     
+      }) 
     })
     
     function handlePagamentos(nome, valor) {
@@ -127,9 +127,15 @@ export default function Ranking({Lista, temporada}) {
       return [... new Set(array)]
     }
 
-    alterarSaldoApi(pagamento, dispatch, temporada, pagarFolha)
-    alterarTemporadaApi()
-    pagamento = []
+    
+    if (UsuariosDaLista.length === 0) {
+      alert("não há premiaçôes selecionadas")
+    }else{
+      alterarSaldoApi(pagamento, dispatch)
+      alterarTemporadaApi()
+      pagamento = []
+      alert("Temporada finalizada com sucesso com o "+colocacao.primeiro+" campeão!")
+    }
  
     // setTimeout(() => {   
     //   Lista.map(async(usuario)=>{
@@ -168,24 +174,23 @@ export default function Ranking({Lista, temporada}) {
     // }, 1000);
   }
 
-  
-  const participantes = useSelector(state=>state.participantesReducer.participantes)
+
   async function pagarFolha() {
      if (participantes.length === 0) {
        alert("não há participantes selecionados")
+     }else{
+       participantes?.map(e=>{
+        let soma = 0
+        e.selecionado.jogadore?.map(j=>{
+          soma+= j.valor
+        })
+        let total = soma*0.03
+        let novoSaldo = e.selecionado.saldo - total
+        pagarFolhaApi(e.selecionado.id, novoSaldo)
+       })
      }
-     participantes?.map(e=>{
-      let soma = 0
-      e.selecionado.jogadore?.map(j=>{
-        soma+= j.valor
-      })
-      let total = soma*0.03
-      let novoSaldo = e.selecionado.saldo - total
-      pagarFolhaApi(e.selecionado.id, novoSaldo)
-     })
   }  
  
-
   
   return (
     <div>

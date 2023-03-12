@@ -63,7 +63,7 @@ export const atualizarUsuarioApi = async(id, nome, saldo, folha, time)=>{
     })
  }
 
- export const alterarSaldoApi = async(arrayPagamento, dispatch, temporada, pagarFolha)=>{
+ export const alterarSaldoApi = async(arrayPagamento, dispatch)=>{
    var fim = 0
       dispatch({
          type:"loading",
@@ -302,7 +302,8 @@ export const alterarTemporadaApi = async()=>{
       })
       .then(r=>r.json())
    }else{
-      return await fetch(local+"temporada",{
+      
+      await fetch(local+"temporada",{
          method:'put',
          headers:{
             "Content-Type":"application/json"
@@ -312,6 +313,7 @@ export const alterarTemporadaApi = async()=>{
          })
       })
       .then(r=>r.json())
+      alert("Termino da 2º temporada, efetue o pagamento da folha!")
    }
 }
 

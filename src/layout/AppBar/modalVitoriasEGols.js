@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -29,8 +29,9 @@ export default function ModalVitoriasEGols({participantes}) {
     setOpen(true);
   };
   let invalido =  (/^(?=.*[ a-zA-Z@#$%º¢£&!'"-+/\(\)\ \`\\\|\{\}\[\]\~\^\:\;\.\, ])/); 
+
  const handleGols = (gols,nome)=>{
-   
+  console.log(gols)
   if (invalido.test(gols)) {
     alert("Este campo contem caractere não numerico")
   }else{
@@ -39,9 +40,10 @@ export default function ModalVitoriasEGols({participantes}) {
          return e
      }
     }) 
-    setGols([...filtro,{gols:parseInt(gols),nome,item:"gols"}])
+    setGols([...filtro,{gols:gols? parseInt(gols): 0,nome,item:"gols"}])
   }
  }
+
 
  const handleEmpates = (empates,nome)=>{
     if (invalido.test(empates)) {
@@ -87,6 +89,7 @@ dispatch({
       padding:"0px",
     }
   }
+
   return (
     <div>
       <div onClick={handleClickOpen}>
@@ -104,6 +107,7 @@ dispatch({
         </DialogTitle>
         <DialogContent sx={dialogStyle}>
           <DialogContentText id="alert-dialog-description" sx={{padding:"0px",}}>
+            {participantes?.length === 0 && <div>Não há participantes selecionados</div>}
             {participantes?.map((u,key)=>{
                 return (
                     <div>
@@ -116,6 +120,7 @@ dispatch({
                             label="gols" 
                             sx={{}}
                             onChange={e=> handleGols(e.target.value,u.nome)}
+                            
                           />
                           <TextField 
                             size='small' 
