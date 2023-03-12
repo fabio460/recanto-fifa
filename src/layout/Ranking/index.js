@@ -7,7 +7,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { adicionarSaldoApi, alterarBugadoApi, alterarSaldoApi, alterarTemporadaApi, bugadoPrataBronze, bugadoPrataBronzeApi, listaDeUsuariosApi, pagarFolhaApi, selecionarTemporadaApi } from '../../api'
+import { adicionarSaldoApi, alterarBugadoApi, alterarSaldoApi, alterarTemporadaApi, bugadoPrataBronze, bugadoPrataBronzeApi, getTemporadaApi, listaDeUsuariosApi, pagarFolhaApi, selecionarTemporadaApi } from '../../api'
 import ModalPagarPremiasao from './modalPagarPremisao'
 import ModalPagarFolha from './modalPagarFolha'
 import { buscaUsuarioPeloJogador, CalculaBugado } from '../../Uteis'
@@ -126,17 +126,17 @@ export default function Ranking({Lista, temporada}) {
     function selecionarUsuariosPagamento(array) {
       return [... new Set(array)]
     }
-
-    
     if (UsuariosDaLista.length === 0) {
       alert("não há premiaçôes selecionadas")
     }else{
-      alterarSaldoApi(pagamento, dispatch)
-      alterarTemporadaApi()
+      //pagamentoAutomatico()
+      alterarSaldoApi(pagamento, dispatch, pagarFolha)
+      alterarTemporadaApi(pagarFolha)
       pagamento = []
-      alert("Temporada finalizada com sucesso com o "+colocacao.primeiro+" campeão!")
+      alert("Temporada finalizada com sucesso com o "+colocacao.primeiro+" campeão!") 
+      //pagarFolha()
     }
- 
+   
     // setTimeout(() => {   
     //   Lista.map(async(usuario)=>{
     //     let obj = CalculaBugado(usuario.nome,premioOuro,"ouro", usuario.id)
@@ -173,12 +173,19 @@ export default function Ranking({Lista, temporada}) {
     //   }, 1000);
     // }, 1000);
   }
+  
+  function pagamentoAutomatico() {
+     if (temporada === 2) {
+        pagarFolha()  
+     }
+  }
+  
 
-
-  async function pagarFolha() {
+   function pagarFolha() {
      if (participantes.length === 0) {
        alert("não há participantes selecionados")
      }else{
+       let usuariosParaPagar = []
        participantes?.map(e=>{
         let soma = 0
         e.selecionado.jogadore?.map(j=>{
@@ -186,8 +193,12 @@ export default function Ranking({Lista, temporada}) {
         })
         let total = soma*0.03
         let novoSaldo = e.selecionado.saldo - total
-        pagarFolhaApi(e.selecionado.id, novoSaldo)
+        usuariosParaPagar.push({
+          id: e.selecionado.id, novoSaldo
+        })
        })
+       pagarFolhaApi(usuariosParaPagar)
+       //alert("folha paga com sucesso")
      }
   }  
  

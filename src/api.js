@@ -63,7 +63,7 @@ export const atualizarUsuarioApi = async(id, nome, saldo, folha, time)=>{
     })
  }
 
- export const alterarSaldoApi = async(arrayPagamento, dispatch)=>{
+ export const alterarSaldoApi = async(arrayPagamento, dispatch, pagarFolha)=>{
    var fim = 0
       dispatch({
          type:"loading",
@@ -83,7 +83,7 @@ export const atualizarUsuarioApi = async(id, nome, saldo, folha, time)=>{
       .then(res=>res.json())
       .then(res=>{
          fim++
-         if (fim === arrayPagamento.length && fim !== 0) {            
+         if (fim === arrayPagamento.length && fim !== 0) {    
             window.location.reload()
          }
       })
@@ -106,21 +106,30 @@ export const atualizarUsuarioApi = async(id, nome, saldo, folha, time)=>{
     })
  }
 
- export const pagarFolhaApi = async(id, saldo)=>{
-   return await fetch(local+"usuario",{
-       method:'put',
-       headers:{
-          "Content-Type":"application/json"
-       },
-       body:JSON.stringify({
-          id, saldo
+ export const pagarFolhaApi = async(usuariosParaPagar)=>{
+   let fim = 0
+   usuariosParaPagar.map(usuario=>{
+      fetch(local+"usuario",{
+          method:'put',
+          headers:{
+             "Content-Type":"application/json"
+          },
+          body:JSON.stringify({
+             id: usuario.id, 
+             saldo: usuario.novoSaldo
+          })
        })
-    })
-    .then(res=>res.json())
-    .then(res=>{
-       console.log(res)
-       window.location.reload()
-    })
+       .then(res=>res.json())
+       .then(res=>{
+         fim++
+         console.log(fim)
+         console.log(usuariosParaPagar.length)
+         if (usuariosParaPagar.length === fim) {      
+            alert("Pagamento da folha realizado!")
+            //window.location.reload()
+         }
+       })
+   })
  }
  let arrayNomes = []
  export const adicionarSaldoApi = async(nome, valor=0,dispatch)=>{
@@ -196,7 +205,6 @@ export const adicionarJogadorApi = async(
    dispatch 
 )=>{
       const usuario =await getUsuariosPorIdApi(idUsuario)
-      console.log(usuario)
          await fetch(local+"usuario",{
             method:'put',
             headers:{
@@ -288,7 +296,7 @@ export const getTemporadaApi = async()=>{
       .then(r=>r.json())
 }
 
-export const alterarTemporadaApi = async()=>{
+export const alterarTemporadaApi = async(pagarFolha)=>{
    const temporadaAtual = await getTemporadaApi()
    if (temporadaAtual.numero === 1) {      
       return await fetch(local+"temporada",{
@@ -302,7 +310,6 @@ export const alterarTemporadaApi = async()=>{
       })
       .then(r=>r.json())
    }else{
-      
       await fetch(local+"temporada",{
          method:'put',
          headers:{
@@ -313,7 +320,9 @@ export const alterarTemporadaApi = async()=>{
          })
       })
       .then(r=>r.json())
-      alert("Termino da 2º temporada, efetue o pagamento da folha!")
+      .then(r=>{
+         alert("Termino da 2º temporada, efetue o pagamento da folha!")
+      })
    }
 }
 
