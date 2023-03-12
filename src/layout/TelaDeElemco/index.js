@@ -102,7 +102,7 @@ export default function TelaDeElenco() {
                     >Comprar</div>
                   </MenuItem>
                   <MenuItem >
-                    <ModalAtualizarUsuario id={id} fechar={handleClose} usuario={usuario}/> 
+                    <ModalAtualizarUsuario id={id} fechar={handleClose} usuario={usuario} /> 
                   </MenuItem>
                 </Menu>
               </div>
@@ -136,8 +136,8 @@ export default function TelaDeElenco() {
                                 <td>{elem.valor.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</td>
                                 <td style={{display:"flex",justifyContent:"flex-end"}}>
                                   {/* <button onClick={()=> despensar(elem.id)} className='btn btn-danger me-3'>Despensar</button> */}
-                                  <ModalDispensarJogador jogador={elem} usuario={usuario}/>  
-                                  <ModalTransferirJogador id={elem.id} usuario={usuario}/>
+                                  <ModalDispensarJogador jogador={elem} usuario={usuario} carregando={carregando}/>  
+                                  <ModalTransferirJogador id={elem.id} usuario={usuario} carregando={carregando}/>
                                 </td>
                             </tr>
                         )

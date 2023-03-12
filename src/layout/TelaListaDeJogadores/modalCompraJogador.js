@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel/InputLabel';
 
-export default function ModalComprar({jogador, idUsuario, Saldo}) {
+export default function ModalComprar({jogador, idUsuario, Saldo, nomeDoComprador}) {
   const [open, setOpen] = React.useState(false);
   const [valor, setValor] = React.useState()
   const handleClickOpen = () => {
@@ -35,8 +35,13 @@ export default function ModalComprar({jogador, idUsuario, Saldo}) {
       alert("Você não tem saldo suficiente")
     } else {      
       if (jogadorDisponivel) {
-        console.log(jogadorDisponivel.usuario.nome)
-        alert("Voçê não pode adiquirir este jogador, pois ele pertence ao "+jogadorDisponivel.usuario.nome)
+        if (nomeDoComprador === jogadorDisponivel.usuario.nome) {
+          alert("Este jogador já esta no seu elenco")
+        } else {     
+          alert("Voçê não pode adiquirir este jogador, pois ele pertence ao "
+            + jogadorDisponivel.usuario.nome
+          )
+        }
       } else {  
         if (valor < 0 ) {
           alert("valor não pode ser negativo")

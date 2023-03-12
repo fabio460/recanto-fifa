@@ -12,8 +12,8 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import { useDispatch } from 'react-redux/es/exports';
-import {listaDeUsuariosApi, transferenciaDeJogadorApi } from '../../api';
-export default function ModalTransferirJogador({id, usuario}) {
+import {listaDeUsuariosApi, transferenciaDeJogadorApi, getUsuariosPorIdApi } from '../../api';
+export default function ModalTransferirJogador({id, usuario, carregando}) {
     const [usuarios, setUsuarios] = useState([])
     const [value, setValue] = React.useState(null);  
     const [open, setOpen] = React.useState(false);
@@ -36,24 +36,29 @@ export default function ModalTransferirJogador({id, usuario}) {
         }
     }
     
-    const Confirmar = ()=>{
-        let idUsuario = age
+    const Confirmar = async()=>{
+        let idUsuarioTransferido = age
         let invalido =  (/^(?=.*[ a-zA-Z@#$%º¢£&!'"-+/\(\)\ \`\\\|\{\}\[\]\~\^\:\; ])/);   
         let valorComVirgula = valor.replace(",",".")
-  
-         if (valor < 0 ) {
-          alert("valor não pode ser negativo")
-         } else {
-           if (invalido.test(valor)) {
-              alert("Este campo contem caractere não numerico")
-           } else {
-             if (valor === "" || !valor) {
-              alert("Este campo não pode estar em branco")
-             } else {
-               transferenciaDeJogadorApi(id, idUsuario, parseFloat(valorComVirgula))
-             }
-           }
-         }       
+        const usuarioTransferido = await getUsuariosPorIdApi(idUsuarioTransferido)
+        if (usuarioTransferido.saldo < valor) {
+          alert("o usuario "+usuarioTransferido.nome+" não tem saldo suficiente para a transferência!")
+        }else{
+          if (valor < 0 ) {
+           alert("valor não pode ser negativo")
+          } else {
+            if (invalido.test(valor)) {
+               alert("Este campo contem caractere não numerico")
+            } else {
+              if (valor === "" || !valor) {
+               alert("Este campo não pode estar em branco")
+              } else {
+                transferenciaDeJogadorApi(id, idUsuarioTransferido, parseFloat(valorComVirgula), dispatch)
+              }
+            }
+          }       
+        }
+        
     }
 
     async function getUsuarios() {
@@ -64,14 +69,11 @@ export default function ModalTransferirJogador({id, usuario}) {
           }
         })
         setUsuarios(l)
-        
     }
     useEffect(()=>{
         getUsuarios()
       },[value])
-
     const [age, setAge] = React.useState('');
-
     const handleChange = (event) => {
         setAge(event.target.value);
     };  
@@ -96,32 +98,30 @@ export default function ModalTransferirJogador({id, usuario}) {
             sx={{display:"flex",flexDirection:"column",minHeight:200}}
             >
                <div style={{}}>
-                
-                    <Box sx={{ minWidth: 100 }}>
-                        <FormControl sx={{ m: "5px 0px", minWidth: "100%" }} size="small">
-                            <InputLabel id="demo-simple-select-label">Transferir para</InputLabel>
-                            <Select
-                              sx={{}}
-                              labelId="demo-simple-select-label"
-                              id="demo-simple-select"
-                              value={age}
-                              size="small"
-                              label="Transferir para"
-                              onChange={handleChange}
-                            >
-                                { usuarios?.map((e,key)=>{
-                                    return <MenuItem value={e.id}>{e.nome}</MenuItem>
-                                })}
-                            </Select>
-                        </FormControl>
-                        <TextField onChange={e=>setValor(e.target.value)} label="Valor da transferência" size='small' sx={{marginTop:"12px", width:"100%"}}/>
-
-                    </Box>
+                  <Box sx={{ minWidth: 100 }}>
+                      <FormControl sx={{ m: "5px 0px", minWidth: "100%" }} size="small">
+                          <InputLabel id="demo-simple-select-label">Transferir para</InputLabel>
+                          <Select
+                            sx={{}}
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={age}
+                            size="small"
+                            label="Transferir para"
+                            onChange={handleChange}
+                          >
+                              { usuarios?.map((e,key)=>{
+                                  return <MenuItem value={e.id}>{e.nome}</MenuItem>
+                              })}
+                          </Select>
+                      </FormControl>
+                      <TextField onChange={e=>setValor(e.target.value)} label="Valor da transferência" size='small' sx={{marginTop:"12px", width:"100%"}}/>
+                  </Box>
                 </div>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={Confirmar}>Confirmar</Button>
+          <Button onClick={Confirmar}>{carregando ? "Confirmar" : "carregando..."}</Button>
           <Button onClick={handleClose} autoFocus color='error'>
             Cancelar
           </Button>

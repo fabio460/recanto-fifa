@@ -86,7 +86,7 @@ import { Box } from '@mui/system'
                               <td>{elem.OVER}</td>
                               <td>{elem.Posicao}</td> 
                               <td className='btnComprar'>
-                                <ModalComprar jogador={elem} idUsuario={Usuario.id} Saldo={Usuario.saldo}/>
+                                <ModalComprar jogador={elem} idUsuario={Usuario.id} Saldo={Usuario.saldo} nomeDoComprador={Usuario.nome}/>
                               </td>
                           </tr>
                       )

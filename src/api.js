@@ -242,7 +242,10 @@ export const adicionarJogadorApi = async(
 
 export const transferenciaDeJogadorApi = async(id,idUsuario, valor=0,dispatch, loading)=>{
    if (id && idUsuario) {      
-
+      dispatch({
+         type:"loading",
+         payload:{loading:true}
+      }) 
      await fetch(local+"jogador/transferenciaMonetaria",{
          method:'put',
          headers:{
