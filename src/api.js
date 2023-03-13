@@ -64,7 +64,7 @@ export const atualizarUsuarioApi = async(id, nome, saldo, folha, time)=>{
  }
 
  export const alterarSaldoApi = async(arrayPagamento, dispatch,)=>{
-   let temporada = 2
+   let temporada = 1
    var fim = 0
       // dispatch({
       //    type:"loading",
