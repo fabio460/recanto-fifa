@@ -110,7 +110,8 @@ export default function Ranking({Lista, temporada}) {
         if (u.nome === usuario.nome) {
           return pagamento.push({
             id: u.id,
-            total: u.saldo + soma
+            total: u.saldo + soma,
+            UsuariosDaLista
           })
         }
       }) 
@@ -129,12 +130,10 @@ export default function Ranking({Lista, temporada}) {
     if (UsuariosDaLista.length === 0) {
       alert("não há premiaçôes selecionadas")
     }else{
-      //pagamentoAutomatico()
-      alterarSaldoApi(pagamento, dispatch, pagarFolha)
-      alterarTemporadaApi(pagarFolha)
+      alterarSaldoApi(pagamento, dispatch)
+      //alterarTemporadaApi(pagarFolha)
       pagamento = []
-      alert("Temporada finalizada com sucesso com o "+colocacao.primeiro+" campeão!") 
-      //pagarFolha()
+      //alert("Temporada finalizada com sucesso com o "+colocacao.primeiro+" campeão!") 
     }
    
     // setTimeout(() => {   
@@ -202,6 +201,14 @@ export default function Ranking({Lista, temporada}) {
      }
   }  
  
+  function contadorFolha(arr, nome) {
+    let soma = 0
+    arr.map((elem:any)=>{
+       soma += elem.valor
+    })
+    let total = soma*0.03
+    return total
+  }
   
   return (
     <div>
