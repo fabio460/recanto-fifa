@@ -17,6 +17,32 @@ export default function Regras() {
     "Negociações de empréstimos ou compras seram feitas apenas no final com inicio de uma temporada(torneio)",
     "Jogador com custo ZERO não são negociáveis"
   ]
+
+    
+  let pessoas = [
+    {
+      nome:"fabio",
+      idade:5
+    },
+    {
+      nome:"ana",
+      idade:10
+    },
+    {
+      nome:"carlos",
+      idade:8
+    }
+  ]
+
+//   function ordena(array, por) {
+//     array.map((a,b)=>{
+//        return    
+//     })
+//   }
+//   let p = pessoas.sort((a,b)=> {
+//     return a.idade < b.idade ? -1 : a.idade > b.idade ? 1 : 0;
+//   });
+// console.log(p) 
   return (
     <div className='RegrasContainer'>
       <h1>Regras</h1>

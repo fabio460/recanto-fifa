@@ -28,7 +28,10 @@ import { Box } from '@mui/system'
           return e
         }
       })
-      setlistaJogadores(p)
+      var ordenada = p.sort((a,b)=>{
+        return a.OVER < b.OVER ? -1 : a.OVER > b.OVER ? 1 : 0;
+      })
+      setlistaJogadores(ordenada.reverse())
     },[value])
 
     async function getUsuarioPorId() {
