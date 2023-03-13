@@ -64,71 +64,50 @@ export const atualizarUsuarioApi = async(id, nome, saldo, folha, time)=>{
  }
 
  export const alterarSaldoApi = async(arrayPagamento, dispatch,)=>{
-   
-   
+   let temporada = 2
    var fim = 0
       // dispatch({
       //    type:"loading",
       //    payload:{loading:true}
       // }) 
-      let ids = []
+   arrayPagamento.map(async(usuario, key)=>{   
       let v = 0
       let obj = {}
-      let pagamento = []
-      //let temporada =await getTemporadaApi()
-      let temporada = 1
-   await arrayPagamento.map(async(usuario, key)=>{   
-      usuario.UsuariosDaLista.find(f=>{
-         console.log(f)
-         if (f.id === usuario.id) {
-           f.jogadore.map(j=>{
-            v+=j.valor
-           })
-         }
+      // let folha = usuario.UsuariosDaLista.find(f=>{
+      //    if (f.id === usuario.id) {
+      //      f.jogadore.map(j=>{
+      //       v+=j.valor
+      //      })
+      //    }
          
-         // obj = ({
-         //    folha: v*0.03,
-         //    id: usuario.id,
-         //    premiacao: usuario.total,
-         //    descontoDaFolha:temporada.numero === 2 ? usuario.total - v*0.03 : usuario.total
-         // })
-         // console.log({
-         //    folha: v*0.03,
-         //    id: usuario.id,
-         //    premiacao: usuario.total,
-         //    //descontoDaFolha:temporada.numero === 2 ? usuario.total - v*0.03 : usuario.total
-         // })
-         pagamento.push({
-            folha: v*0.03,
-            id: usuario.id,
-            premiacao: usuario.total,
-            descontoDaFolha:temporada.numero === 2 ? usuario.total - v*0.03 : usuario.total
-         })
-         ids.push(usuario.id)
-      })
-      // fetch(local+"usuario",{
-      //    method:'put',
-      //    headers:{
-      //       "Content-Type":"application/json"
-      //    },
-      //    body:JSON.stringify({
+      //    obj = ({
+      //       folhaPaga: v*0.03,
       //       id: usuario.id,
-      //       saldo: temporada === 1 ? usuario.total : usuario
+      //       saldo: usuario.total
       //    })
       // })
-      // .then(res=>res.json())
-      // .then(res=>{
-      //    fim++
-      //    if (fim === arrayPagamento.length && fim !== 0) {    
-      //       window.location.reload()
-      //    }
-      // })
+      let temporada =await getTemporadaApi()
+           
+      fetch(local+"usuario",{
+         method:'put',
+         headers:{
+            "Content-Type":"application/json"
+         },
+         body:JSON.stringify({
+            id: usuario.id,
+            saldo: usuario.total
+            //saldo: temporada === 1 ? usuario.total : usuario
+         })
+      })
+      .then(res=>res.json())
+      .then(res=>{
+         fim++
+         if (fim === arrayPagamento.length && fim !== 0) { 
+            alterarTemporadaApi()   
+            window.location.reload()
+         }
+      })
    })
-      
- 
-      //console.log("temporada " +temporada.numero)
-      //console.log(pagamento)
-      //alterarTemporadaApi()
 }
 
  export const alterarFolhaApi = async(id, folha)=>{
