@@ -35,6 +35,9 @@
     display: flex;
     justify-content: flex-end;
 }
+.naoEncontrado{
+    color: red;
+}
 @media (max-width:800px) {
  
    .autocomplete{
