@@ -73,11 +73,13 @@ function Appbar() {
   };
   const h = useNavigate()
   
+  const logo = "https://i.pinimg.com/736x/4b/2f/f6/4b2ff6f57503b821e01e738092fe9214.jpg"
   return (
     <AppBar position="fixed">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <SportsEsportsIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          {/* <SportsEsportsIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
+          <Avatar sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} src={logo}></Avatar>
           <Typography
             variant="h6"
             noWrap
@@ -152,6 +154,7 @@ function Appbar() {
             RECANTO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            
             {pages.map((page) => (
               <Button
                 key={page}
