@@ -1,6 +1,12 @@
 import React,{useEffect, useState} from 'react'
 import { lista } from '../../Lista'
-
+import Paper from '@mui/material/Paper';
+import InputBase from '@mui/material/InputBase';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import SearchIcon from '@mui/icons-material/Search';
+import DirectionsIcon from '@mui/icons-material/Directions';
 import "./ListaDeJogadores.css"
 import { useNavigate } from 'react-router-dom';
 import ModalComprar from './modalCompraJogador';
@@ -8,8 +14,9 @@ import AutoComplete from './AutoComplete';
 import { getTemporadaApi, getUsuariosPorIdApi } from '../../api';
 import { useSelector } from 'react-redux';
 import MenuItem from '@mui/material/MenuItem';
-import { CircularProgress } from '@mui/material'
+import { CircularProgress, TextField } from '@mui/material'
 import { Box } from '@mui/system'
+import { Button } from 'react-bootstrap';
   export default function TelaListaDeJogadores() {
     const [listaJogadores, setlistaJogadores] = useState([])
     const [value, setValue] = React.useState(null);
@@ -18,7 +25,7 @@ import { Box } from '@mui/system'
     const [Temporada, setTemporada] = useState()
     let usuarioLocalStorage = localStorage.getItem("usuarioSelecionado")
     const h = useNavigate()
-
+    const [Jogador, setJogador] = useState()
     if (!usuarioLocalStorage) {
       h("/")
     }
@@ -47,7 +54,24 @@ import { Box } from '@mui/system'
       getUsuarioPorId()
     },[])
     const loading = useSelector(state=>state.loadingReducer.loading)
-    
+    const buscarJogador = ()=>{
+      const strings = ['Alpha', 'Zeta', 'alpha', 'zeta'];
+      const p = lista.filter(e=>{
+        if (e.label.toLowerCase().includes(Jogador.toLowerCase())) {
+          return e
+        }
+      })
+      var ordenada = p.sort((a,b)=>{
+        return a.OVER < b.OVER ? -1 : a.OVER > b.OVER ? 1 : 0;
+      })
+      setlistaJogadores(ordenada.reverse())
+      setJogador("")
+    }
+    const buscarJogadorEnter = (e)=>{
+      if(e.code === "Enter"){
+        buscarJogador()
+      }
+    }
     return (
       <div>
         {
@@ -70,7 +94,31 @@ import { Box } from '@mui/system'
                 <div className='TelaListaJogadoresMenuSaldo'>
                   Saldo {Usuario?.saldo.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}
                 </div>
-                <AutoComplete  value={value} setValue={setValue}/>
+                <Paper
+                  
+                  sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
+                >
+                  <IconButton sx={{ p: '10px' }} aria-label="menu">
+                    
+                  </IconButton>
+                  <InputBase
+                    sx={{ ml: 1, flex: 1 }}
+                    placeholder="Selecione o jogador"
+                    inputProps={{ 'aria-label': 'search google maps' }}
+                    value={Jogador}
+                    onChange={e=>setJogador(e.target.value)}
+                    onKeyUp={e=> buscarJogadorEnter(e)}
+                  />
+                  <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+                  <IconButton 
+                    type="button"
+                    sx={{ p: '10px' }} 
+                    aria-label="search"
+                    onClick={buscarJogador}
+                  >
+                    <SearchIcon />
+                  </IconButton>
+                </Paper>
               </div>
             </div>
 
