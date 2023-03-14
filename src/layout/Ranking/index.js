@@ -173,32 +173,25 @@ export default function Ranking({Lista, temporada}) {
     // }, 1000);
   }
   
-  function pagamentoAutomatico() {
-     if (temporada === 2) {
-        pagarFolha()  
-     }
-  }
-  
-
-   function pagarFolha() {
-     if (participantes.length === 0) {
-       alert("não há participantes selecionados")
-     }else{
-       let usuariosParaPagar = []
-       participantes?.map(e=>{
-        let soma = 0
-        e.selecionado.jogadore?.map(j=>{
-          soma+= j.valor
-        })
-        let total = soma*0.03
-        let novoSaldo = e.selecionado.saldo - total
-        usuariosParaPagar.push({
-          id: e.selecionado.id, novoSaldo
-        })
-       })
-       pagarFolhaApi(usuariosParaPagar)
-       //alert("folha paga com sucesso")
-     }
+  function pagarFolha() {
+    if (participantes.length === 0) {
+      alert("não há participantes selecionados")
+    }else{
+      let usuariosParaPagar = []
+      participantes?.map(e=>{
+      let soma = 0
+      e.selecionado.jogadore?.map(j=>{
+        soma+= j.valor
+      })
+      let total = soma*0.03
+      let novoSaldo = e.selecionado.saldo - total
+      usuariosParaPagar.push({
+        id: e.selecionado.id, novoSaldo
+      })
+      })
+      pagarFolhaApi(usuariosParaPagar)
+      //alert("folha paga com sucesso")
+    }
   }  
  
   function contadorFolha(arr, nome) {
@@ -268,7 +261,6 @@ export default function Ranking({Lista, temporada}) {
 
               </div>
               <div>
-                <h3>Bugado prata e bronze</h3>
                 <Box sx={{ minWidth: 120 }}>
                   <FormControl fullWidth sx={{ m: "10px 0px", minWidth: "100%" }} size="small">
                     <InputLabel id="demo-simple-select-label">3 Hash trick</InputLabel>
