@@ -103,8 +103,9 @@ export const atualizarUsuarioApi = async(id, nome, saldo, folha, time)=>{
       .then(res=>{
          fim++
          if (fim === arrayPagamento.length && fim !== 0) { 
-            alterarTemporadaApi()   
-            window.location.reload()
+            //alterarTemporadaApi()
+            //console.log(`Temporada ${temporada} finalizada com sucesso`)   
+           // window.location.reload()
          }
       })
    })
@@ -322,6 +323,10 @@ export const alterarTemporadaApi = async(pagarFolha)=>{
          })
       })
       .then(r=>r.json())
+      .then(r=>{
+         alert("Termino da 1º finalizada!")
+         window.location.reload()
+      })
    }else{
       await fetch(local+"temporada",{
          method:'put',
@@ -335,6 +340,7 @@ export const alterarTemporadaApi = async(pagarFolha)=>{
       .then(r=>r.json())
       .then(r=>{
          alert("Termino da 2º temporada, efetue o pagamento da folha!")
+         window.location.reload()
       })
    }
 }

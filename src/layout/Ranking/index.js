@@ -131,9 +131,9 @@ export default function Ranking({Lista, temporada}) {
       alert("não há premiaçôes selecionadas")
     }else{
       alterarSaldoApi(pagamento, dispatch)
-      //alterarTemporadaApi(pagarFolha)
+      alterarTemporadaApi()
       pagamento = []
-      //alert("Temporada finalizada com sucesso com o "+colocacao.primeiro+" campeão!") 
+      alert("Temporada finalizada com sucesso com o "+colocacao.primeiro+" campeão!") 
     }
    
     // setTimeout(() => {   
@@ -203,7 +203,7 @@ export default function Ranking({Lista, temporada}) {
  
   function contadorFolha(arr, nome) {
     let soma = 0
-    arr.map((elem:any)=>{
+    arr.map((elem)=>{
        soma += elem.valor
     })
     let total = soma*0.03
