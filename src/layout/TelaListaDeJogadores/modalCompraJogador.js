@@ -65,10 +65,6 @@ export default function ModalComprar({jogador, idUsuario, Saldo, nomeDoComprador
                } else {
                  alert("Voçê só pode comprar jogador na temporada 2")
                }
-               setTimeout(() => {
-                 //h("/elencos")
-                 
-               }, 500);
                handleClose()
              }
            }

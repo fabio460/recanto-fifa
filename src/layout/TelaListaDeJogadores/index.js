@@ -55,7 +55,6 @@ import { Button } from 'react-bootstrap';
     },[])
     const loading = useSelector(state=>state.loadingReducer.loading)
     const buscarJogador = ()=>{
-      const strings = ['Alpha', 'Zeta', 'alpha', 'zeta'];
       const p = lista.filter(e=>{
         if (e.label.toLowerCase().includes(Jogador.toLowerCase())) {
           return e
@@ -72,6 +71,7 @@ import { Button } from 'react-bootstrap';
         buscarJogador()
       }
     }
+    
     return (
       <div>
         {
@@ -95,8 +95,7 @@ import { Button } from 'react-bootstrap';
                   Saldo {Usuario?.saldo.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}
                 </div>
                 <Paper
-                  
-                  sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
+                  sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: "100%" }}
                 >
                   <IconButton sx={{ p: '10px' }} aria-label="menu">
                     

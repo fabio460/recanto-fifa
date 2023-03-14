@@ -257,7 +257,7 @@ export const adicionarJogadorApi = async(
             type:"loading",
             payload:{loading:false}
          })
-         //window.location.reload()
+         window.location.reload()
       })
 }
 
