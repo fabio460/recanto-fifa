@@ -62,7 +62,7 @@ import { Box } from '@mui/system'
               <div className='TelaListaJogadoresTituloLeft'>
                 <h1 style={{marginRight:"20px"}}>
                   <div>Usuario {Usuario?.nome}</div>
-                  <h4 style={{color: Temporada === 1 ?"green":"red"}}>Temporada {Temporada}</h4>
+                  {Temporada && <h4 style={{color: Temporada === 1 ?"green":"red"}}>Temporada {Temporada}</h4>}
                 </h1>
                 {loading&&<div>carregando ...</div>}
               </div>
