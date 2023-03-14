@@ -52,7 +52,7 @@ export default function ModalComprar({jogador, idUsuario, Saldo, nomeDoComprador
               if (valor === "" || !valor) {
                 alert("Este campo não pode estar em branco")
               } else {
-               if (temporada.numero === 1) {       
+               if (temporada.numero === 2) {       
                  adicionarJogadorApi(
                    jogador.label,
                    jogador.Posicao,
@@ -63,7 +63,7 @@ export default function ModalComprar({jogador, idUsuario, Saldo, nomeDoComprador
                    dispatch 
                  )
                } else {
-                 alert("Voçê só pode comprar jogador na temporada 1")
+                 alert("Voçê só pode comprar jogador na temporada 2")
                }
                setTimeout(() => {
                  //h("/elencos")

@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { deletarJogadorApi, getUsuariosPorIdApi } from '../../api'
+import { deletarJogadorApi, getTemporadaApi, getUsuariosPorIdApi } from '../../api'
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -20,7 +20,7 @@ export default function TelaDeElenco() {
   var id = JSON.parse(usuarioLocalStorage).id 
   const h = useNavigate()
   const [carregando, setcarregndo] = useState(false)
-
+  const [Temporada, setTemporada] = useState()
   async function getUsuarioPorId() {  
     const p = await getUsuariosPorIdApi(id)
     setusuario(p)
@@ -30,6 +30,8 @@ export default function TelaDeElenco() {
     })
     setFolhaSalarial(soma*0.03)
     setcarregndo(true)
+    const temporada = await getTemporadaApi()
+    setTemporada(temporada.numero)
   }
   
   useEffect(()=>{
@@ -109,6 +111,7 @@ export default function TelaDeElenco() {
               </div>
               </div>
             <div>
+                <h4 style={{color: Temporada === 1 ?"green":"red"}}>Temporada {Temporada}</h4>
                 <h5>Clube: {usuario.time}</h5>
                 <h5>Saldo: {usuario.saldo?.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h5>
                 <h5>Folha: {folhaSalarial?.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h5>

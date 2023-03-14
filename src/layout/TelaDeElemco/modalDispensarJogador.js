@@ -14,7 +14,7 @@ import TextField from '@mui/material/TextField';
 import { useDispatch } from 'react-redux/es/exports';
 import AutoComplete from '../TelaListaDeJogadores/AutoComplete';
 import { lista } from '../../Lista'
-import { adicionarSaldoApi, alterarSaldoApi, criarUsuarioApi, deletarJogadorApi, deletarUsuarioApi, listaDeUsuariosApi } from '../../api';
+import { adicionarSaldoApi, alterarSaldoApi, criarUsuarioApi, deletarJogadorApi, deletarUsuarioApi, getTemporadaApi, listaDeUsuariosApi } from '../../api';
 import { Autocomplete } from '@mui/material';
 export default function ModalDispensarJogador({jogador, usuario}) { 
     const formatoMonetario = ()=> toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})
@@ -40,11 +40,16 @@ export default function ModalDispensarJogador({jogador, usuario}) {
     const valorGanho = jogador.OVER >= 90 ? (jogador.valor)*0.6 : (jogador.valor)*0.4 
   
     const novoValorDoSaldo = usuario.saldo + valorGanho
-    const Confirmar = ()=>{
-        deletarJogadorApi(jogador.id)
-        adicionarSaldoApi(usuario.id,novoValorDoSaldo)
-        alert("Jogador "+jogador.label+" libarado, você recebeu "+valorGanho.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}))
-        handleClose()
+    const Confirmar = async()=>{
+        const temporada = await getTemporadaApi()
+        if (temporada.numero === 2) {                
+          deletarJogadorApi(jogador.id)
+          adicionarSaldoApi(usuario.id,novoValorDoSaldo)
+          alert("Jogador "+jogador.label+" libarado, você recebeu "+valorGanho.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}))
+          handleClose()
+        } else {
+          alert("Voçê só pode dispensar jogadores na temporada 2")
+        }
     }
   return (
     <div>

@@ -12,7 +12,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import { useDispatch } from 'react-redux/es/exports';
-import {listaDeUsuariosApi, transferenciaDeJogadorApi, getUsuariosPorIdApi } from '../../api';
+import {listaDeUsuariosApi, transferenciaDeJogadorApi, getUsuariosPorIdApi, getTemporadaApi } from '../../api';
 export default function ModalTransferirJogador({id, usuario, carregando}) {
     const [usuarios, setUsuarios] = useState([])
     const [value, setValue] = React.useState(null);  
@@ -38,6 +38,7 @@ export default function ModalTransferirJogador({id, usuario, carregando}) {
     
     const Confirmar = async()=>{
         let idUsuarioTransferido = age
+        const temporada = await getTemporadaApi()
         let invalido =  (/^(?=.*[ a-zA-Z@#$%º¢£&!'"-+/\(\)\ \`\\\|\{\}\[\]\~\^\:\; ])/);   
         let valorComVirgula = valor.replace(",",".")
         const usuarioTransferido = await getUsuariosPorIdApi(idUsuarioTransferido)
@@ -53,7 +54,13 @@ export default function ModalTransferirJogador({id, usuario, carregando}) {
               if (valor === "" || !valor) {
                alert("Este campo não pode estar em branco")
               } else {
-                transferenciaDeJogadorApi(id, idUsuarioTransferido, parseFloat(valorComVirgula), dispatch)
+                if (temporada.numero === 2) {   
+                  transferenciaDeJogadorApi(id, idUsuarioTransferido, parseFloat(valorComVirgula), dispatch)
+                  alert("Transferência para o usuário "+usuarioTransferido.nome+" feita com sucesso!")
+
+                } else {
+                  alert("Voçê só pode transferir jogadores na temporada 2")
+                }
               }
             }
           }       

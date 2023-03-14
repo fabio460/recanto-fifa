@@ -5,7 +5,7 @@ import "./ListaDeJogadores.css"
 import { useNavigate } from 'react-router-dom';
 import ModalComprar from './modalCompraJogador';
 import AutoComplete from './AutoComplete';
-import { getUsuariosPorIdApi } from '../../api';
+import { getTemporadaApi, getUsuariosPorIdApi } from '../../api';
 import { useSelector } from 'react-redux';
 import MenuItem from '@mui/material/MenuItem';
 import { CircularProgress } from '@mui/material'
@@ -15,6 +15,7 @@ import { Box } from '@mui/system'
     const [value, setValue] = React.useState(null);
     const [Usuario, setUsuario] = useState()
     const [carregando, setcarregndo] = useState(false)
+    const [Temporada, setTemporada] = useState()
     let usuarioLocalStorage = localStorage.getItem("usuarioSelecionado")
     const h = useNavigate()
 
@@ -38,6 +39,8 @@ import { Box } from '@mui/system'
       const p = await getUsuariosPorIdApi(id)
       setUsuario(p)
       setcarregndo(true)
+      const temporada = await getTemporadaApi()
+      setTemporada(temporada.numero)
     }
   
     useEffect(()=>{
@@ -57,7 +60,10 @@ import { Box } from '@mui/system'
             </div>
             <div className='TelaListaJogadoresTitulo'>
               <div className='TelaListaJogadoresTituloLeft'>
-                <h1 style={{marginRight:"20px"}}>Usuario {Usuario?.nome}</h1>
+                <h1 style={{marginRight:"20px"}}>
+                  <div>Usuario {Usuario?.nome}</div>
+                  <h4 style={{color: Temporada === 1 ?"green":"red"}}>Temporada {Temporada}</h4>
+                </h1>
                 {loading&&<div>carregando ...</div>}
               </div>
               <div className='TelaListaJogadoresTituloRigth'>
