@@ -176,7 +176,7 @@ export default function Ranking({Lista, temporada}) {
             </div>
             <div className='rankingMain'>
               <div>
-                <h3>Colocação</h3>
+                <h5>Colocação</h5>
                 <ol>
                   <li>{colocacao.primeiro}</li>
                   <li>{colocacao.segundo}</li>
@@ -185,7 +185,7 @@ export default function Ranking({Lista, temporada}) {
                 </ol>
               </div>
               <div>
-                <h3>Atilharia</h3>
+                <h5>Atilharia</h5>
                 <ol>
                   <li>{artilharia.primeiro}</li>
                   <li>{artilharia.segundo}</li>
@@ -194,7 +194,7 @@ export default function Ranking({Lista, temporada}) {
                 </ol>
               </div>
               <div>
-                <h3>Assistências</h3>
+                <h5>Assistências</h5>
                 <ol>
                   <li>{assistente.primeiro}</li>
                   <li>{assistente.segundo}</li>
@@ -203,19 +203,19 @@ export default function Ranking({Lista, temporada}) {
                 </ol>
               </div>
               <div>
-                <h3>Quantidade de gols</h3>
+                <h5>Quantidade de gols</h5>
                 {dados.gols?.map((e,key)=>{
                   return<div>{e.nome} - {e.gols}</div>
                 })}
               </div>
               <div>
-                <h3>Quantidade de vitorias</h3>
+                <h5>Quantidade de vitorias</h5>
                 {dados.vitorias?.map((e,key)=>{
                   return<div>{e.nome} - {e.vitorias}</div>
                 })}
               </div>
               <div>
-                <h3>Quantidade de empates</h3>
+                <h5>Quantidade de empates</h5>
                 {dados.empates?.map((e,key)=>{
                   return<div>{e.nome} - {e.empates}</div>
                 })}
@@ -256,7 +256,7 @@ export default function Ranking({Lista, temporada}) {
                     </Select>
                   </FormControl>
                 </Box> */}
-                <h3>3 Hash trick consec</h3>
+                <h5>3 Hash trick consec</h5>
                 <div>
                 <FormGroup sx={{padding:"10px"}}>
                   {participantes?.map((item, key)=>{
@@ -268,7 +268,7 @@ export default function Ranking({Lista, temporada}) {
                 </div>
               </div>
               <div>
-                <h3>3 part sem sofrer gols</h3>
+                <h5>3 part sem sofrer gols</h5>
                 <FormGroup sx={{padding:"10px"}}>
                   {participantes?.map((item, key)=>{
                     return (
