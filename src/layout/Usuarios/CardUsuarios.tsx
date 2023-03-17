@@ -37,9 +37,9 @@ export default function CardUsuarios({usuario}:userType) {
            {
             (
               usuario.bugado === "ouro" ||
-              usuario.bugado === "ouro&prata" ||
-              usuario.bugado === "ouro&bronze" ||
-              usuario.bugado === "ouro&prata&bronze" 
+              usuario.bugado === "ouroprata" ||
+              usuario.bugado === "ourobronze" ||
+              usuario.bugado === "ouropratabronze" 
             ) && 
               <div className='bugadoItens'>
                 <img 
@@ -51,9 +51,9 @@ export default function CardUsuarios({usuario}:userType) {
             {
               (
                 usuario.bugado === "prata" ||
-                usuario.bugado === "prata&bronze" ||
-                usuario.bugado === "ouro&prata" ||
-                usuario.bugado === "ouro&prata&bronze"
+                usuario.bugado === "pratabronze" ||
+                usuario.bugado === "ouroprata" ||
+                usuario.bugado === "ouropratabronze"
               ) && 
               <div className='bugadoItens'>
                 <img 
@@ -64,9 +64,9 @@ export default function CardUsuarios({usuario}:userType) {
             {
               (
                 usuario.bugado === "bronze" ||
-                usuario.bugado === "ouro&bronze" ||
-                usuario.bugado === "prata&bronze" ||
-                usuario.bugado === "ouro&prata&bronze"
+                usuario.bugado === "ourobronze" ||
+                usuario.bugado === "pratabronze" ||
+                usuario.bugado === "ouropratabronze"
               ) && 
               <div className='bugadoItens'>
                 <img 

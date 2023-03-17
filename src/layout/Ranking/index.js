@@ -1,17 +1,18 @@
 import React,{useEffect, useState} from 'react'
 import "./ranking.css"
 import {useDispatch, useSelector} from 'react-redux'
-import { Button, CircularProgress } from '@mui/material'
+import { Button, Checkbox, CircularProgress, FormControlLabel, FormGroup } from '@mui/material'
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { adicionarSaldoApi, alterarBugadoApi, alterarSaldoApi, alterarTemporadaApi, bugadoPrataBronze, bugadoPrataBronzeApi, getTemporadaApi, listaDeUsuariosApi, pagarFolhaApi, selecionarTemporadaApi } from '../../api'
+import { adicionarSaldoApi, alterarBugadoApi, pagarPremiacao, alterarTemporadaApi, bugadoPrataBronze, bugadoPrataBronzeApi, getTemporadaApi, listaDeUsuariosApi, pagarFolhaApi, selecionarTemporadaApi, setBugadoApi } from '../../api'
 import ModalPagarPremiasao from './modalPagarPremisao'
 import ModalPagarFolha from './modalPagarFolha'
 import { buscaUsuarioPeloJogador, CalculaBugado } from '../../Uteis'
 import ListaDeParticipantes from './listaDeParticipantes';
+import { dadosDePagamento, getPremiacoesBugados, removerArraysRepetidos, setPremiacao } from './servicos';
 
 
 
@@ -58,119 +59,86 @@ export default function Ranking({Lista, temporada}) {
     setBugadoPrata(event.target.value);
   }; 
 
-  const [Temporada, setTemporada] = useState([])
-  var arrayPagamento = []
-  var arrayNome = []
-  let pagamento = []
+  var usuariosPremiados = []
+  
+  const [checadoA, setChecadoA] = React.useState([])
+  const [checadoB, setChecadoB] = React.useState([])
+
+  const handleChecadoA = (u, e)=>{
+    if (checadoA.length === 0) {
+      setChecadoA([... checadoA, {bugado:"prata",dados:u,nome:u.nome,checked:e.checked}])  
+    }else{
+      let novoChecadoA = checadoA.filter(item=>{
+          if (item.nome !== u.nome) {
+            return item
+          }
+      })
+      setChecadoA([... novoChecadoA, {bugado:"prata",dados:u,nome:u.nome,checked:e.checked}])
+    }
+  }
+  const handleChecadoB = (u, e)=>{
+    if (checadoB.length === 0) {
+      setChecadoB([... checadoB, {bugado:"bronze",dados:u,nome:u.nome,checked:e.checked}])  
+    }else{
+      let novoChecadoB = checadoB.filter(item=>{
+          if (item.nome !== u.nome) {
+            return item
+          }
+      })
+      setChecadoB([... novoChecadoB, {bugado:"bronze",dados:u,nome:u.nome,checked:e.checked}])
+    }
+  }
+ 
+ 
 
   const finalizarTemporada = async()=>{
-    handlePagamentos(colocacao.primeiro,campeao,dispatch, loading)
-    handlePagamentos(colocacao.segundo,viceCampeao,dispatch, loading)
-    handlePagamentos(colocacao.terceiro,terceiroColocado,dispatch, loading)
-    handlePagamentos(colocacao.quarto,quartoColocado,dispatch, loading)
-    handlePagamentos(buscaUsuarioPeloJogador(artilharia.primeiro, Lista),artilheiro, dispatch, loading)
-    handlePagamentos(buscaUsuarioPeloJogador(artilharia.segundo, Lista),viceArtilheiro, dispatch, loading)
-    handlePagamentos(buscaUsuarioPeloJogador(artilharia.terceiro, Lista),terceiroArtilheiro, dispatch, loading)
-    handlePagamentos(buscaUsuarioPeloJogador(assistente.primeiro, Lista),assistencia, dispatch, loading)
-    handlePagamentos(buscaUsuarioPeloJogador(assistente.segundo, Lista),viceAssistencia, dispatch, loading)
-    handlePagamentos(buscaUsuarioPeloJogador(assistente.terceiro, Lista),terceiroAssistencia, dispatch, loading)
-    
-    dados.gols?.map(async(e,key)=>{
-      handlePagamentos(e.nome,(gols)*e.gols,dispatch, loading)
-    }) 
+    getPremiacoes(colocacao.primeiro,campeao)
+    getPremiacoes(colocacao.segundo,viceCampeao)
+    getPremiacoes(colocacao.terceiro,terceiroColocado)
+    getPremiacoes(colocacao.quarto,quartoColocado)
+    getPremiacoes(buscaUsuarioPeloJogador(artilharia.primeiro, Lista),artilheiro)
+    getPremiacoes(buscaUsuarioPeloJogador(artilharia.segundo, Lista),viceArtilheiro)
+    getPremiacoes(buscaUsuarioPeloJogador(artilharia.terceiro, Lista),terceiroArtilheiro)
+    getPremiacoes(buscaUsuarioPeloJogador(assistente.primeiro, Lista),assistencia)
+    getPremiacoes(buscaUsuarioPeloJogador(assistente.segundo, Lista),viceAssistencia)
+    getPremiacoes(buscaUsuarioPeloJogador(assistente.terceiro, Lista),terceiroAssistencia)
+    dados.gols?.map(e=> getPremiacoes(e.nome,(gols)*e.gols)) 
+    dados.vitorias?.map(e=> getPremiacoes(e.nome,(vitoria)*e.vitorias))
+    dados.empates?.map(e=> getPremiacoes(e.nome,(empates)*e.empates))
 
-    dados.vitorias?.map(async(e,key)=>{
-      handlePagamentos(e.nome,(vitoria)*e.vitorias,dispatch, loading)
-    })
-    dados.empates?.map(async(e,key)=>{
-      handlePagamentos(e.nome,(empates)*e.empates,dispatch, loading)
-    })
-
-    let Usuarios = selecionarUsuariosPagamento(arrayNome)
-    let UsuariosDaLista = []
-    Usuarios.map(a=>{
-      let aux = Lista.filter(e=>{
-        if (e.nome === a) {
-          UsuariosDaLista.push(e)
-          return e
-        }
-      })
-    })
-
-    Usuarios.map(e=>{
-      let soma = 0
-      arrayPagamento.map(u=>{
-        if (e === u.nome) {
-          soma+= u.valor
-        }
-      })
-      let usuario = {nome:e,soma}
-     
-      UsuariosDaLista.map(u=>{
-        if (u.nome === usuario.nome) {
-          return pagamento.push({
-            id: u.id,
-            total: u.saldo + soma,
-            UsuariosDaLista
-          })
-        }
-      }) 
-    })
-    
-    function handlePagamentos(nome, valor) {
-      if (nome !== '') {     
-        arrayPagamento.push({nome, valor})
-        arrayNome.push(nome)
+    function getPremiacoes(nome, valor) {
+      if (nome) {     
+        usuariosPremiados.push({nome, valor})
       }
     }
     
-    function selecionarUsuariosPagamento(array) {
-      return [... new Set(array)]
-    }
-    if (UsuariosDaLista.length === 0) {
+    if (setPremiacao(usuariosPremiados, Lista).length === 0) {
       alert("não há premiaçôes selecionadas")
     }else{
-      alterarSaldoApi(pagamento, dispatch)
+
+      console.log(getPremiacoesBugados(
+          checadoA,
+          checadoB,
+          colocacao.primeiro, 
+          buscaUsuarioPeloJogador(artilharia.primeiro, Lista),
+          buscaUsuarioPeloJogador(artilharia.segundo, Lista),
+          Lista
+        )
+      )
+
+      pagarPremiacao(setPremiacao(usuariosPremiados, Lista))
+      setBugadoApi(getPremiacoesBugados(
+        checadoA,
+        checadoB,
+        colocacao.primeiro, 
+        buscaUsuarioPeloJogador(artilharia.primeiro, Lista),
+        buscaUsuarioPeloJogador(artilharia.segundo, Lista),
+        Lista
+      ))
       alterarTemporadaApi()
-      pagamento = []
+      usuariosPremiados = []
       alert("Temporada finalizada com sucesso com o "+colocacao.primeiro+" campeão!") 
-    }
-   
-    // setTimeout(() => {   
-    //   Lista.map(async(usuario)=>{
-    //     let obj = CalculaBugado(usuario.nome,premioOuro,"ouro", usuario.id)
-    //     await alterarBugadoApi(obj.id, obj.premio, obj.contador)
-    //   })
-    //   dados.gols?.map(async(e,key)=>{
-    //     handlePagamentos(e.nome,(gols)*e.gols,dispatch, loading)
-    //   })  
-    //   setTimeout(() => {         
-    //     dados.vitorias?.map(async(e,key)=>{
-    //       handlePagamentos(e.nome,(vitoria)*e.vitorias,dispatch, loading)
-    //     })
-    //     setTimeout(() => {         
-    //       dados.empates?.map(async(e,key)=>{
-    //         handlePagamentos(e.nome,(empates)*e.empates,dispatch, loading)
-    //       })
-    //       if (BugadoBronze) {
-    //         bugadoPrataBronzeApi(BugadoBronze,"bronze")
-    //       }
-           
-    //       if (BugadoPrata) {
-    //         bugadoPrataBronzeApi(BugadoPrata,"prata")
-    //       }
-    //       if (temporada.numero === 2) {
-    //         pagarFolha()
-    //       }
-    //       alterarTemporadaApi()
-    //       alert("temporada finalizada com sucesso!")
-    //       window.location.reload()
-    //       if (colocacao.primeiro) {
-    //         alert("O usuário "+colocacao.primeiro+" ganhou o torneio")
-    //       }
-    //     }, 1000);
-    //   }, 1000);
-    // }, 1000);
+    }     
   }
   
   function pagarFolha() {
@@ -190,19 +158,12 @@ export default function Ranking({Lista, temporada}) {
       })
       })
       pagarFolhaApi(usuariosParaPagar)
-      //alert("folha paga com sucesso")
     }
   }  
- 
-  function contadorFolha(arr, nome) {
-    let soma = 0
-    arr.map((elem)=>{
-       soma += elem.valor
-    })
-    let total = soma*0.03
-    return total
-  }
-  
+
+
+
+
   return (
     <div>
       {
@@ -261,7 +222,7 @@ export default function Ranking({Lista, temporada}) {
 
               </div>
               <div>
-                <Box sx={{ minWidth: 120 }}>
+                {/* <Box sx={{ minWidth: 120 }}>
                   <FormControl fullWidth sx={{ m: "10px 0px", minWidth: "100%" }} size="small">
                     <InputLabel id="demo-simple-select-label">3 Hash trick</InputLabel>
                     <Select
@@ -294,7 +255,27 @@ export default function Ranking({Lista, temporada}) {
                       })}
                     </Select>
                   </FormControl>
-                </Box>
+                </Box> */}
+                <h3>3 Hash trick consec</h3>
+                <div>
+                <FormGroup sx={{padding:"10px"}}>
+                  {participantes?.map((item, key)=>{
+                    return (
+                      <FormControlLabel control={<Checkbox onChange={e=>handleChecadoA(item, e.target)}/>} label={item.nome} />
+                      )
+                    })}
+                </FormGroup>         
+                </div>
+              </div>
+              <div>
+                <h3>3 part sem sofrer gols</h3>
+                <FormGroup sx={{padding:"10px"}}>
+                  {participantes?.map((item, key)=>{
+                    return (
+                      <FormControlLabel control={<Checkbox onChange={e=>handleChecadoB(item, e.target)}/>} label={item.nome} />
+                      )
+                    })}
+                </FormGroup>
               </div>
               <div>
                 <ModalPagarPremiasao finalizarTemporada={finalizarTemporada}/>

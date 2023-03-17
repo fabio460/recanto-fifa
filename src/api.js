@@ -1,7 +1,5 @@
 //const local = "http://localhost:4000/"
-
 const local = "https://recanto-fifa-backend2-0.vercel.app/"
-//const local = "https://recanto-fifa-backend2-0.vercel.app"
 
 export const listaDeUsuariosApi = async()=>{
    return await fetch(local+"usuario")
@@ -47,7 +45,6 @@ export const criarUsuarioApi = async(nome, saldo, folha, jogadores, time)=>{
 }
 
 export const atualizarUsuarioApi = async(id, nome, saldo, folha, time)=>{
-
    await fetch(local+"usuario",{
        method:'put',
        headers:{
@@ -63,31 +60,9 @@ export const atualizarUsuarioApi = async(id, nome, saldo, folha, time)=>{
     })
  }
 
- export const alterarSaldoApi = async(arrayPagamento, dispatch,)=>{
-   let temporada = 1
+ export const pagarPremiacao = async(arrayPagamento)=>{
    var fim = 0
-      // dispatch({
-      //    type:"loading",
-      //    payload:{loading:true}
-      // }) 
-   arrayPagamento.map(async(usuario, key)=>{   
-      let v = 0
-      let obj = {}
-      // let folha = usuario.UsuariosDaLista.find(f=>{
-      //    if (f.id === usuario.id) {
-      //      f.jogadore.map(j=>{
-      //       v+=j.valor
-      //      })
-      //    }
-         
-      //    obj = ({
-      //       folhaPaga: v*0.03,
-      //       id: usuario.id,
-      //       saldo: usuario.total
-      //    })
-      // })
-      let temporada =await getTemporadaApi()
-           
+   arrayPagamento.map(async(usuario, key)=>{              
       fetch(local+"usuario",{
          method:'put',
          headers:{
@@ -96,17 +71,18 @@ export const atualizarUsuarioApi = async(id, nome, saldo, folha, time)=>{
          body:JSON.stringify({
             id: usuario.id,
             saldo: usuario.total
-            //saldo: temporada === 1 ? usuario.total : usuario
          })
       })
       .then(res=>res.json())
-      .then(res=>{
-         fim++
-         if (fim === arrayPagamento.length && fim !== 0) { 
-            //alterarTemporadaApi()
-            //console.log(`Temporada ${temporada} finalizada com sucesso`)   
-           // window.location.reload()
-         }
+
+      fetch(local+"usuario/bugado",{
+         method:'put',
+         headers:{
+            "Content-Type":"application/json"
+         },
+         body:JSON.stringify({
+            id: usuario.id, bugado:null
+         })
       })
    })
 }
@@ -365,41 +341,38 @@ export const bugadoPrataBronzeApi = async(id, bugado)=>{
       }
 }
 
-export const alterarBugadoApi = async(id, bugado, contador)=>{
-   if (contador < 3) {
-      return await fetch(local+"usuario/bugado",{
-         method:'put',
-         headers:{
-            "Content-Type":"application/json"
-         },
-         body:JSON.stringify({
-            id, bugado:null
+export const setBugadoApi = async(premiados)=>{
+     if (premiados.length > 0) {
+      premiados.map((item,key)=>{         
+         fetch(local+"usuario/bugado",{
+            method:'put',
+            headers:{
+               "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+               id: item.id, bugado:item.premio
+            })
          })
       })
-      .then(res=>res.json())
-      .then(res=>{
-         
-         //window.location.reload()
-      })
-      .then(res=>console.log(res))
-   }
-
-   if (bugado === "ouro" || bugado === "prata" || bugado === "bronze" ) {      
-      return await fetch(local+"usuario/bugado",{
-          method:'put',
-          headers:{
-             "Content-Type":"application/json"
-          },
-          body:JSON.stringify({
-             id, bugado
-          })
-       })
-       .then(res=>res.json())
-       .then(res=>{
-          console.log(res)
-          //window.location.reload()
-       })
-       .then(res=>console.log(res))
-   }
+     }
+     
+   
+   // if (bugado === "ouro" || bugado === "prata" || bugado === "bronze" ) {      
+   //    return await fetch(local+"usuario/bugado",{
+   //        method:'put',
+   //        headers:{
+   //           "Content-Type":"application/json"
+   //        },
+   //        body:JSON.stringify({
+   //           id, bugado
+   //        })
+   //     })
+   //     .then(res=>res.json())
+   //     .then(res=>{
+   //        console.log(res)
+   //        //window.location.reload()
+   //     })
+   //     .then(res=>console.log(res))
+   // }
  }
 
