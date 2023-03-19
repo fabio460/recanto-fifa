@@ -133,7 +133,6 @@ export default function Ranking({Lista, temporada}) {
       alterarTemporadaApi()
       usuariosPremiados = []
       alert("Temporada finalizada com sucesso com o "+colocacao.primeiro+" campeão!") 
-      window.location.reload()
     }     
   }
   

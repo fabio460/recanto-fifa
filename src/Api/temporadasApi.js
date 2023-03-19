@@ -17,6 +17,8 @@ export const alterarTemporadaApi = async(pagarFolha)=>{
        .then(r=>r.json())
        .then(r=>{
           alert("Termino da 1º finalizada!")
+          window.location.reload()
+
        })
     }else{
        await fetch(local+"temporada",{
