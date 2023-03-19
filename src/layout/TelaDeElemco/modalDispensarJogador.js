@@ -14,8 +14,10 @@ import TextField from '@mui/material/TextField';
 import { useDispatch } from 'react-redux/es/exports';
 import AutoComplete from '../TelaListaDeJogadores/AutoComplete';
 import { lista } from '../../Lista'
-import { adicionarSaldoApi, alterarSaldoApi, criarUsuarioApi, deletarJogadorApi, deletarUsuarioApi, getTemporadaApi, listaDeUsuariosApi } from '../../api';
+import { adicionarSaldoApi, alterarSaldoApi, criarUsuarioApi, deletarUsuarioApi, listaDeUsuariosApi } from '../../Api/usuariosApi';
 import { Autocomplete } from '@mui/material';
+import { getTemporadaApi } from '../../Api/temporadasApi';
+import { deletarJogadorApi } from '../../Api/jogadoresApi';
 export default function ModalDispensarJogador({jogador, usuario}) { 
     const formatoMonetario = ()=> toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})
     const [open, setOpen] = React.useState(false);

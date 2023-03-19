@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { deletarJogadorApi, getTemporadaApi, getUsuariosPorIdApi } from '../../api'
+import { getUsuariosPorIdApi } from '../../Api/usuariosApi'
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -12,6 +12,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import "./TelaElenco.css"
 import { CircularProgress } from '@mui/material'
 import { Box } from '@mui/system'
+import { getTemporadaApi } from '../../Api/temporadasApi';
+import { deletarJogadorApi } from '../../Api/jogadoresApi';
 export default function TelaDeElenco() {
   const [usuario, setusuario] = useState({})
   const [atualizar, setatualizar] = useState(false)

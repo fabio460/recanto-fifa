@@ -12,7 +12,9 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import { useDispatch } from 'react-redux/es/exports';
-import {listaDeUsuariosApi, transferenciaDeJogadorApi, getUsuariosPorIdApi, getTemporadaApi } from '../../api';
+import {listaDeUsuariosApi, getUsuariosPorIdApi } from '../../Api/usuariosApi';
+import { getTemporadaApi } from '../../Api/temporadasApi';
+import { transferenciaDeJogadorApi } from '../../Api/jogadoresApi';
 export default function ModalTransferirJogador({id, usuario, carregando}) {
     const [usuarios, setUsuarios] = useState([])
     const [value, setValue] = React.useState(null);  

@@ -7,12 +7,14 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { adicionarSaldoApi, alterarBugadoApi, pagarPremiacao, alterarTemporadaApi, bugadoPrataBronze, bugadoPrataBronzeApi, getTemporadaApi, listaDeUsuariosApi, pagarFolhaApi, selecionarTemporadaApi, setBugadoApi } from '../../api'
+import { adicionarSaldoApi, alterarBugadoApi, bugadoPrataBronze, bugadoPrataBronzeApi, getTemporadaApi, listaDeUsuariosApi, selecionarTemporadaApi } from '../../Api/usuariosApi'
 import ModalPagarPremiasao from './modalPagarPremisao'
 import ModalPagarFolha from './modalPagarFolha'
 import { buscaUsuarioPeloJogador, CalculaBugado } from '../../Uteis'
 import ListaDeParticipantes from './listaDeParticipantes';
 import { dadosDePagamento, getPremiacoesBugados, removerArraysRepetidos, setPremiacao } from './servicos';
+import { alterarTemporadaApi } from '../../Api/temporadasApi';
+import { pagarFolhaApi, pagarPremiacao, pagarPremioBugadoApi } from '../../Api/pagamentosApi';
 
 
 
@@ -116,28 +118,22 @@ export default function Ranking({Lista, temporada}) {
       alert("não há premiaçôes selecionadas")
     }else{
 
-      console.log(getPremiacoesBugados(
+      let arrayDePremiadosDoBugado = getPremiacoesBugados(
           checadoA,
           checadoB,
           colocacao.primeiro, 
           buscaUsuarioPeloJogador(artilharia.primeiro, Lista),
           buscaUsuarioPeloJogador(artilharia.segundo, Lista),
           Lista
-        )
       )
-
+      
+      console.log(arrayDePremiadosDoBugado)
       pagarPremiacao(setPremiacao(usuariosPremiados, Lista))
-      setBugadoApi(getPremiacoesBugados(
-        checadoA,
-        checadoB,
-        colocacao.primeiro, 
-        buscaUsuarioPeloJogador(artilharia.primeiro, Lista),
-        buscaUsuarioPeloJogador(artilharia.segundo, Lista),
-        Lista
-      ))
+      pagarPremioBugadoApi(arrayDePremiadosDoBugado)
       alterarTemporadaApi()
       usuariosPremiados = []
       alert("Temporada finalizada com sucesso com o "+colocacao.primeiro+" campeão!") 
+      window.location.reload()
     }     
   }
   
@@ -160,9 +156,6 @@ export default function Ranking({Lista, temporada}) {
       pagarFolhaApi(usuariosParaPagar)
     }
   }  
-
-
-
 
   return (
     <div>
@@ -219,7 +212,6 @@ export default function Ranking({Lista, temporada}) {
                 {dados.empates?.map((e,key)=>{
                   return<div>{e.nome} - {e.empates}</div>
                 })}
-
               </div>
               <div>
                 {/* <Box sx={{ minWidth: 120 }}>

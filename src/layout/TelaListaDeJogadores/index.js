@@ -8,10 +8,11 @@ import SearchIcon from '@mui/icons-material/Search';
 import "./ListaDeJogadores.css"
 import { useNavigate } from 'react-router-dom';
 import ModalComprar from './modalCompraJogador';
-import { getTemporadaApi, getUsuariosPorIdApi } from '../../api';
+import { getUsuariosPorIdApi } from '../../Api/usuariosApi';
 import { useSelector } from 'react-redux';
 import { CircularProgress } from '@mui/material'
 import { Box } from '@mui/system'
+import { getTemporadaApi } from '../../Api/temporadasApi';
 
 export default function TelaListaDeJogadores() {
   const [listaJogadores, setlistaJogadores] = useState([])

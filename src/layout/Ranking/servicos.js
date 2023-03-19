@@ -99,7 +99,7 @@ export function getPremiacoesBugados(checadoA, checadoB, campeao, artilheiro, vi
           id = e.dados.selecionado.id
         }
       })
-      premiados.push({nome:p , premio:premio.join(""), id: id === '' ? idOuro: id })
+      premiados.push({bugado:premio.join(""), id: id === '' ? idOuro: id })
     })
     return premiados
   }

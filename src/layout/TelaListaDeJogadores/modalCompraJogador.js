@@ -5,11 +5,12 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { adicionarJogadorApi, getJogadorPeloNomeApi, getTemporadaApi } from '../../api';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel/InputLabel';
+import { getTemporadaApi } from '../../Api/temporadasApi';
+import { adicionarJogadorApi, getJogadorPeloNomeApi } from '../../Api/jogadoresApi';
 
 export default function ModalComprar({jogador, idUsuario, Saldo, nomeDoComprador}) {
   const [open, setOpen] = React.useState(false);

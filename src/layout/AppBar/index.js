@@ -24,7 +24,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import ModalAssistecia from "./modalAssistencia";
-import { listaDeUsuariosApi } from "../../api";
+import { listaDeUsuariosApi } from "../../Api/usuariosApi";
 import {useDispatch, useSelector} from 'react-redux'
 
 const regrasStyle = {

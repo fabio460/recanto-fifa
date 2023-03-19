@@ -9,7 +9,7 @@ import TextField from '@mui/material/TextField';
 import { useDispatch } from 'react-redux/es/exports';
 import AutoComplete from '../TelaListaDeJogadores/AutoComplete';
 import { lista } from '../../Lista'
-import { criarUsuarioApi } from '../../api';
+import { criarUsuarioApi } from '../../Api/usuariosApi';
 export default function ModalCriarUsuario() {
     const [listaJogadores, setlistaJogadores] = useState([])
     const [value, setValue] = React.useState(null);  

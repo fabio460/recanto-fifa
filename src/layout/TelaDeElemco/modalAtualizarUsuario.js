@@ -9,7 +9,7 @@ import TextField from '@mui/material/TextField';
 import { useDispatch } from 'react-redux/es/exports';
 import AutoComplete from '../TelaListaDeJogadores/AutoComplete';
 import { lista } from '../../Lista'
-import { atualizarUsuarioApi, criarUsuarioApi, getUsuariosPorIdApi } from '../../api';
+import { atualizarUsuarioApi, criarUsuarioApi, getUsuariosPorIdApi } from '../../Api/usuariosApi';
 export default function ModalAtualizarUsuario({id, usuario, fechar}) {
     const [listaJogadores, setlistaJogadores] = useState([])
     const [value, setValue] = React.useState(null);  

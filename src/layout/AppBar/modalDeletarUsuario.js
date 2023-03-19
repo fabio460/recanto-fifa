@@ -14,7 +14,7 @@ import TextField from '@mui/material/TextField';
 import { useDispatch } from 'react-redux/es/exports';
 import AutoComplete from '../TelaListaDeJogadores/AutoComplete';
 import { lista } from '../../Lista'
-import { criarUsuarioApi, deletarUsuarioApi, listaDeUsuariosApi } from '../../api';
+import { criarUsuarioApi, deletarUsuarioApi, listaDeUsuariosApi } from '../../Api/usuariosApi';
 import { Autocomplete } from '@mui/material';
 export default function ModalDeletarUsuario() {
     const [usuarios, setUsuarios] = useState([])
