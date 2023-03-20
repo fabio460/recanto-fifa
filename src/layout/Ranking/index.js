@@ -15,6 +15,7 @@ import ListaDeParticipantes from './listaDeParticipantes';
 import { dadosDePagamento, getPremiacoesBugados, removerArraysRepetidos, setPremiacao } from './servicos';
 import { alterarTemporadaApi } from '../../Api/temporadasApi';
 import { pagarFolhaApi, pagarPremiacao, pagarPremioBugadoApi } from '../../Api/pagamentosApi';
+import Carregando from './carregando';
 
 
 
@@ -27,7 +28,7 @@ export default function Ranking({Lista, temporada}) {
   const participantes = useSelector(state=>state.participantesReducer.participantes)
   const dispatch = useDispatch()
   const loading = useSelector(state=>state.loadingReducer.loading)
-  
+const [carregando, setCarregando] = useState(false)
   var premioOuro = []
   var premioPrata = ["Felipe","Felipe","Rafael","Felipe"]
   var premioBronze = ["José","Rafael","Rafael","Rafael","Felipe"]
@@ -114,25 +115,32 @@ export default function Ranking({Lista, temporada}) {
       }
     }
     
+    let arrayDePremiadosDoBugado = getPremiacoesBugados(
+        checadoA,
+        checadoB,
+        colocacao.primeiro, 
+        buscaUsuarioPeloJogador(artilharia.primeiro, Lista),
+        buscaUsuarioPeloJogador(artilharia.segundo, Lista),
+        Lista
+    )
+    //console.log(setPremiacao(usuariosPremiados, Lista))
+    //pagarPremioBugadoApi(arrayDePremiadosDoBugado)
     if (setPremiacao(usuariosPremiados, Lista).length === 0) {
       alert("não há premiaçôes selecionadas")
     }else{
-
-      let arrayDePremiadosDoBugado = getPremiacoesBugados(
-          checadoA,
-          checadoB,
-          colocacao.primeiro, 
-          buscaUsuarioPeloJogador(artilharia.primeiro, Lista),
-          buscaUsuarioPeloJogador(artilharia.segundo, Lista),
-          Lista
-      )
-      
-      console.log(arrayDePremiadosDoBugado)
+      setCarregando(true)
       pagarPremiacao(setPremiacao(usuariosPremiados, Lista))
-      pagarPremioBugadoApi(arrayDePremiadosDoBugado)
-      alterarTemporadaApi()
+      setTimeout(() => {
+        alterarTemporadaApi()
+      }, 2000);
+      setTimeout(() => {
+        pagarPremioBugadoApi(arrayDePremiadosDoBugado)
+      }, 3000);
       usuariosPremiados = []
-      alert("Temporada finalizada com sucesso com o "+colocacao.primeiro+" campeão!") 
+      setTimeout(() => {
+        window.location.reload() 
+      }, 4000);
+      //alert("Temporada finalizada com sucesso com o "+colocacao.primeiro+" campeão!")
     }     
   }
   
@@ -155,9 +163,12 @@ export default function Ranking({Lista, temporada}) {
       pagarFolhaApi(usuariosParaPagar)
     }
   }  
-
+  
   return (
     <div>
+      {carregando && <div className='carregandoRanking'>
+          <div className='carregandoRankingContent'><Carregando/></div>
+      </div>}
       {
         temporada && 
         <div>

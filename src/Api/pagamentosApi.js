@@ -13,30 +13,11 @@ export const pagarPremiacao = async(listaPremiados)=>{
       })
    })
    .then(res=>res.json())
-   .then(res=>console.log(res))
-   //  arrayPagamento.map(async(usuario, key)=>{              
-   //     fetch(local+"usuario",{
-   //        method:'put',
-   //        headers:{
-   //           "Content-Type":"application/json"
-   //        },
-   //        body:JSON.stringify({
-   //           id: usuario.id,
-   //           saldo: usuario.total
-   //        })
-   //     })
-   //     .then(res=>res.json())
- 
-   //     fetch(local+"usuario/bugado",{
-   //        method:'put',
-   //        headers:{
-   //           "Content-Type":"application/json"
-   //        },
-   //        body:JSON.stringify({
-   //           id: usuario.id, bugado:null
-   //        })
-   //     })
-   //  })
+   .then(res=>console.log({
+      inf:"premiação",
+      res,
+   }))
+   .catch(res=>console.log({"erro ao inserir pagamento":res}))
  }
  export const pagarFolhaApi = async(usuariosParaPagar)=>{
    let fim = 0
@@ -66,7 +47,7 @@ export const pagarPremiacao = async(listaPremiados)=>{
 
 export const pagarPremioBugadoApi = async(premiados)=>{
    if (premiados.length > 0) {   
-      let response = await fetch(local+"usuario/bugado",{
+      fetch(local+"usuario/bugado",{
           method:'put',
           headers:{
              "Content-Type":"application/json"
@@ -76,7 +57,8 @@ export const pagarPremioBugadoApi = async(premiados)=>{
           })
       })
       .then(res=>res.json())
-      .catch(res=>res)
-      console.log(response)
+      .then(res=>{
+         console.log({inf:"bugado pago", res})
+      })
    }
 }

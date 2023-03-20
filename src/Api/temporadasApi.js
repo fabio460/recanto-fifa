@@ -16,9 +16,9 @@ export const alterarTemporadaApi = async(pagarFolha)=>{
        })
        .then(r=>r.json())
        .then(r=>{
-          alert("Termino da 1º finalizada!")
-          window.location.reload()
-
+         console.log("temporada atualizada")
+          //alert("Termino da 1º finalizada!")
+          //window.location.reload()
        })
     }else{
        await fetch(local+"temporada",{
@@ -31,8 +31,9 @@ export const alterarTemporadaApi = async(pagarFolha)=>{
           })
        })
        .then(r=>r.json())
-       .then(r=>{
-          alert("Termino da 2º temporada, efetue o pagamento da folha!")
+       .then(res=>{
+         console.log({inf:"temporada finalizada", res})
+          //alert("Termino da 2º temporada, efetue o pagamento da folha!")
        })
     }
  }

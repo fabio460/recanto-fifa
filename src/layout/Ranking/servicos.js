@@ -101,5 +101,11 @@ export function getPremiacoesBugados(checadoA, checadoB, campeao, artilheiro, vi
       })
       premiados.push({bugado:premio.join(""), id: id === '' ? idOuro: id })
     })
-    return premiados
+    let aux = premiados.filter(e=>{
+      if (e.id !== '') {
+        return e
+      }
+    })
+    
+    return aux
   }
