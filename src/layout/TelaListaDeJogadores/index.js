@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux';
 import { CircularProgress } from '@mui/material'
 import { Box } from '@mui/system'
 import { getTemporadaApi } from '../../Api/temporadasApi';
+import Carregando from '../Ranking/carregando';
 
 export default function TelaListaDeJogadores() {
   const [listaJogadores, setlistaJogadores] = useState([])
@@ -72,6 +73,11 @@ export default function TelaListaDeJogadores() {
   }
   return (
     <div>
+      {loading && 
+      <div className='carregandoRanking'>
+        <div className='carregandoRankingContent'><Carregando/></div>  
+      </div>
+      }
       {
         carregando ? 
         <div className='TelaListaJogadores'>
@@ -85,7 +91,7 @@ export default function TelaListaDeJogadores() {
                 <div>Usuario {Usuario?.nome}</div>
                 {Temporada && <h4 style={{color: Temporada === 1 ?"green":"red"}}>Temporada {Temporada}</h4>}
               </h1>
-              {loading&&<div>carregando ...</div>}
+              
             </div>
             <div className='TelaListaJogadoresTituloRigth'>
               <div className='TelaListaJogadoresMenuSaldo'>

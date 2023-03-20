@@ -71,10 +71,6 @@ export const adicionarJogadorApi = async(
              payload:{loading:true}
           })
           alert("O jogador "+label+" foi adicionado ao seu time")
-          dispatch({
-             type:"loading",
-             payload:{loading:false}
-          })
           window.location.reload()
        })
  }

@@ -11,10 +11,12 @@ import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel/InputLabel';
 import { getTemporadaApi } from '../../Api/temporadasApi';
 import { adicionarJogadorApi, getJogadorPeloNomeApi } from '../../Api/jogadoresApi';
+import { CircularProgress } from '@mui/material';
 
 export default function ModalComprar({jogador, idUsuario, Saldo, nomeDoComprador}) {
   const [open, setOpen] = React.useState(false);
   const [valor, setValor] = React.useState()
+  const [carregando, setCarregando] = React.useState(false)
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -28,6 +30,7 @@ export default function ModalComprar({jogador, idUsuario, Saldo, nomeDoComprador
   
   
   const comprarJogador = async()=>{
+    setCarregando(true)  
     const temporada = await getTemporadaApi()
     let invalido =  (/^(?=.*[ a-zA-Z@#$%º¢£&!'"-+/\(\)\ \`\\\|\{\}\[\]\~\^\:\; ])/); 
     let valorComVirgula = valor.replace(",",".")
@@ -53,16 +56,17 @@ export default function ModalComprar({jogador, idUsuario, Saldo, nomeDoComprador
               if (valor === "" || !valor) {
                 alert("Este campo não pode estar em branco")
               } else {
-               if (temporada.numero === 2) {       
-                 adicionarJogadorApi(
-                   jogador.label,
-                   jogador.Posicao,
-                   jogador.OVER,
-                   jogador.CLUBE,
-                   idUsuario,
-                   parseFloat(valorComVirgula),
-                   dispatch 
-                 )
+               if (temporada.numero === 2) {
+                setCarregando(true)       
+                adicionarJogadorApi(
+                  jogador.label,
+                  jogador.Posicao,
+                  jogador.OVER,
+                  jogador.CLUBE,
+                  idUsuario,
+                  parseFloat(valorComVirgula),
+                  dispatch 
+                )
                } else {
                  alert("Voçê só pode comprar jogador na temporada 2")
                }
@@ -99,7 +103,14 @@ export default function ModalComprar({jogador, idUsuario, Saldo, nomeDoComprador
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={comprarJogador}>Confirmar</Button>
+          {
+            carregando ?  
+            <Button  disabled >
+              <CircularProgress sx={{width:"20px",height:"20px"}}/>
+              {/* carregando ... */}
+            </Button>:
+            <Button onClick={comprarJogador}>Confirmar</Button>
+          }
           <Button color='error' onClick={handleClose} autoFocus>
             Cancelar
           </Button>
