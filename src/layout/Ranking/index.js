@@ -258,18 +258,18 @@ const [carregando, setCarregando] = useState(false)
                     </Select>
                   </FormControl>
                 </Box> */}
-                <h5>3 Hash trick consec</h5>
+                {/* <h5>3 Hash trick consec</h5>
                 <div>
-                <FormGroup sx={{padding:"10px"}}>
-                  {participantes?.map((item, key)=>{
-                    return (
-                      <FormControlLabel control={<Checkbox onChange={e=>handleChecadoA(item, e.target)}/>} label={item.nome} />
-                      )
-                    })}
-                </FormGroup>         
-                </div>
+                  <FormGroup sx={{padding:"10px"}}>
+                    {participantes?.map((item, key)=>{
+                      return (
+                        <FormControlLabel control={<Checkbox onChange={e=>handleChecadoA(item, e.target)}/>} label={item.nome} />
+                        )
+                      })}
+                  </FormGroup>         
+                </div> */}
               </div>
-              <div>
+              {/* <div>
                 <h5>3 part sem sofrer gols</h5>
                 <FormGroup sx={{padding:"10px"}}>
                   {participantes?.map((item, key)=>{
@@ -278,7 +278,7 @@ const [carregando, setCarregando] = useState(false)
                       )
                     })}
                 </FormGroup>
-              </div>
+              </div> */}
               <div>
                 <ModalPagarPremiasao finalizarTemporada={finalizarTemporada}/>
                 <ModalPagarFolha pagarFolha={pagarFolha}/>

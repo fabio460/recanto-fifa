@@ -10,7 +10,7 @@ import ModalDispensarJogador from './modalDispensarJogador'
 import ModalTransferirJogador from './modalTransferirJogador'
 import MenuIcon from '@mui/icons-material/Menu';
 import "./TelaElenco.css"
-import { CircularProgress } from '@mui/material'
+import { CircularProgress, IconButton } from '@mui/material'
 import { Box } from '@mui/system'
 import { getTemporadaApi } from '../../Api/temporadasApi';
 import { deletarJogadorApi } from '../../Api/jogadoresApi';
@@ -79,15 +79,16 @@ export default function TelaDeElenco() {
                 </div>
               </div>
               <div className='TelaDeElencoHeaderMobile'>
-                <Button
+                <IconButton
                   id="basic-button"
                   aria-controls={open ? 'basic-menu' : undefined}
                   aria-haspopup="true"
                   aria-expanded={open ? 'true' : undefined}
                   onClick={handleClick}
+                  sx={{marginRight:"-8px", marginBottom:"8px"}}
                 >
                   <MenuIcon/>
-                </Button>
+                </IconButton>
                 <Menu
                   id="basic-menu"
                   anchorEl={anchorEl}
