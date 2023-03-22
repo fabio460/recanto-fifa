@@ -3,6 +3,16 @@ import { Link } from 'react-router-dom'
 import "./Regras.css"
 export default function Regras() {
   const regras = [
+    "Campeâo - 30.000,00",
+    "Vice Campeão - 15.000,00",
+    "Terceiro colocado - 7.500,00",
+    "Quarto lugar - 3.500,00",
+    "Artilh/Assist: 15,000,00",
+    "Vice-Artilh/Assist: 7,500,00",
+    "3º Artilh/Assist: 3,500,00",
+    "GOL: 50,00 (cada)",
+    "Vitória: 1.500,00",
+    "Empate: 750,00",
     "Dispensar jogador - Receba 40% do valor pago pelo jogador abaixo de 89 de overall e 60% acima.",
     "Prêmio bugado ouro - Cupom 50% na compra de jogador",
     "Prêmio bugado prata - Cupom 40% na compra de jogador",
