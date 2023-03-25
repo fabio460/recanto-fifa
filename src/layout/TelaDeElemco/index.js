@@ -64,7 +64,7 @@ export default function TelaDeElenco() {
         carregando ? 
         <div className='TelaDeElencoContainer'>
             <div className='TelaDeElencoHeader'>
-              <h5>Usuario: {usuario?.nome}</h5>
+              <h4>Usuario: {usuario?.nome}</h4>
               <div className='TelaDeElencoHeaderDesktop'>
                 <div style={{display:"flex", alignItems:"center"}}>
                   <button 

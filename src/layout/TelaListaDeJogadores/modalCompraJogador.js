@@ -22,6 +22,7 @@ export default function ModalComprar({jogador, idUsuario, Saldo, nomeDoComprador
   };
 
   const handleClose = () => {
+    setCarregando(false)
     setOpen(false);
   };
 
@@ -37,18 +38,22 @@ export default function ModalComprar({jogador, idUsuario, Saldo, nomeDoComprador
     const jogadorDisponivel = await getJogadorPeloNomeApi(jogador.label)
     if (valor >= Saldo) {
       alert("Você não tem saldo suficiente")
+      setCarregando(false)
     } else {      
       if (jogadorDisponivel) {
         if (nomeDoComprador === jogadorDisponivel.usuario.nome) {
           alert("Este jogador já esta no seu elenco")
+          setCarregando(false)
         } else {     
           alert("Voçê não pode adiquirir este jogador, pois ele pertence ao "
             + jogadorDisponivel.usuario.nome
           )
+          setCarregando(false)
         }
       } else {  
         if (valor < 0 ) {
           alert("valor não pode ser negativo")
+          setCarregando(false)
          } else {
            if (invalido.test(valor)) {
              alert("Este campo contem caractere não numerico")
@@ -65,16 +70,23 @@ export default function ModalComprar({jogador, idUsuario, Saldo, nomeDoComprador
                   jogador.CLUBE,
                   idUsuario,
                   parseFloat(valorComVirgula),
-                  dispatch 
+                  dispatch,
+                  setCarregando 
                 )
                } else {
                  alert("Voçê só pode comprar jogador na temporada 2")
+                 setCarregando(false)
                }
                handleClose()
              }
            }
          }  
       }
+    }
+  }
+  const enter = (event)=>{
+    if (event.code === "Enter") {
+      comprarJogador()
     }
   }
   return (
@@ -99,6 +111,7 @@ export default function ModalComprar({jogador, idUsuario, Saldo, nomeDoComprador
               label="Preço do jogador" 
               onChange={e=>setValor(e.target.value)}
               sx={{width:"100%",margin:"10px 0px"}}
+              onKeyUp={e=> enter(e)}
             />
           </DialogContentText>
         </DialogContent>
@@ -107,7 +120,6 @@ export default function ModalComprar({jogador, idUsuario, Saldo, nomeDoComprador
             carregando ?  
             <Button  disabled >
               <CircularProgress sx={{width:"20px",height:"20px"}}/>
-              {/* carregando ... */}
             </Button>:
             <Button onClick={comprarJogador}>Confirmar</Button>
           }

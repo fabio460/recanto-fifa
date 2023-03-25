@@ -15,47 +15,57 @@ import { useDispatch } from 'react-redux/es/exports';
 import AutoComplete from '../TelaListaDeJogadores/AutoComplete';
 import { lista } from '../../Lista'
 import { adicionarSaldoApi, alterarSaldoApi, criarUsuarioApi, deletarUsuarioApi, listaDeUsuariosApi } from '../../Api/usuariosApi';
-import { Autocomplete } from '@mui/material';
+import { Autocomplete, CircularProgress } from '@mui/material';
 import { getTemporadaApi } from '../../Api/temporadasApi';
 import { deletarJogadorApi } from '../../Api/jogadoresApi';
 export default function ModalDispensarJogador({jogador, usuario}) { 
-    const formatoMonetario = ()=> toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})
-    const [open, setOpen] = React.useState(false);
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
+  const formatoMonetario = ()=> toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})
+  const [open, setOpen] = React.useState(false);
+  const [carregando, setCarregando] = useState({status:false, jogador: null})
+  const handleClickOpen = () => {
+      setOpen(true);
+  };
 
-    const dispatch = useDispatch()
-    const handleClose = () => {
-        setOpen(false);
-    };
+  const dispatch = useDispatch()
+  const handleClose = () => {
+    setCarregando({status:false, jogador: jogador.label})  
+    setOpen(false);
+  };
 
-    const dialogStyle = {
-      width:"600px",
-      height:"",
-      padding:"20px",
-      "@media (max-width:800px)":{
-      width:"100%"
-      }
+  const dialogStyle = {
+    width:"600px",
+    height:"",
+    padding:"20px",
+    "@media (max-width:800px)":{
+    width:"100%"
     }
-    
-    const valorGanho = jogador.OVER >= 90 ? (jogador.valor)*0.6 : (jogador.valor)*0.4 
+  }
   
-    const novoValorDoSaldo = usuario.saldo + valorGanho
-    const Confirmar = async()=>{
-        const temporada = await getTemporadaApi()
-        if (temporada.numero === 2) {                
-          deletarJogadorApi(jogador.id)
-          adicionarSaldoApi(usuario.id,novoValorDoSaldo)
-          alert("Jogador "+jogador.label+" libarado, você recebeu "+valorGanho.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}))
-          handleClose()
-        } else {
-          alert("Voçê só pode dispensar jogadores na temporada 2")
-        }
-    }
+  const valorGanho = jogador.OVER >= 90 ? (jogador.valor)*0.6 : (jogador.valor)*0.4 
+
+  const novoValorDoSaldo = usuario.saldo + valorGanho
+  const Confirmar = async()=>{
+      setCarregando({status:true, jogador: jogador.label})
+      const temporada = await getTemporadaApi()
+      if (temporada.numero === 2) {                
+        deletarJogadorApi(jogador.id)
+        adicionarSaldoApi(usuario.id,novoValorDoSaldo)
+        alert("Jogador "+jogador.label+" libarado, você recebeu "+valorGanho.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}))
+        handleClose()
+      } else {
+        alert("Voçê só pode dispensar jogadores na temporada 2")
+      }
+  }
+
   return (
     <div>
-      <button onClick={handleClickOpen} className='btn btn-primary'>Despensar</button>           
+      {
+        carregando.status === true && carregando.jogador === jogador.label ?  
+        <Button  disabled >
+          <CircularProgress sx={{width:"20px",height:"20px"}}/>
+        </Button>:       
+        <button onClick={handleClickOpen} className='btn btn-primary'>Despensar</button> 
+      }          
       <Dialog
         open={open}
         onClose={handleClose}
