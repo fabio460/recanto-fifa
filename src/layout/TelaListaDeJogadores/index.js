@@ -14,13 +14,23 @@ import { CircularProgress } from '@mui/material'
 import { Box } from '@mui/system'
 import { getTemporadaApi } from '../../Api/temporadasApi';
 import Carregando from '../Ranking/carregando';
+import Typography from '@mui/material/Typography';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
 export default function TelaListaDeJogadores() {
   const [listaJogadores, setlistaJogadores] = useState([])
-  const [value, setValue] = React.useState(null);
+  const [value, setValue] = React.useState("");
   const [Usuario, setUsuario] = useState()
   const [carregando, setcarregndo] = useState(false)
   const [Temporada, setTemporada] = useState()
+  const [page, setPage] = React.useState(1);
+  const loading = useSelector(state=>state.loadingReducer.loading)
+  let [quantDeJogadores, setQuantDeJogadores] = useState();
+  const itensPorPagina = 7
+  const handleChange = (event, value) => {
+    setPage(value);
+  };
   let usuarioLocalStorage = localStorage.getItem("usuarioSelecionado")
   const h = useNavigate()
   const [Jogador, setJogador] = useState()
@@ -28,17 +38,60 @@ export default function TelaListaDeJogadores() {
     h("/")
   }
   var id = JSON.parse(usuarioLocalStorage).id
-  useEffect(()=>{
-    const p = lista.filter(e=>{
-      if (e.CLUBE.includes(value)) {
+  const inicio = page* itensPorPagina - itensPorPagina
+  const fim = page* itensPorPagina - 1
+  
+
+  function ListaTotal() {    
+    var ordenada = lista.sort((a,b)=>{
+      return a.OVER < b.OVER ? 1 : a.OVER > b.OVER ? -1 : 0;
+    })
+    if (ordenada.length === 0) {
+      setQuantDeJogadores(0)
+    }
+    let paginada = ordenada.filter((elem, key)=>{
+      setQuantDeJogadores(key + 1)
+      if (key >= inicio && key <= fim) {
+        return elem          
+      }
+    })
+    if (Jogador !== "") {
+      setlistaJogadores(paginada)
+    }
+  }
+
+  const buscarJogador = ()=>{ 
+
+
+    const p = lista.filter((e, key)=>{
+      if (e.label.toLowerCase().includes(Jogador.toLowerCase())) {
         return e
       }
     })
     var ordenada = p.sort((a,b)=>{
-      return a.OVER < b.OVER ? -1 : a.OVER > b.OVER ? 1 : 0;
+      return a.OVER < b.OVER ? 1 : a.OVER > b.OVER ? -1 : 0;
     })
-    setlistaJogadores(ordenada.reverse())
-  },[value])
+
+    if (ordenada.length === 0) {
+      setQuantDeJogadores(0)
+      ListaTotal()
+    }
+    let paginada = ordenada.filter((elem, key)=>{
+      setQuantDeJogadores(key + 1)
+      if (key >= inicio && key <= fim) {
+        return elem          
+      }
+    })
+
+  
+    setlistaJogadores(paginada)
+}
+  useEffect(()=>{
+    ListaTotal()
+    if (Jogador || Jogador == "") {
+      buscarJogador()
+    }
+  },[value, page])
 
   async function getUsuarioPorId() {
     const p = await getUsuariosPorIdApi(id)
@@ -51,25 +104,16 @@ export default function TelaListaDeJogadores() {
   useEffect(()=>{
     getUsuarioPorId()
   },[])
-  const loading = useSelector(state=>state.loadingReducer.loading)
-  const buscarJogador = ()=>{
-    if(Jogador.trim() !== ""){       
-      const p = lista.filter(e=>{
-        if (e.label.toLowerCase().includes(Jogador.toLowerCase())) {
-          return e
-        }
-      })
-      var ordenada = p.sort((a,b)=>{
-        return a.OVER < b.OVER ? -1 : a.OVER > b.OVER ? 1 : 0;
-      })
-      setlistaJogadores(ordenada.reverse())
-      setJogador("")
-    }
-  }
+  
   const buscarJogadorEnter = (e)=>{
     if(e.code === "Enter"){
-      buscarJogador()
+      buscar()
     }
+  }
+
+  const buscar = ()=>{
+    setPage(1)
+    buscarJogador()
   }
   return (
     <div>
@@ -115,19 +159,23 @@ export default function TelaListaDeJogadores() {
                   type="button"
                   sx={{ p: '10px' }} 
                   aria-label="search"
-                  onClick={buscarJogador}
+                  onClick={buscar}
                 >
                   <SearchIcon />
                 </IconButton>
               </Paper>
+              Total de {listaJogadores.length === 0 ? 0 : quantDeJogadores} jogadores achados
             </div>
           </div>
+          {
+            listaJogadores.length === 0 ? 
+            <div className='naoEncontrado'> Não encontrado ! </div>:
             <div className='tabela'>
               <table className="table">
                 <thead className="thead-dark">
                   <tr>
-                    <th scope="col">Time</th>
                     <th scope="col">Jogador</th>
+                    <th scope="col">Time</th>
                     <th scope="col">Overall</th>
                     <th scope="col">Posição</th>                   
                     <th scope="col"> </th>
@@ -137,8 +185,8 @@ export default function TelaListaDeJogadores() {
                   {listaJogadores.map((elem,key)=>{
                     return(
                       <tr>
-                        <td >{elem.CLUBE}</td>
                         <td>{elem.label}</td>
+                        <td >{elem.CLUBE}</td>
                         <td>{elem.OVER}</td>
                         <td>{elem.Posicao}</td> 
                         <td className='btnComprar'>
@@ -150,6 +198,18 @@ export default function TelaListaDeJogadores() {
                 </tbody>
               </table>
             </div>
+          }
+          <Stack spacing={2}>
+            <div style={{display:"flex",justifyContent:"flex-end", width:"100%"}}>
+              <Pagination 
+                size='small'
+                count={listaJogadores.length === 0 ? 0 : Math.ceil(quantDeJogadores/itensPorPagina)}
+                page={page} 
+                onChange={handleChange} 
+                color="secondary" 
+                />
+            </div>
+          </Stack>
         </div>
         :
         <Box sx={{ display: 'flex',justifyContent:"center", alignItems:"center", height:"100vh" }}>

@@ -35,8 +35,12 @@
     display: flex;
     justify-content: flex-end;
 }
+
 .naoEncontrado{
-    color: red;
+   position: relative;
+   text-align: center;
+   margin-top: 80px;
+   color: grey;
 }
 @media (max-width:800px) {
  
