@@ -164,7 +164,9 @@ export default function TelaListaDeJogadores() {
                   <SearchIcon />
                 </IconButton>
               </Paper>
-              Total de {listaJogadores.length === 0 ? 0 : quantDeJogadores} jogadores achados
+              Total de {listaJogadores.length === 0 ?
+              0 : quantDeJogadores} 
+              {listaJogadores.length === 1 ? " jogador encontrado" : " jogadores encontrados" } 
             </div>
           </div>
           {
