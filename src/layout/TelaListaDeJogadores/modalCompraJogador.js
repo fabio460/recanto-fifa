@@ -15,7 +15,7 @@ import { CircularProgress } from '@mui/material';
 
 export default function ModalComprar({jogador, idUsuario, Saldo, nomeDoComprador}) {
   const [open, setOpen] = React.useState(false);
-  const [valor, setValor] = React.useState()
+  const [valor, setValor] = React.useState("")
   const [carregando, setCarregando] = React.useState(false)
   const handleClickOpen = () => {
     setOpen(true);
@@ -31,6 +31,7 @@ export default function ModalComprar({jogador, idUsuario, Saldo, nomeDoComprador
   
   
   const comprarJogador = async()=>{
+    
     setCarregando(true)  
     const temporada = await getTemporadaApi()
     let invalido =  (/^(?=.*[ a-zA-Z@#$%º¢£&!'"-+/\(\)\ \`\\\|\{\}\[\]\~\^\:\; ])/); 
@@ -56,10 +57,12 @@ export default function ModalComprar({jogador, idUsuario, Saldo, nomeDoComprador
           setCarregando(false)
          } else {
            if (invalido.test(valor)) {
-             alert("Este campo contem caractere não numerico")
+             alert("Este campo contem caractere não numerico ou numero incompatível")
+             setCarregando(false)
             } else {
-              if (valor === "" || !valor) {
+              if (valor.trim() === "" || valor === undefined || valor === null) {
                 alert("Este campo não pode estar em branco")
+                setCarregando(false)
               } else {
                if (temporada.numero === 2) {
                 setCarregando(true)       

@@ -17,6 +17,7 @@ import Carregando from '../Ranking/carregando';
 import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import { listarTodosOsJogadoresApi } from '../../Api/jogadoresApi';
 
 export default function TelaListaDeJogadores() {
   const [listaJogadores, setlistaJogadores] = useState([])
@@ -42,8 +43,15 @@ export default function TelaListaDeJogadores() {
   const fim = page* itensPorPagina - 1
   
 
-  function ListaTotal() {    
-    var ordenada = lista.sort((a,b)=>{
+  async function ListaTotal() {    
+    const totalDeJogadores = await listarTodosOsJogadoresApi()
+    let nomeDeTodosJogadores = totalDeJogadores.map(jog=>jog.label)
+    let listaSemJogadoresComprados = lista.filter(elem=>{
+      if (nomeDeTodosJogadores.includes(elem.label) === false) {
+        return elem
+      }
+    })
+    var ordenada = listaSemJogadoresComprados.sort((a,b)=>{
       return a.OVER < b.OVER ? 1 : a.OVER > b.OVER ? -1 : 0;
     })
     if (ordenada.length === 0) {
@@ -60,11 +68,16 @@ export default function TelaListaDeJogadores() {
     }
   }
 
-  const buscarJogador = ()=>{ 
-
-
-    const p = lista.filter((e, key)=>{
-      if (e.label.toLowerCase().includes(Jogador.toLowerCase())) {
+  const buscarJogador = async()=>{ 
+    const totalDeJogadores = await listarTodosOsJogadoresApi()
+    let nomeDeTodosJogadores = totalDeJogadores.map(jog=>jog.label)
+    let listaSemJogadoresComprados = lista.filter(elem=>{
+      if (nomeDeTodosJogadores.includes(elem.label) === false) {
+        return elem
+      }
+    })
+    const p = listaSemJogadoresComprados.filter((e, key)=>{
+      if (e.label.toLowerCase().includes(Jogador.toLowerCase().trim())) {
         return e
       }
     })
@@ -91,6 +104,7 @@ export default function TelaListaDeJogadores() {
     if (Jogador || Jogador == "") {
       buscarJogador()
     }
+
   },[value, page])
 
   async function getUsuarioPorId() {

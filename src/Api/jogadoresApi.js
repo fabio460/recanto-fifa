@@ -2,6 +2,14 @@
 import { link } from "./link"
 import { getUsuariosPorIdApi } from "./usuariosApi"
 var local = link
+
+export const listarTodosOsJogadoresApi = async()=>{
+   const l = await fetch(local+"jogador")
+      .then(r=>r.json())
+      .catch(r=>r)
+   return l
+}
+
 export const getJogadorPeloNomeApi = async(nome)=>{
     const l = await fetch(local+"jogador/nome/"+nome)
        .then(r=>r.json())
