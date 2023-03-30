@@ -1,5 +1,5 @@
 .TelaListaJogadores{
-    padding: 5%;
+    padding: 3%;
 }
 .TelaListaJogadoresTitulo{
     display: flex;
@@ -49,8 +49,14 @@
     display:flex;
     justify-content: flex-end;
     width: 100%;
+    margin-top: auto;
 }
-
+.containerDaTabela{
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 @media (max-width:800px) {
     .td_nome{
        min-width: 180px;

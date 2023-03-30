@@ -24,6 +24,7 @@ export default function TelaListaDeJogadores() {
   const [value, setValue] = React.useState("");
   const [Usuario, setUsuario] = useState()
   const [carregando, setcarregndo] = useState(false)
+  const [carregarTabela, setCarregarTabela] = useState(false)
   const [Temporada, setTemporada] = useState()
   const [page, setPage] = React.useState(1);
   const loading = useSelector(state=>state.loadingReducer.loading)
@@ -43,8 +44,10 @@ export default function TelaListaDeJogadores() {
   const fim = page* itensPorPagina - 1
   
 
-  async function ListaTotal() {    
+  async function ListaTotal() {
+    setCarregarTabela(true)    
     const totalDeJogadores = await listarTodosOsJogadoresApi()
+    setCarregarTabela(false)
     let nomeDeTodosJogadores = totalDeJogadores.map(jog=>jog.label)
     let listaSemJogadoresComprados = lista.filter(elem=>{
       if (nomeDeTodosJogadores.includes(elem.label) === false) {
@@ -69,7 +72,9 @@ export default function TelaListaDeJogadores() {
   }
 
   const buscarJogador = async()=>{ 
+    setCarregarTabela(true)
     const totalDeJogadores = await listarTodosOsJogadoresApi()
+    setCarregarTabela(false)
     let nomeDeTodosJogadores = totalDeJogadores.map(jog=>jog.label)
     let listaSemJogadoresComprados = lista.filter(elem=>{
       if (nomeDeTodosJogadores.includes(elem.label) === false) {
@@ -178,56 +183,76 @@ export default function TelaListaDeJogadores() {
                   <SearchIcon />
                 </IconButton>
               </Paper>
-              <div className='texto_quant_jogadores'>
-                Total de {listaJogadores.length === 0 ?
-                0 : quantDeJogadores} 
-                {listaJogadores.length === 1 ? " jogador encontrado" : " jogadores encontrados" } 
-              </div>
+             {
+                !carregarTabela ?
+                <div className='texto_quant_jogadores'>
+                  Total de {listaJogadores.length === 0 ?
+                  0 : quantDeJogadores} 
+                  {listaJogadores.length === 1 ? " jogador encontrado" : " jogadores encontrados" } 
+                </div>:
+                <div className='texto_quant_jogadores'>carregando ...</div>
+              }
+            </div>
+            
+          </div>
+          <div className='containerDaTabela'>
+            <div>
+              {
+                listaJogadores.length === 0 ? 
+                <div className='naoEncontrado'> Não encontrado ! </div>:
+                <div className='tabela'>
+                  {
+                    !carregarTabela ?
+                    <table className="table">
+                    <thead className="thead-dark">
+                      <tr>
+                        <th scope="col">Jogador</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Overall</th>
+                        <th scope="col">Posição</th>                   
+                        <th scope="col"> </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {listaJogadores.map((elem,key)=>{
+                        return(
+                          <tr>
+                            <td className='td_nome'>{elem.label}</td>
+                            <td className='td_clube'>{elem.CLUBE}</td>
+                            <td className='td_over'>{elem.OVER}</td>
+                            <td className='td_posicao'>{elem.Posicao}</td> 
+                            <td className='btnComprar'>
+                              <ModalComprar jogador={elem} idUsuario={Usuario.id} Saldo={Usuario.saldo} nomeDoComprador={Usuario.nome}/>
+                            </td>
+                          </tr>
+                        )
+                      })}
+                    </tbody>
+                    </table>:
+                    <Box sx={{ display: 'flex',justifyContent:"center", alignItems:"center", height:"50vh", width:"100%" }}>
+                        <CircularProgress />
+                    </Box>
+                  }
+                </div>
+              }
+            </div>
+            <div>
+              {
+                !carregarTabela &&
+                <Stack spacing={2}>
+                  <div className='paginacao'>
+                    <Pagination 
+                      size='small'
+                      count={listaJogadores.length === 0 ? 0 : Math.ceil(quantDeJogadores/itensPorPagina)}
+                      page={page} 
+                      onChange={handleChange} 
+                      color="secondary" 
+                      />
+                  </div>
+                </Stack>
+                }
             </div>
           </div>
-          {
-            listaJogadores.length === 0 ? 
-            <div className='naoEncontrado'> Não encontrado ! </div>:
-            <div className='tabela'>
-              <table className="table">
-                <thead className="thead-dark">
-                  <tr>
-                    <th scope="col">Jogador</th>
-                    <th scope="col">Time</th>
-                    <th scope="col">Overall</th>
-                    <th scope="col">Posição</th>                   
-                    <th scope="col"> </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {listaJogadores.map((elem,key)=>{
-                    return(
-                      <tr>
-                        <td className='td_nome'>{elem.label}</td>
-                        <td className='td_clube'>{elem.CLUBE}</td>
-                        <td className='td_over'>{elem.OVER}</td>
-                        <td className='td_posicao'>{elem.Posicao}</td> 
-                        <td className='btnComprar'>
-                          <ModalComprar jogador={elem} idUsuario={Usuario.id} Saldo={Usuario.saldo} nomeDoComprador={Usuario.nome}/>
-                        </td>
-                      </tr>
-                    )
-                  })}
-                </tbody>
-              </table>
-            </div>
-          }
-          <Stack spacing={2}>
-            <div className='paginacao'>
-              <Pagination 
-                size='small'
-                count={listaJogadores.length === 0 ? 0 : Math.ceil(quantDeJogadores/itensPorPagina)}
-                page={page} 
-                onChange={handleChange} 
-                color="secondary" 
-                />
-            </div>
-          </Stack>
         </div>
         :
         <Box sx={{ display: 'flex',justifyContent:"center", alignItems:"center", height:"100vh" }}>
