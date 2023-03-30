@@ -48,11 +48,20 @@ export default function Layout() {
             </div>:
             <div>
               <Ranking Lista={Lista} temporada={temporada}/>
-              <h3 style={{textAlign:"center"}}>Dados estatísticos</h3>
+              <h3 className='tituloEstatisticas'>Dados estatísticos</h3>
               <div className='estatistica'>
-                <Vencedores/>
-                <Artilheiros/>
-                <Assistentes/>
+                <div>
+                  <div className='cabecacalhoEstatisticas'>Campeões</div>
+                  <Vencedores/>
+                </div>
+                <div>
+                  <div className='cabecacalhoEstatisticas'>Artilheiros</div>
+                  <Artilheiros/>
+                </div>
+                <div>
+                  <div className='cabecacalhoEstatisticas'>Assintentes</div>
+                  <Assistentes/> 
+                </div>
               </div>
               <Usuarios Lista={Lista}/>
             </div>

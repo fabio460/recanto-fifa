@@ -46,10 +46,19 @@
    z-index: 5;
 }
 .estatistica{
-  height: 300px;
+  
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap:30px
+  gap:30px;
+  margin-bottom: 30px;
+}
+
+.cabecacalhoEstatisticas{
+  text-align: center;
+  margin: 15px;
+}
+.tituloEstatisticas{
+  text-align: center;
 }
 @media (max-width:980px) {
 

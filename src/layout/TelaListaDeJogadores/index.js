@@ -141,7 +141,7 @@ export default function TelaListaDeJogadores() {
         <div className='TelaListaJogadores'>
           <div style={{display:"flex"}}>
             <div className='TelaListaJogadoresMenu' onClick={()=>h("/")}>Inicio</div>
-            <div className='TelaListaJogadoresMenu' onClick={()=>h("/elencos")}>Meu time</div>
+            <div className='TelaListaJogadoresMenu' onClick={()=>h("/elencos")}>Elenco</div>
           </div>
           <div className='TelaListaJogadoresTitulo'>
             <div className='TelaListaJogadoresTituloLeft'>
@@ -178,9 +178,11 @@ export default function TelaListaDeJogadores() {
                   <SearchIcon />
                 </IconButton>
               </Paper>
-              Total de {listaJogadores.length === 0 ?
-              0 : quantDeJogadores} 
-              {listaJogadores.length === 1 ? " jogador encontrado" : " jogadores encontrados" } 
+              <div className='texto_quant_jogadores'>
+                Total de {listaJogadores.length === 0 ?
+                0 : quantDeJogadores} 
+                {listaJogadores.length === 1 ? " jogador encontrado" : " jogadores encontrados" } 
+              </div>
             </div>
           </div>
           {
@@ -201,10 +203,10 @@ export default function TelaListaDeJogadores() {
                   {listaJogadores.map((elem,key)=>{
                     return(
                       <tr>
-                        <td>{elem.label}</td>
-                        <td >{elem.CLUBE}</td>
-                        <td>{elem.OVER}</td>
-                        <td>{elem.Posicao}</td> 
+                        <td className='td_nome'>{elem.label}</td>
+                        <td className='td_clube'>{elem.CLUBE}</td>
+                        <td className='td_over'>{elem.OVER}</td>
+                        <td className='td_posicao'>{elem.Posicao}</td> 
                         <td className='btnComprar'>
                           <ModalComprar jogador={elem} idUsuario={Usuario.id} Saldo={Usuario.saldo} nomeDoComprador={Usuario.nome}/>
                         </td>
@@ -216,7 +218,7 @@ export default function TelaListaDeJogadores() {
             </div>
           }
           <Stack spacing={2}>
-            <div style={{display:"flex",justifyContent:"flex-end", width:"100%"}}>
+            <div className='paginacao'>
               <Pagination 
                 size='small'
                 count={listaJogadores.length === 0 ? 0 : Math.ceil(quantDeJogadores/itensPorPagina)}

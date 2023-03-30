@@ -14,7 +14,10 @@
 .TelaListaJogadoresTituloRigth{
     min-width: 400px;
 }
-
+.texto_quant_jogadores{
+    margin: 10px 0px 20px 10px;
+    color: grey;
+}
 .btnComprar{
     display: flex;
     justify-content: flex-end;
@@ -42,10 +45,30 @@
    margin-top: 80px;
    color: grey;
 }
-@media (max-width:800px) {
- 
-   .autocomplete{
+.paginacao{
+    display:flex;
+    justify-content: flex-end;
     width: 100%;
+}
+
+@media (max-width:800px) {
+    .td_nome{
+       min-width: 180px;
+    }
+    .td_clube{
+       min-width: 260px;
+    }
+    .td_over{
+       min-width: 80px;
+    }
+    .td_posicao{
+       min-width: 250px;
+    }
+   .paginacao{
+      justify-content: center;
+   }
+   .autocomplete{
+      width: 100%;
    }
    .TelaListaJogadoresTituloLeft{   
       margin: 20px 0px;
