@@ -41,5 +41,8 @@ export const deletarTodasStatisticasApi = async ()=>{
         }
     })
     .then(res=>res.json())
+    .then(res=>{
+        window.location.reload()
+    })
 }
 

@@ -37,7 +37,7 @@ async function getEstatistica() {
         return elem
       }
     })
-    setDados(primeiros)
+    setDados(primeiros.reverse())
 }
 useEffect(()=>{
     getEstatistica()

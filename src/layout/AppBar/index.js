@@ -26,6 +26,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 import ModalAssistecia from "./modalAssistencia";
 import { listaDeUsuariosApi } from "../../Api/usuariosApi";
 import {useDispatch, useSelector} from 'react-redux'
+import ModalDeletarEstatistica from "./modalDeletarEstatisticas";
 
 const regrasStyle = {
   color:"",
@@ -33,7 +34,7 @@ const regrasStyle = {
     color:"black"
   }
 }
-const settings = [<ModalCriarUsuario/>, <ModalDeletarUsuario/>];
+const settings = [<ModalCriarUsuario/>, <ModalDeletarUsuario/>, <ModalDeletarEstatistica/>];
 function Appbar() {
   const navigate = useNavigate()
   const [usuarios, setListaDeUsuarios] = React.useState([])

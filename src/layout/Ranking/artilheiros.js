@@ -5,7 +5,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsive
 
 export default function Artilheiros() {
 const  demoUrl = 'https://codesandbox.io/s/bar-chart-has-no-padding-jphoc';
-const [estatistica, setEstatistica] = useState()
+const [limiteDeItens, setLimiteDeItens] = useState(10)
 const [dados, setDados] = useState([])
 async function getEstatistica() {
     const e = await listarEstatisticasApi()
@@ -34,11 +34,11 @@ async function getEstatistica() {
         return a.artilheiro > b.artilheiro ? -1 : a.artilheiro < b.artilheiro ? 1 : 0
     })
     const primeiros = ordenada.filter((elem, key)=>{
-        if (key < 6) {    
+        if (key < limiteDeItens) {    
             return elem
         }
     })
-    setDados(primeiros)
+    setDados(primeiros.reverse())
 }
 useEffect(()=>{
     getEstatistica()

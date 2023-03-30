@@ -60,6 +60,13 @@
 .tituloEstatisticas{
   text-align: center;
 }
+.semDadosEstatisticos{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: grey;
+}
 @media (max-width:980px) {
 
   .estatistica{
