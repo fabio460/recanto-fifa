@@ -9,22 +9,36 @@ const [estatistica, setEstatistica] = useState()
 const [dados, setDados] = useState([])
 async function getEstatistica() {
     const e = await listarEstatisticasApi()
-    const nomesComRepeticoes = e.map(item=>{
+    const nomesComRepeticoes = e?.map(item=>{
         return item.artilheiro
     }) 
-    const usuarios = [... new Set(nomesComRepeticoes)]
-    let aux = []
-    usuarios.map(usuario=>{
-        let cont = 0
-        nomesComRepeticoes.filter(item=>{ 
-           if (item === usuario) {
-            cont+=1;
-           }
-        })
-        aux.push({name:usuario, artilheiro:cont})
+    const u = [... new Set(nomesComRepeticoes)]
+    const usuarios = u.filter(e=>{
+        if (e !== "") {
+            return e
+        }
     })
-    setDados(aux)
-    setEstatistica(e)
+    let aux = []
+    usuarios.filter((usuario, key)=>{
+        let cont = 0
+        if (key < 5 ) {          
+          nomesComRepeticoes.filter((item)=>{ 
+             if (item === usuario) {
+              cont+=1;
+             }
+          })
+          aux.push({name:usuario, artilheiro:cont})
+        }
+    })
+    const ordenada = aux.sort((a,b)=>{
+        return a.artilheiro > b.artilheiro ? -1 : a.artilheiro < b.artilheiro ? 1 : 0
+    })
+    const primeiros = ordenada.filter((elem, key)=>{
+        if (key < 6) {    
+            return elem
+        }
+    })
+    setDados(primeiros)
 }
 useEffect(()=>{
     getEstatistica()
@@ -37,11 +51,11 @@ return (
           data={dados}
           margin={{
             top: 0,
-            right: 0,
-            left: -40,
+            right: 50,
+            left: 0,
             bottom: 0,
           }}
-          padding={{left:0}}
+          style={{background:"", diplay:"flex", justifyContent:"center", padding:"0px 250px 0px 0px"}}
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" fontSize={'10px'}/>

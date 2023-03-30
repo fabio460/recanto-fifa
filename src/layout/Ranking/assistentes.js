@@ -12,19 +12,34 @@ async function getEstatistica() {
     const nomesComRepeticoes = e.map(item=>{
         return item.assistecia
     }) 
-    const usuarios = [... new Set(nomesComRepeticoes)]
-    let aux = []
-    usuarios.map(usuario=>{
-        let cont = 0
-        nomesComRepeticoes.filter(item=>{ 
-           if (item === usuario) {
-            cont+=1;
-           }
-        })
-        aux.push({name:usuario, assistente:cont})
+    const u = [... new Set(nomesComRepeticoes)]
+    const usuarios = u.filter(e=>{
+        if (e !== "") {
+            return e
+        }
     })
-    setDados(aux)
-    setEstatistica(e)
+    let aux = []
+    usuarios.filter((usuario, key)=>{
+        let cont = 0
+        if (key < 5) {            
+            nomesComRepeticoes.filter(item=>{ 
+               if (item === usuario) {
+                cont+=1;
+               }
+            })
+            aux.push({name:usuario, assistente:cont})
+        }
+    })
+    const ordenada = aux.sort((a,b)=>{
+        return a.assistente > b.assistente ? -1 : a.assistente < b.assistente ? 1 : 0
+    })
+    const primeiros = ordenada.filter((elem, key)=>{
+        if (key < 5 ) {    
+            return elem
+        }
+    })
+    console.log(primeiros)
+    setDados(primeiros)
 }
 useEffect(()=>{
     getEstatistica()
@@ -37,8 +52,8 @@ return (
           data={dados}
           margin={{
             top: 0,
-            right: 0,
-            left: -40,
+            right: 50,
+            left: 0,
             bottom: 0,
           }}
           padding={{left:0}}

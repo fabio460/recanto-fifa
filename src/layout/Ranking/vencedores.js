@@ -9,22 +9,35 @@ const [estatistica, setEstatistica] = useState()
 const [dados, setDados] = useState([])
 async function getEstatistica() {
     const e = await listarEstatisticasApi()
-    const nomesComRepeticoes = e.map(item=>{
+    const nomesComRepeticoes = e?.map(item=>{
         return item.campeao
     }) 
-    const usuarios = [... new Set(nomesComRepeticoes)]
-    let aux = []
-    usuarios.map(usuario=>{
-        let cont = 0
-        nomesComRepeticoes.filter(item=>{ 
-           if (item === usuario) {
-            cont+=1;
-           }
-        })
-        aux.push({name:usuario, campeao:cont})
+    
+    const u = [... new Set(nomesComRepeticoes)]
+    const usuarios = u.filter(e=>{
+        if (e !== "") {
+            return e
+        }
     })
-    setDados(aux)
-    setEstatistica(e)
+    let aux = []
+    usuarios.filter((usuario, key)=>{
+        let cont = 0      
+          nomesComRepeticoes.filter((item)=>{ 
+             if (item === usuario) {
+              cont+=1;
+             }
+          })
+          aux.push({name:usuario, campeao:cont})
+    })
+    const ordenada = aux.sort((a,b)=>{
+      return a.campeao > b.campeao ? -1 : a.campeao < b.campeao ? 1 : 0
+    })
+    const primeiros = ordenada.filter((elem, key)=>{
+      if (key < 5) {    
+        return elem
+      }
+    })
+    setDados(primeiros)
 }
 useEffect(()=>{
     getEstatistica()
@@ -37,8 +50,8 @@ return (
           data={dados}
           margin={{
             top: 0,
-            right: 0,
-            left: -40,
+            right: 50,
+            left: 0,
             bottom: 0,
           }}
           padding={{left:0}}
@@ -54,29 +67,6 @@ return (
   );
 }
 
-
-
-
-
-const data = [
-  {
-    name: 'Fabio',
-    campeao: 4,
-  },
-  {
-    name: 'Page B',
-    campeao: 3,
-  },
-  {
-    name: 'Page C',
-    campeao: 2,
-  },
-  {
-    name: 'Page D',
-    campeao: 2,
-  },
-
-];
 
 
 
