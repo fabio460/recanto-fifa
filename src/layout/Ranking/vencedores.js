@@ -38,7 +38,7 @@ return (
           margin={{
             top: 0,
             right: 0,
-            left: -40,
+            left: -10,
             bottom: 0,
           }}
           padding={{left:0}}
