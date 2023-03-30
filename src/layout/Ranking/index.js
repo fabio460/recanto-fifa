@@ -16,7 +16,11 @@ import { dadosDePagamento, getPremiacoesBugados, removerArraysRepetidos, setPrem
 import { alterarTemporadaApi } from '../../Api/temporadasApi';
 import { pagarFolhaApi, pagarPremiacao, pagarPremioBugadoApi } from '../../Api/pagamentosApi';
 import Carregando from './carregando';
-
+import { listarEstatisticasApi } from '../../Api/estatisticasApi';
+import Vencedores from './vencedores';
+import { setarStatisticaApi } from '../../Api/estatisticasApi';
+import Artilheiros from './artilheiros';
+import Assistentes from './assistentes';
 
 
 export default function Ranking({Lista, temporada}) {
@@ -32,8 +36,7 @@ const [carregando, setCarregando] = useState(false)
   var premioOuro = []
   var premioPrata = ["Felipe","Felipe","Rafael","Felipe"]
   var premioBronze = ["José","Rafael","Rafael","Rafael","Felipe"]
-  useEffect(()=>{
-  },[colocacao])
+
   premioOuro.push(colocacao.primeiro)
   premioOuro.push(buscaUsuarioPeloJogador(artilharia.primeiro, Lista))
   premioOuro.push(buscaUsuarioPeloJogador(artilharia.segundo, Lista))
@@ -52,6 +55,7 @@ const [carregando, setCarregando] = useState(false)
   const viceAssistencia = 7500;
   const terceiroAssistencia = 3500;
 
+ 
   const [BugadoBronze, setBugadoBronze] = React.useState();
   const handleBugadoBronze = (event) => {
     setBugadoBronze(event.target.value);
@@ -129,6 +133,7 @@ const [carregando, setCarregando] = useState(false)
       alert("não há premiaçôes selecionadas")
     }else{
       setCarregando(true)
+      setarStatisticaApi(colocacao.primeiro, artilharia.primeiro, assistente.primeiro)
       pagarPremiacao(setPremiacao(usuariosPremiados, Lista))
       setTimeout(() => {
         alterarTemporadaApi()
@@ -164,6 +169,8 @@ const [carregando, setCarregando] = useState(false)
     }
   }  
   
+
+
   return (
     <div>
       {carregando && <div className='carregandoRanking'>
@@ -224,6 +231,7 @@ const [carregando, setCarregando] = useState(false)
                 })}
               </div>
               <div>
+                 <Vencedores/>
                 {/* <Box sx={{ minWidth: 120 }}>
                   <FormControl fullWidth sx={{ m: "10px 0px", minWidth: "100%" }} size="small">
                     <InputLabel id="demo-simple-select-label">3 Hash trick</InputLabel>
@@ -269,6 +277,10 @@ const [carregando, setCarregando] = useState(false)
                   </FormGroup>         
                 </div> */}
               </div>
+              <div>
+                <Artilheiros/>
+              </div>
+              {/* <div><Assistentes/></div> */}
               {/* <div>
                 <h5>3 part sem sofrer gols</h5>
                 <FormGroup sx={{padding:"10px"}}>
