@@ -3,7 +3,7 @@ import { listarEstatisticasApi } from '../../Api/estatisticasApi'
 
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, AreaChart, Area } from 'recharts';
 
-export default function Estatisticas() {
+export default function Vencedores() {
 const  demoUrl = 'https://codesandbox.io/s/bar-chart-has-no-padding-jphoc';
 const [estatistica, setEstatistica] = useState()
 const [dados, setDados] = useState([])
@@ -38,7 +38,7 @@ return (
           margin={{
             top: 0,
             right: 0,
-            left: -10,
+            left: -40,
             bottom: 0,
           }}
           padding={{left:0}}

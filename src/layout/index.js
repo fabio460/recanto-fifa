@@ -9,6 +9,9 @@ import { getTemporadaApi } from '../Api/temporadasApi'
 import AppBar from './AppBar'
 import Ranking from './Ranking'
 import Usuarios from './Usuarios'
+import Vencedores from './Ranking/vencedores'
+import Artilheiros from './Ranking/artilheiros'
+import Assistentes from './Ranking/assistentes'
 
 export default function Layout() {
   const [Lista, setLista] = useState([])
@@ -45,6 +48,12 @@ export default function Layout() {
             </div>:
             <div>
               <Ranking Lista={Lista} temporada={temporada}/>
+              <h3 style={{textAlign:"center"}}>Dados estatísticos</h3>
+              <div className='estatistica'>
+                <Vencedores/>
+                <Artilheiros/>
+                <Assistentes/>
+              </div>
               <Usuarios Lista={Lista}/>
             </div>
           }

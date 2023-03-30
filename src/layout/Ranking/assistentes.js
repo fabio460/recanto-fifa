@@ -21,7 +21,7 @@ async function getEstatistica() {
             cont+=1;
            }
         })
-        aux.push({name:usuario, campeao:cont})
+        aux.push({name:usuario, assistente:cont})
     })
     setDados(aux)
     setEstatistica(e)
@@ -38,7 +38,7 @@ return (
           margin={{
             top: 0,
             right: 0,
-            left: -10,
+            left: -40,
             bottom: 0,
           }}
           padding={{left:0}}
@@ -47,7 +47,7 @@ return (
           <XAxis dataKey="name" fontSize={'10px'}/>
           <YAxis fontSize={'10px'} />
           <Tooltip />
-          <Area type="monotone" dataKey="campeao" stroke="#8884d8" fill="#8884d8" />
+          <Area type="monotone" dataKey="assistente" stroke="#8884d8" fill="#8884d8" />
         </AreaChart>
       </ResponsiveContainer>
     </div>

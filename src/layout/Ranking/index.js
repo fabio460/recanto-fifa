@@ -231,7 +231,7 @@ const [carregando, setCarregando] = useState(false)
                 })}
               </div>
               <div>
-                 <Vencedores/>
+        
                 {/* <Box sx={{ minWidth: 120 }}>
                   <FormControl fullWidth sx={{ m: "10px 0px", minWidth: "100%" }} size="small">
                     <InputLabel id="demo-simple-select-label">3 Hash trick</InputLabel>
@@ -276,9 +276,6 @@ const [carregando, setCarregando] = useState(false)
                       })}
                   </FormGroup>         
                 </div> */}
-              </div>
-              <div>
-                <Artilheiros/>
               </div>
               {/* <div><Assistentes/></div> */}
               {/* <div>
