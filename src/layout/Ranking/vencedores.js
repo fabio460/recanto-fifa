@@ -32,12 +32,8 @@ async function getEstatistica() {
     const ordenada = aux.sort((a,b)=>{
       return a.Campeonatos > b.Campeonatos ? -1 : a.Campeonatos < b.Campeonatos ? 1 : 0
     })
-    const primeiros = ordenada.filter((elem, key)=>{
-      if (key < 5) {    
-        return elem
-      }
-    })
-    setDados(primeiros.reverse())
+
+    setDados(ordenada.reverse())
 }
 useEffect(()=>{
     getEstatistica()

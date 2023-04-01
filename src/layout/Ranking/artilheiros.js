@@ -18,17 +18,16 @@ async function getEstatistica() {
             return e
         }
     })
+  
     let aux = []
     usuarios.filter((usuario, key)=>{
-        let cont = 0
-        if (key < 5 ) {          
+        let cont = 0          
           nomesComRepeticoes.filter((item)=>{ 
              if (item === usuario) {
               cont+=1;
              }
           })
           aux.push({name:usuario, Artilharias:cont})
-        }
     })
     const ordenada = aux.sort((a,b)=>{
         return a.Artilharias > b.Artilharias ? -1 : a.Artilharias < b.Artilharias ? 1 : 0

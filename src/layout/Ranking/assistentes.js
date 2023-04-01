@@ -20,15 +20,13 @@ async function getEstatistica() {
     })
     let aux = []
     usuarios.filter((usuario, key)=>{
-        let cont = 0
-        if (key < 5) {            
+        let cont = 0          
             nomesComRepeticoes.filter(item=>{ 
                if (item === usuario) {
                 cont+=1;
                }
             })
             aux.push({name:usuario, Assistencias:cont})
-        }
     })
     const ordenada = aux.sort((a,b)=>{
         return a.Assistencias > b.Assistencias ? -1 : a.Assistencias < b.Assistencias ? 1 : 0
