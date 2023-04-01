@@ -44,6 +44,7 @@ useEffect(()=>{
     getEstatistica()
 },[])  
 
+
 return (
     <div className="grafico">
       <ResponsiveContainer>
