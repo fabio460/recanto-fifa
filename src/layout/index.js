@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { listaDeUsuariosApi } from '../Api/usuariosApi'
 import { getTemporadaApi } from '../Api/temporadasApi'
-
+import "./index.css"
 import AppBar from './AppBar'
 import Ranking from './Ranking'
 import Usuarios from './Usuarios'
@@ -38,7 +38,7 @@ export default function Layout() {
   return (
     <div>
       <AppBar/>
-      <Container maxWidth="xl">
+      <div className='principal'>
         {
           carregando?
           <div>
@@ -66,7 +66,7 @@ export default function Layout() {
               <Usuarios Lista={Lista}/>
             </div>
           }
-      </Container>
+      </div>
     </div>
   )
 }

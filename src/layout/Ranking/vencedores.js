@@ -27,10 +27,10 @@ async function getEstatistica() {
               cont+=1;
              }
           })
-          aux.push({name:usuario, campeao:cont})
+          aux.push({name:usuario, Campeonatos:cont})
     })
     const ordenada = aux.sort((a,b)=>{
-      return a.campeao > b.campeao ? -1 : a.campeao < b.campeao ? 1 : 0
+      return a.Campeonatos > b.Campeonatos ? -1 : a.Campeonatos < b.Campeonatos ? 1 : 0
     })
     const primeiros = ordenada.filter((elem, key)=>{
       if (key < 5) {    
@@ -44,23 +44,23 @@ useEffect(()=>{
 },[])  
 
 return (
-    <div style={{ width: '100%', height: 300 }}>
+    <div className="grafico">
       <ResponsiveContainer>
         <AreaChart
           data={dados}
           margin={{
             top: 0,
-            right: 50,
-            left: 0,
+            right: 0,
+            left: -10,
             bottom: 0,
           }}
           padding={{left:0}}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" fontSize={'10px'}/>
-          <YAxis fontSize={'10px'} />
+          <XAxis dataKey="name" fontSize={'12px'}/>
+          <YAxis fontSize={'12px'} />
           <Tooltip />
-          <Area type="monotone" dataKey="campeao" stroke="#8884d8" fill="#8884d8" />
+          <Area type="monotone" dataKey="Campeonatos" stroke="#8884d8" fill="#8884d8" />
         </AreaChart>
       </ResponsiveContainer>
     </div>

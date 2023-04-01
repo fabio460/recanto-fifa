@@ -8,7 +8,6 @@
 .rankingContainer{
    display: grid;
    grid-template-columns: 1fr 3fr;
-   
    margin: 2%;
 }
 
@@ -46,7 +45,6 @@
    z-index: 5;
 }
 .estatistica{
-  
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap:30px;
@@ -67,8 +65,19 @@
   height: 100%;
   color: grey;
 }
-@media (max-width:980px) {
+.grafico{
+  max-width: 450px;
+  height: 300px;
 
+}
+.XAxis{
+  color: red;
+}
+@media (max-width:980px) {
+  .grafico{
+    width: 95vw;
+    margin: auto;
+  }
   .estatistica{
     grid-template-columns: 1fr  ;
   }
@@ -82,7 +91,8 @@
     padding:1% 3%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap:30px;  
+    gap:30px;
+ 
   }
  }
 
@@ -93,4 +103,9 @@
    .rankingMain{
        grid-template-columns: 1fr;
    }
+   .grafico{
+    width: 95vw;
+    height: 300px;
+    margin-left: -4%;
+  }
  }

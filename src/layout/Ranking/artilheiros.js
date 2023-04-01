@@ -27,11 +27,11 @@ async function getEstatistica() {
               cont+=1;
              }
           })
-          aux.push({name:usuario, artilheiro:cont})
+          aux.push({name:usuario, Artilharias:cont})
         }
     })
     const ordenada = aux.sort((a,b)=>{
-        return a.artilheiro > b.artilheiro ? -1 : a.artilheiro < b.artilheiro ? 1 : 0
+        return a.Artilharias > b.Artilharias ? -1 : a.Artilharias < b.Artilharias ? 1 : 0
     })
     const primeiros = ordenada.filter((elem, key)=>{
         if (key < limiteDeItens) {    
@@ -45,23 +45,23 @@ useEffect(()=>{
 },[])  
 
 return (
-    <div style={{ width: '100%', height: 300 }}>
+    <div className="grafico">
       <ResponsiveContainer>
         <AreaChart
           data={dados}
           margin={{
             top: 0,
-            right: 50,
-            left: 0,
+            right: 0,
+            left: -10,
             bottom: 0,
           }}
           style={{background:"", diplay:"flex", justifyContent:"center", padding:"0px 250px 0px 0px"}}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" fontSize={'10px'}/>
-          <YAxis fontSize={'10px'} />
+          <XAxis dataKey="name" fontSize={'12px'}/>
+          <YAxis fontSize={'12px'} />
           <Tooltip />
-          <Area type="monotone" dataKey="artilheiro" stroke="#8884d8" fill="#8884d8" />
+          <Area type="monotone" dataKey="Artilharias" stroke="#8884d8" fill="#8884d8" />
         </AreaChart>
       </ResponsiveContainer>
     </div>

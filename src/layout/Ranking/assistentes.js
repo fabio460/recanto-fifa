@@ -3,7 +3,7 @@ import { listarEstatisticasApi } from '../../Api/estatisticasApi'
 
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, AreaChart, Area } from 'recharts';
 
-export default function Assistentes() {
+export default function Assistenciass() {
 const  demoUrl = 'https://codesandbox.io/s/bar-chart-has-no-padding-jphoc';
 const [estatistica, setEstatistica] = useState()
 const [dados, setDados] = useState([])
@@ -27,11 +27,11 @@ async function getEstatistica() {
                 cont+=1;
                }
             })
-            aux.push({name:usuario, assistente:cont})
+            aux.push({name:usuario, Assistencias:cont})
         }
     })
     const ordenada = aux.sort((a,b)=>{
-        return a.assistente > b.assistente ? -1 : a.assistente < b.assistente ? 1 : 0
+        return a.Assistencias > b.Assistencias ? -1 : a.Assistencias < b.Assistencias ? 1 : 0
     })
     const primeiros = ordenada.filter((elem, key)=>{
         if (key < 5 ) {    
@@ -45,23 +45,23 @@ useEffect(()=>{
 },[])  
 
 return (
-    <div style={{ width: '100%', height: 300 }}>
+    <div className="grafico">
       <ResponsiveContainer>
         <AreaChart
           data={dados}
           margin={{
             top: 0,
-            right: 50,
-            left: 0,
+            right: 0,
+            left: -10,
             bottom: 0,
           }}
           padding={{left:0}}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" fontSize={'10px'}/>
+          <XAxis dataKey="name" fontSize={'12px'}/>
           <YAxis fontSize={'10px'} />
           <Tooltip />
-          <Area type="monotone" dataKey="assistente" stroke="#8884d8" fill="#8884d8" />
+          <Area type="monotone" dataKey="Assistencias" stroke="#8884d8" fill="#8884d8" />
         </AreaChart>
       </ResponsiveContainer>
     </div>
