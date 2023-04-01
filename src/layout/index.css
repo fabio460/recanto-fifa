@@ -1,0 +1,9 @@
+.principal{
+   margin: 0 4%;
+}
+
+@media (max-width:800px){
+    .principal{
+      margin: 0;
+    }
+}
