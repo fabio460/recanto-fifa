@@ -24,6 +24,7 @@ export default function TelaDeElenco() {
   const h = useNavigate()
   const [carregando, setcarregndo] = useState(false)
   const [Temporada, setTemporada] = useState()
+  
   async function getUsuarioPorId() {  
     const p = await getUsuariosPorIdApi(id)
     setUsuario(p)
