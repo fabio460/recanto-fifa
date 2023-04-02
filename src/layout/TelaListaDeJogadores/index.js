@@ -106,9 +106,12 @@ export default function TelaListaDeJogadores() {
     setlistaJogadores(paginada)
 }
   useEffect(()=>{
-    ListaTotal()
-    if (Jogador || Jogador == "") {
+    if (!Jogador || Jogador.trim() === "") {
+      ListaTotal()
+    }else{
       buscarJogador()
+    }
+    if (Jogador || Jogador == "") {
     }
 
   },[value, page])
