@@ -21,6 +21,10 @@
 .TelaDeElencoHeaderDesktop{
     display: flex;
 }
+.elencoBtns{
+    display: flex;
+    justify-content: flex-end;
+}
 @media (max-width:800px) {
     .table{
         width: 600px;
@@ -34,5 +38,14 @@
     }
     .TelaDeElencoHeaderDesktop{
         display: none;
+    }
+    .elencoTdClube{
+        min-width: 200px;
+    }
+    .elencoTdNome{
+        min-width: 200px;
+    }
+    .elencoTdPosicao{
+        min-width: 120px;
     }
 }

@@ -18,6 +18,7 @@ import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { listarTodosOsJogadoresApi } from '../../Api/jogadoresApi';
+import { removeNome } from '../../Uteis';
 
 export default function TelaListaDeJogadores() {
   const [listaJogadores, setlistaJogadores] = useState([])
@@ -134,6 +135,7 @@ export default function TelaListaDeJogadores() {
     setPage(1)
     buscarJogador()
   }
+
   return (
     <div>
       {loading && 
@@ -207,9 +209,9 @@ export default function TelaListaDeJogadores() {
                     <thead className="thead-dark">
                       <tr>
                         <th scope="col">Jogador</th>
-                        <th scope="col">Time</th>
                         <th scope="col">Overall</th>
                         <th scope="col">Posição</th>                   
+                        <th scope="col">Time</th>
                         <th scope="col"> </th>
                       </tr>
                     </thead>
@@ -218,9 +220,9 @@ export default function TelaListaDeJogadores() {
                         return(
                           <tr>
                             <td className='td_nome'>{elem.label}</td>
-                            <td className='td_clube'>{elem.CLUBE}</td>
                             <td className='td_over'>{elem.OVER}</td>
-                            <td className='td_posicao'>{elem.Posicao}</td> 
+                            <td className='td_posicao'>{removeNome(elem.Posicao)}</td> 
+                            <td className='td_clube'>{elem.CLUBE}</td>
                             <td className='btnComprar'>
                               <ModalComprar jogador={elem} idUsuario={Usuario.id} Saldo={Usuario.saldo} nomeDoComprador={Usuario.nome}/>
                             </td>

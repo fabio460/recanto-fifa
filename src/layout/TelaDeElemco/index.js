@@ -14,6 +14,7 @@ import { CircularProgress, IconButton } from '@mui/material'
 import { Box } from '@mui/system'
 import { getTemporadaApi } from '../../Api/temporadasApi';
 import { deletarJogadorApi } from '../../Api/jogadoresApi';
+import { removeNome } from '../../Uteis';
 export default function TelaDeElenco() {
   const [usuario, setUsuario] = useState({})
   const [atualizar, setatualizar] = useState(false)
@@ -176,8 +177,8 @@ export default function TelaDeElenco() {
                             <th scope="col">Nome</th>
                             <th scope="col">Posição</th>
                             <th scope="col">Overall</th>
-                            <th scope="col">Clube</th>
                             <th scope="col">Salário</th>
+                            <th scope="col">Clube</th>
                             <th scope="col"> </th>
                         </tr>
                     </thead>
@@ -185,12 +186,14 @@ export default function TelaDeElenco() {
                        {usuario.jogadore?.map((elem,key)=>{
                         return(
                             <tr>
-                                <td >{elem.label}</td>
-                                <td>{elem.Posicao}</td>
-                                <td>{elem.OVER}</td>
-                                <td>{elem.CLUBE}</td>
-                                <td>{elem.valor.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</td>
-                                <td style={{display:"flex",justifyContent:"flex-end"}}>
+                                <td className='elencoTdNome'>{elem.label}</td>
+                                <td className='elencoTdPosicao'>
+                                  {removeNome(elem.Posicao)}
+                                </td>
+                                <td className='elencoTdOver'>{elem.OVER}</td>
+                                <td className='elencoTdPreco'>{elem.valor.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</td>
+                                <td className='elencoTdClube'>{elem.CLUBE}</td>
+                                <td className='elencoBtns' >
                                   {/* <button onClick={()=> despensar(elem.id)} className='btn btn-danger me-3'>Despensar</button> */}
                                   <ModalDispensarJogador jogador={elem} usuario={usuario} carregando={carregando}/>  
                                   <ModalTransferirJogador id={elem.id} usuario={usuario} carregando={carregando}/>
