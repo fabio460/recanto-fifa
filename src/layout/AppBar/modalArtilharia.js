@@ -62,7 +62,7 @@ export default function ModalArtilharia({participantes}) {
         sx={{background:"",width:"100%"}}
       >
         <DialogTitle id="alert-dialog-title">
-          Insira a colocação dos times
+          Artilheiros da rodada
         </DialogTitle>
         <DialogContent sx={dialogStyle}>
           <DialogContentText id="alert-dialog-description">

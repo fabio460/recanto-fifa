@@ -103,7 +103,7 @@ dispatch({
         sx={{background:"",width:"100%"}}
       >
         <DialogTitle id="alert-dialog-title">
-          Insira dados do torneio
+          Dados gerais do torneio
         </DialogTitle>
         <DialogContent sx={dialogStyle}>
           <DialogContentText id="alert-dialog-description" sx={{padding:"0px",}}>

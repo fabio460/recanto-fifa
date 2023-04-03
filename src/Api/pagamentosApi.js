@@ -1,9 +1,9 @@
 import { link } from "./link"
 var local = link
 
-export const pagarPremiacao = async(listaPremiados)=>{
+export const pagarPremiacao = async(listaPremiados, dispatch, loading)=>{
    var fim = 0
-   fetch(local+"usuario/pagamentoPremiacoes",{
+   return fetch(local+"usuario/pagamentoPremiacoes",{
       method:'put',
       headers:{
          "Content-Type":"application/json"
@@ -13,11 +13,14 @@ export const pagarPremiacao = async(listaPremiados)=>{
       })
    })
    .then(res=>res.json())
-   .then(res=>console.log({
-      inf:"premiação",
-      res,
-   }))
-   .catch(res=>console.log({"erro ao inserir pagamento":res}))
+   .then(res=>{
+      dispatch({
+         type:"atualizarTudo",
+         payload:{atualizado:!loading}
+      })
+      return res
+   })
+   .catch(res=>alert("falha ao pagar premiações"))
  }
  export const pagarFolhaApi = async(usuariosParaPagar)=>{
    let fim = 0
@@ -38,7 +41,7 @@ export const pagarPremiacao = async(listaPremiados)=>{
          console.log(fim)
          console.log(usuariosParaPagar.length)
          if (usuariosParaPagar.length === fim) {      
-            alert("Pagamento da folha realizado!")
+            alert("Pagamento da folha realizado com sucesso!")
             window.location.reload()
          }
        })

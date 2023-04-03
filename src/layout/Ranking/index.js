@@ -31,7 +31,7 @@ export default function Ranking({Lista, temporada}) {
   const dados = useSelector(state=>state.golsEmpVitoriasRedux.dados)
   const participantes = useSelector(state=>state.participantesReducer.participantes)
   const dispatch = useDispatch()
-  const loading = useSelector(state=>state.loadingReducer.loading)
+  const loading = useSelector(state=>state.atualizarTudo.atualizado)
 const [carregando, setCarregando] = useState(false)
   var premioOuro = []
   var premioPrata = ["Felipe","Felipe","Rafael","Felipe"]
@@ -133,18 +133,23 @@ const [carregando, setCarregando] = useState(false)
       alert("não há premiaçôes selecionadas")
     }else{
       setCarregando(true)
-      setarStatisticaApi(colocacao.primeiro, artilharia.primeiro, assistente.primeiro)
-      pagarPremiacao(setPremiacao(usuariosPremiados, Lista))
-      setTimeout(() => {
-        alterarTemporadaApi()
-      }, 2000);
-      setTimeout(() => {
-        pagarPremioBugadoApi(arrayDePremiadosDoBugado)
-      }, 3000);
-      usuariosPremiados = []
+      const resEsta = await setarStatisticaApi(colocacao.primeiro, artilharia.primeiro, assistente.primeiro, dispatch, loading)
+      const resPrem =await pagarPremiacao(setPremiacao(usuariosPremiados, Lista), dispatch, loading)
+      const resTemp =await alterarTemporadaApi(dispatch, loading)
+      
       setTimeout(() => {
         window.location.reload() 
-      }, 4000);
+      }, 2000);
+    
+      // setTimeout(async() => {
+      //   console.log(resEsta)
+      //   console.log(resPrem)
+      //   console.log(resTemp)
+      // }, 2000);
+      // setTimeout(() => {
+      //   pagarPremioBugadoApi(arrayDePremiadosDoBugado)
+      // }, 3000);
+      usuariosPremiados = []
       //alert("Temporada finalizada com sucesso com o "+colocacao.primeiro+" campeão!")
     }     
   }
@@ -168,8 +173,6 @@ const [carregando, setCarregando] = useState(false)
       pagarFolhaApi(usuariosParaPagar)
     }
   }  
-  
-
 
   return (
     <div>

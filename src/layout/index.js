@@ -15,7 +15,7 @@ import Assistentes from './Ranking/assistentes'
 
 export default function Layout() {
   const [Lista, setLista] = useState([])
-  const loading = useSelector(state=>state.loadingReducer.loading)
+  const atualizado = useSelector(state=>state.atualizarTudo.atualizado)
   const [carregando, setcarregndo] = useState(false)
   const [temporada, setTemporada] = useState()
   const dispatch = useDispatch()
@@ -29,12 +29,8 @@ export default function Layout() {
   }
   useEffect(()=>{
     ListaDeUsuarios() 
+  },[])
 
-  },[loading])
-  
-
-    
-    
   return (
     <div>
       <AppBar/>

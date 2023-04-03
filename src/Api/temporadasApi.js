@@ -1,8 +1,9 @@
 import { link } from "./link"
+import { atualizarUsuarioApi } from "./usuariosApi"
 
 var local = link
 
-export const alterarTemporadaApi = async(pagarFolha)=>{
+export const alterarTemporadaApi = async(pagarFolha, dispatch, loading)=>{
     const temporadaAtual = await getTemporadaApi()
     if (temporadaAtual.numero === 1) {      
        return await fetch(local+"temporada",{
@@ -16,9 +17,18 @@ export const alterarTemporadaApi = async(pagarFolha)=>{
        })
        .then(r=>r.json())
        .then(r=>{
-         console.log("temporada atualizada")
-          //alert("Termino da 1º finalizada!")
-          //window.location.reload()
+         dispatch({
+            type:"atualizarTudo",
+            payload:{atualizado:!loading}
+         })
+         return "temporada atualizada com sucesso"
+       })
+       .catch(err=>{
+         alert("falha ao atualizar temporada!")
+         atualizarUsuarioApi((pagarFolha, dispatch, loading))
+         setTimeout(() => {
+            window.location.reload()
+         }, 1000);
        })
     }else{
        await fetch(local+"temporada",{
@@ -32,8 +42,12 @@ export const alterarTemporadaApi = async(pagarFolha)=>{
        })
        .then(r=>r.json())
        .then(res=>{
-         console.log({inf:"temporada finalizada", res})
+         //console.log({inf:"temporada finalizada", res})
           //alert("Termino da 2º temporada, efetue o pagamento da folha!")
+          return res
+       })
+       .catch(res=>{
+         return {falha:res}
        })
     }
  }

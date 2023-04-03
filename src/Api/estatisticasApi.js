@@ -7,7 +7,7 @@ export const listarEstatisticasApi = async()=>{
     return l
 }
 
-export const setarStatisticaApi = async (campeao, artilheiro, assistecia)=>{
+export const setarStatisticaApi = async (campeao, artilheiro, assistecia, dispatch, loading)=>{
     if (!campeao) {
         campeao = ""
     }
@@ -17,7 +17,7 @@ export const setarStatisticaApi = async (campeao, artilheiro, assistecia)=>{
     if (!assistecia) {
         assistecia = ""
     }
-    console.log({campeao, assistecia, artilheiro})
+    //console.log({campeao, assistecia, artilheiro})
     return await fetch(linkApiEstatistica+"temporadas",{
         method:'post',
         headers:{
@@ -26,11 +26,20 @@ export const setarStatisticaApi = async (campeao, artilheiro, assistecia)=>{
         body:JSON.stringify({
             campeao,
             artilheiro,
-            assistecia
+            assistecia  
         })
     })
     .then(res=>res.json())
-    .then(res=>console.log(res))
+    .then(res=>{
+        dispatch({
+            type:"atualizarTudo",
+            payload:{atualizado:!loading}
+         })
+       return "Estatisticas inseridas com sucesso"
+    })
+    .catch(res=>{
+        alert("falha ao inserir as estatisticas")
+    })
 }
 
 export const deletarTodasStatisticasApi = async ()=>{

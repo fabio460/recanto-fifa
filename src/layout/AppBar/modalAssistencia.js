@@ -61,7 +61,7 @@ export default function ModalAssistecia({participantes}) {
         sx={{background:"",width:"100%"}}
       >
         <DialogTitle id="alert-dialog-title">
-          Insira a colocação dos times
+          Maiores assistentes da rodada
         </DialogTitle>
         <DialogContent sx={dialogStyle}>
           <DialogContentText id="alert-dialog-description">
