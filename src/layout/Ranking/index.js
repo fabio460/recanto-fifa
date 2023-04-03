@@ -140,15 +140,6 @@ const [carregando, setCarregando] = useState(false)
       setTimeout(() => {
         window.location.reload() 
       }, 2000);
-    
-      // setTimeout(async() => {
-      //   console.log(resEsta)
-      //   console.log(resPrem)
-      //   console.log(resTemp)
-      // }, 2000);
-      // setTimeout(() => {
-      //   pagarPremioBugadoApi(arrayDePremiadosDoBugado)
-      // }, 3000);
       usuariosPremiados = []
       //alert("Temporada finalizada com sucesso com o "+colocacao.primeiro+" campeão!")
     }     
@@ -171,6 +162,7 @@ const [carregando, setCarregando] = useState(false)
       })
       })
       pagarFolhaApi(usuariosParaPagar)
+      setCarregando(true)
     }
   }  
 
