@@ -104,16 +104,13 @@ export default function TelaListaDeJogadores() {
 
   
     setlistaJogadores(paginada)
-}
+  }
   useEffect(()=>{
     if (!Jogador || Jogador.trim() === "") {
       ListaTotal()
     }else{
       buscarJogador()
     }
-    if (Jogador || Jogador == "") {
-    }
-
   },[value, page])
 
   async function getUsuarioPorId() {

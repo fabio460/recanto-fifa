@@ -73,7 +73,7 @@ export default function ModalDeletarUsuario() {
         sx={{background:"",width:"100%"}}
       >
         <DialogTitle id="alert-dialog-title">
-          Deletar usuario
+          Deletar usuarios
         </DialogTitle>
         <DialogContent sx={dialogStyle}>
           <DialogContentText 

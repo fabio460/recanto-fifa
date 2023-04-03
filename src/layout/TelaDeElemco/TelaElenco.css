@@ -25,6 +25,33 @@
     display: flex;
     justify-content: flex-end;
 }
+
+.arrowDown{
+    transform: rotateZ(180deg);
+    transition: 0.5s;
+}
+.arrowUp{
+    transform: rotateZ(0deg);
+    transition: 0.5s;
+}
+
+.tabelaDeElencosTH{
+    cursor: pointer;
+}
+.arrowImg{
+    
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    margin-left: 5px;
+    visibility: hidden;
+}
+.arrowVisible{
+    visibility: visible;
+}
+.tabelaDeElencosTH:hover .arrowImg{
+    visibility: visible;
+}
 @media (max-width:800px) {
     .table{
         width: 600px;
