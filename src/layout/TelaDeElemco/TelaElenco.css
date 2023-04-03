@@ -37,6 +37,8 @@
 
 .tabelaDeElencosTH{
     cursor: pointer;
+    background-color: antiquewhite;
+    min-width: 150px;
 }
 .arrowImg{
     
