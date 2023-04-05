@@ -102,15 +102,33 @@ export default function TelaDeElenco() {
         return a.valor < b.valor ? (crescente.cresc && crescente.id === '4') ? -1: 1 : a.valor > b.valor ? (crescente.cresc && crescente.id === '4') ? 1: -1 : 0;
       })
     }
-  
-    if (crescente.id === '3') {
-      ordenaPorOver()
+
+    function ordenaPorPosicao() {
+      jogadores?.sort((a, b)=>{
+        return a.Posicao < b.Posicao ? (crescente.cresc && crescente.id === '2') ? -1: 1 : a.Posicao > b.Posicao ? (crescente.cresc && crescente.id === '2') ? 1: -1 : 0;
+      })
     }
+
+    function ordenaPorClube() {
+      jogadores?.sort((a, b)=>{
+        return a.CLUBE < b.CLUBE ? (crescente.cresc && crescente.id === '5') ? -1: 1 : a.CLUBE > b.CLUBE ? (crescente.cresc && crescente.id === '5') ? 1: -1 : 0;
+      })
+    }
+  
     if (crescente.id === '1') {
       ordenaPorNome()
     }
+    if (crescente.id === '2') {
+      ordenaPorPosicao()
+    }
+    if (crescente.id === '3') {
+      ordenaPorOver()
+    }
     if (crescente.id === '4') {
       ordenaPorValor()
+    }
+    if (crescente.id === '5') {
+      ordenaPorClube()
     }
     return (
       <div>
@@ -231,7 +249,10 @@ export default function TelaDeElenco() {
                                 Nome 
                                 <img src={flecha} className='arrowImg arrowDown' id='1'/>
                               </th>
-                              <th id={2} onClick={ordenarLista} scope="col" >Posição</th>
+                              <th id={2} onClick={ordenarLista} scope="col"  className='tabelaDeElencosTH'>
+                                Posição
+                                <img src={flecha} className='arrowImg arrowDown' id='2'/>
+                              </th>
                               <th id={3} onClick={ordenarLista}  className='tabelaDeElencosTH'  scope="col">
                                 Overall
                                 <img src={flecha} className='arrowImg arrowDown' id='3'/>
@@ -240,7 +261,10 @@ export default function TelaDeElenco() {
                                 Salário
                                 <img src={flecha} className='arrowImg arrowDown' id='4'/>
                               </th>
-                              <th  id={5} onClick={ordenarLista} scope="col">Clube</th>
+                              <th  id={5} onClick={ordenarLista} scope="col"  className='tabelaDeElencosTH'>
+                                Clube
+                                <img src={flecha} className='arrowImg arrowDown' id='1'/>
+                              </th>
                               <th scope="col"> </th>
                           </tr>
                       </thead>

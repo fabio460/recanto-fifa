@@ -73,6 +73,13 @@
 .XAxis{
   color: red;
 }
+
+@media (max-width:1300px) {
+   .estatistica{
+    grid-template-columns: 1fr 1fr;
+   }
+}
+
 @media (max-width:980px) {
   .grafico{
     width: 95vw;
@@ -108,4 +115,5 @@
     height: 300px;
     margin-left: -4%;
   }
+
  }

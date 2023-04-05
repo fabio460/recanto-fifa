@@ -79,7 +79,11 @@ export default function CardUsuarios({usuario}:userType) {
       </div>
       <div className='UsuarioNome'>{usuario.nome}</div>
       <div className='UsuarioSaldoLabel'>Saldo</div>
-      <div className='UsuarioSaldo'> {usuario.saldo.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</div>
+      { 
+        usuario.saldo < 0 ?
+        <div className='UsuarioSaldo' style={{color:"red"}}> {usuario.saldo.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</div>:
+        <div className='UsuarioSaldo'> {usuario.saldo.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</div>
+      }
       <div className='UsuarioSaldoLabel'>Folha</div>
            <div>{contadorFolha(usuario.jogadore,usuario.nome).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</div>
       <button  
