@@ -224,7 +224,7 @@ export default function TelaListaDeJogadores() {
                             <td className='td_posicao'>{removeNome(elem.Posicao)}</td> 
                             <td className='td_clube'>{elem.CLUBE}</td>
                             <td className='btnComprar'>
-                              <ModalComprar jogador={elem} idUsuario={Usuario.id} Saldo={Usuario.saldo} nomeDoComprador={Usuario.nome}/>
+                              <ModalComprar jogador={elem} idUsuario={Usuario.id} Saldo={Usuario.saldo} nomeDoComprador={Usuario.nome} Usuario={Usuario}/>
                             </td>
                           </tr>
                         )

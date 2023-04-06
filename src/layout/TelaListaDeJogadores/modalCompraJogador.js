@@ -13,7 +13,7 @@ import { getTemporadaApi } from '../../Api/temporadasApi';
 import { adicionarJogadorApi, getJogadorPeloNomeApi } from '../../Api/jogadoresApi';
 import { CircularProgress } from '@mui/material';
 
-export default function ModalComprar({jogador, idUsuario, Saldo, nomeDoComprador}) {
+export default function ModalComprar({jogador, idUsuario, Saldo, nomeDoComprador, Usuario}) {
   const [open, setOpen] = React.useState(false);
   const [valor, setValor] = React.useState("")
   const [carregando, setCarregando] = React.useState(false)
@@ -92,6 +92,11 @@ export default function ModalComprar({jogador, idUsuario, Saldo, nomeDoComprador
       comprarJogador()
     }
   }
+  const folha = Usuario.jogadore.reduce((acum, item)=>{
+    return acum + item.valor
+  },0)*0.03
+
+  const valorAcrescidoNaFolha = folha + valor*0.03
   return (
     <div>
       <div className='btn btn-success ' onClick={handleClickOpen}>
@@ -117,6 +122,9 @@ export default function ModalComprar({jogador, idUsuario, Saldo, nomeDoComprador
               onKeyUp={e=> enter(e)}
             />
           </DialogContentText>
+          <div>
+            Sua folha almentara para {valorAcrescidoNaFolha.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}
+          </div>
         </DialogContent>
         <DialogActions>
           {
