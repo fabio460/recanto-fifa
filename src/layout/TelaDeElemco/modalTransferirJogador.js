@@ -127,9 +127,8 @@ export default function ModalTransferirJogador({id, usuario, carregando}) {
         aria-describedby="alert-dialog-description"
         sx={{background:"",width:"100%"}}
       >
-        <DialogTitle id="alert-dialog-title">
-           Deseja realmente transferir ?
-           
+        <DialogTitle sx={{fontSize:"13px", maxHeight:40}} id="alert-dialog-title">
+           Deseja transferir?
         </DialogTitle>
         <DialogContent sx={dialogStyle}>
           <DialogContentText 
@@ -170,7 +169,7 @@ export default function ModalTransferirJogador({id, usuario, carregando}) {
                       </div>}
                   </Box>
                 </div>
-                <div style={{marginTop:"20px"}}>
+                <div style={{marginTop:"10px", fontSize:15}}>
                   Sua folha reduzira para {(folha - (valor*0.03)).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}
                 </div>
           </DialogContentText>
