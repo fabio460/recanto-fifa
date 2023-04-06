@@ -127,7 +127,7 @@ export default function ModalTransferirJogador({id, usuario, carregando, jogador
         aria-describedby="alert-dialog-description"
         sx={{background:"",width:"100%"}}
       >
-        <DialogTitle sx={{fontSize:"15px", maxHeight:40}} id="alert-dialog-title">
+        <DialogTitle sx={{fontSize:"18px", maxHeight:""}} id="alert-dialog-title">
            Transferência do {jogador}
         </DialogTitle>
         <DialogContent sx={dialogStyle}>
