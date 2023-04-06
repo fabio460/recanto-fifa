@@ -1,0 +1,17 @@
+.historicoCard{
+    padding: 10px;
+    box-shadow: 1px 1px 2px black;
+    border-radius: 5px;
+    margin: 10px;
+}
+.historicoHeader{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+.historicoBtnVoltar{
+    cursor: pointer;
+}
+.historicoBtnVoltar:hover{
+    color: brown;
+}

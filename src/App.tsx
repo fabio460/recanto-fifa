@@ -8,6 +8,7 @@ import TelaDeUsuarios from './layout/TelaDeUsuarios';
 import TelaDeElenco from './layout/TelaDeElemco';
 import TelaListaDeJogadores from './layout/TelaListaDeJogadores';
 import Regras from './layout/Regras';
+import Historico from './layout/Historico';
 
 function App() {
   const time = lista.filter(e=>{
@@ -25,6 +26,7 @@ function App() {
             <Route path='/elencos' element={<TelaDeElenco/>}></Route>
             <Route path='/TelaListaDeJogadores' element={<TelaListaDeJogadores/>}></Route>
             <Route path='/regras' element={<Regras/>}></Route>
+            <Route path='/historico' element={<Historico/>}></Route>
          </Routes>
       </BrowserRouter>   
     </div>

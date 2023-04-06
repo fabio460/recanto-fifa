@@ -53,7 +53,8 @@ function Appbar() {
     <ModalArtilharia usuarios={usuarios} participantes={participantes}/>,
     <ModalAssistecia usuarios={usuarios} participantes={participantes}/>,
     <ModalVitoriasEGols usuarios={usuarios} participantes={participantes}/>,
-    <div onClick= {()=> navigate("/regras")} style={regrasStyle}>Regras</div>
+    <div onClick= {()=> navigate("/regras")} style={regrasStyle}>Regras</div>,
+    <div onClick={()=>navigate("/historico")}>Historico</div>
   ];
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
