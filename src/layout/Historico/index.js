@@ -35,32 +35,34 @@ export default function Historico() {
         </Fab>
         <div className='historicoHeader'>
           <h1>Histórico</h1>
-          <div className='historicoBtnVoltar' onClick={()=>navigate("/")}>voltar</div>
+          <h5 className='historicoBtnVoltar' onClick={()=>navigate("/")}>voltar</h5>
         </div>
         {
            carregando ? 
-             <div>carregando ...</div>:
-             dados?.map((item, key)=>{
-                return(
-                    <div className='historicoCard'>
-                        <Typography>
-                          Rodada  {item.rodada}
-                        </Typography>
-                        <Typography>
-                          Campeão  {item.campeao}
-                        </Typography>
-                        <Typography>
-                          Artilheiro  {item.artilheiro}
-                        </Typography>
-                        <Typography>
-                          Assistente  {item.assistecia}
-                        </Typography>
-                        <Typography>
-                          Data  {dataFormato(item.data)}
-                        </Typography>
-                    </div>
-                )
-             })
+             <h4 className='historicoCarregando'>carregando ...</h4>:
+             dados?.length === 0 ?
+               <h4 className='historicoNaoHaDados'>Não há dados estatísticos!</h4>:
+                dados?.map((item, key)=>{
+                    return(
+                        <div className='historicoCard'>
+                            <Typography>
+                            Rodada  {item.rodada}
+                            </Typography>
+                            <Typography>
+                            Campeão  {item.campeao}
+                            </Typography>
+                            <Typography>
+                            Artilheiro  {item.artilheiro}
+                            </Typography>
+                            <Typography>
+                            Assistente  {item.assistecia}
+                            </Typography>
+                            <Typography>
+                            Data  {dataFormato(item.data)}
+                            </Typography>
+                        </div>
+                    )
+                })
         }
     </div>
   )

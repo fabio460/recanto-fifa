@@ -4,5 +4,5 @@ export function dataFormato(data) {
    //return parseInt(horaArray[0]) - 3 +":"+horaArray[1]
    const hora = parseInt(horaArray[0]) - 3 +":"+horaArray[1]
    const dia = dataArray[2]+"/"+ dataArray[1] +"/"+ dataArray[0] 
-   return dia + " as " + hora+" h"   
+   return dia + " as " + hora+"h"   
 }

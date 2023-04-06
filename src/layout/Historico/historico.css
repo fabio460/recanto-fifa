@@ -15,3 +15,12 @@
 .historicoBtnVoltar:hover{
     color: brown;
 }
+.historicoCarregando{
+    text-align: center;
+    margin-top: 200px;
+}
+.historicoNaoHaDados{
+    text-align: center;
+    margin-top: 200px;
+    color: gray;
+}
