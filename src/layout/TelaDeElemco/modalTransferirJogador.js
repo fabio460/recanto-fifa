@@ -23,7 +23,7 @@ export default function ModalTransferirJogador({id, usuario, carregando}) {
     const [inputValorInvalido, setInputValorInvalido] = useState(false)
     const [selectInvalido, setSelectInvalido] = useState(false)
     const [open, setOpen] = React.useState(false);
-    const [valor, setValor] = useState()
+    const [valor, setValor] = useState(0)
     const [age, setAge] = React.useState('');
     const handleClickOpen = () => {
         setOpen(true);
@@ -113,6 +113,10 @@ export default function ModalTransferirJogador({id, usuario, carregando}) {
         setAge(event.target.value);
     };  
       
+    const folha = usuario.jogadore.reduce((acum, item)=>{
+      return acum + item.valor
+    },0)*0.03
+    
   return (
     <div>
       <button onClick={handleClickOpen} className='btn btn-success ms-3'>Transferir</button>           
@@ -165,6 +169,9 @@ export default function ModalTransferirJogador({id, usuario, carregando}) {
                           <div>Aguarde!</div>
                       </div>}
                   </Box>
+                </div>
+                <div style={{marginTop:"20px"}}>
+                  Sua folha reduzira para {(folha - (valor*0.03)).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}
                 </div>
           </DialogContentText>
         </DialogContent>

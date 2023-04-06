@@ -41,7 +41,14 @@ export default function ModalDispensarJogador({jogador, usuario}) {
     }
   }
   
+
+  const folha = usuario.jogadore.reduce((acum, item)=>{
+    return acum + item.valor
+  },0)*0.03
+
+  
   const valorGanho = jogador.OVER >= 90 ? (jogador.valor)*0.6 : (jogador.valor)*0.4 
+  const valorDaReducaoDaFolha = folha - (jogador.valor)*0.03
 
   const novoValorDoSaldo = usuario.saldo + valorGanho
   const Confirmar = async()=>{
@@ -84,6 +91,7 @@ export default function ModalDispensarJogador({jogador, usuario}) {
               <div style={{marginTop:"12px"}}>
                  Essa solicitação não poderá ser revertida.
                  <div>Você ganhara {valorGanho.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</div>
+                 <div> Sua folha reduzirá para {valorDaReducaoDaFolha.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</div>
               </div>
           </DialogContentText>
         </DialogContent>
