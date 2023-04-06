@@ -282,7 +282,7 @@ export default function TelaDeElenco() {
                                   <td className='elencoBtns' >
                                     {/* <button onClick={()=> despensar(elem.id)} className='btn btn-danger me-3'>Despensar</button> */}
                                     <ModalDispensarJogador jogador={elem} usuario={usuario} carregando={carregando}/>  
-                                    <ModalTransferirJogador id={elem.id} usuario={usuario} carregando={carregando}/>
+                                    <ModalTransferirJogador id={elem.id} usuario={usuario} jogador={elem.label} carregando={carregando}/>
                                   </td>
                               </tr>
                           )

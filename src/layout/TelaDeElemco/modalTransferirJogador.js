@@ -16,7 +16,7 @@ import { CircularProgress } from '@mui/material'
 import {listaDeUsuariosApi, getUsuariosPorIdApi } from '../../Api/usuariosApi';
 import { getTemporadaApi } from '../../Api/temporadasApi';
 import { transferenciaDeJogadorApi } from '../../Api/jogadoresApi';
-export default function ModalTransferirJogador({id, usuario, carregando}) {
+export default function ModalTransferirJogador({id, usuario, carregando, jogador}) {
     const [usuarios, setUsuarios] = useState([])
     const [value, setValue] = React.useState(null);  
     const [Carregando, setCarregndo] = useState(false)
@@ -127,8 +127,8 @@ export default function ModalTransferirJogador({id, usuario, carregando}) {
         aria-describedby="alert-dialog-description"
         sx={{background:"",width:"100%"}}
       >
-        <DialogTitle sx={{fontSize:"13px", maxHeight:40}} id="alert-dialog-title">
-           Deseja transferir?
+        <DialogTitle sx={{fontSize:"15px", maxHeight:40}} id="alert-dialog-title">
+           Transferência do {jogador}
         </DialogTitle>
         <DialogContent sx={dialogStyle}>
           <DialogContentText 
