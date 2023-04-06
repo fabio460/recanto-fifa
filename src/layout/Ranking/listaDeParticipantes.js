@@ -37,7 +37,7 @@ export default function ListaDeParticipantes({ListaDeUsuarios}) {
     type:"participantes",
     payload:{participantes}
   })
-  console.log(ListaDeUsuarios)
+
   return (
     <div>
       <h3 className='participantesTitulo'>Participantes</h3>

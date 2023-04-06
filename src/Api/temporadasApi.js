@@ -24,10 +24,10 @@ export const alterarTemporadaApi = async(pagarFolha, dispatch, loading)=>{
          return "temporada atualizada com sucesso"
        })
        .catch(err=>{
-         alert("falha ao atualizar temporada!")
+         console.log("falha ao atualizar temporada!")
          atualizarUsuarioApi((pagarFolha, dispatch, loading))
          setTimeout(() => {
-            window.location.reload()
+            //window.location.reload()
          }, 1000);
        })
     }else{

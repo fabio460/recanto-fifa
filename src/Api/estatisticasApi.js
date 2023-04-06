@@ -35,6 +35,7 @@ export const setarStatisticaApi = async (campeao, artilheiro, assistecia, dispat
             type:"atualizarTudo",
             payload:{atualizado:!loading}
          })
+         console.log( "Estatisticas inseridas com sucesso")
        return "Estatisticas inseridas com sucesso"
     })
     .catch(res=>{

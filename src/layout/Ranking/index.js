@@ -133,11 +133,13 @@ const [carregando, setCarregando] = useState(false)
       alert("não há premiaçôes selecionadas")
     }else{
       setCarregando(true)
-      const resEsta = await setarStatisticaApi(colocacao.primeiro, artilharia.primeiro, assistente.primeiro, dispatch, loading)
-      const resPrem =await pagarPremiacao(setPremiacao(usuariosPremiados, Lista), dispatch, loading)
-      const resTemp =await alterarTemporadaApi(dispatch, loading)
+      const lista = await listaDeUsuariosApi()
+      setarStatisticaApi(colocacao.primeiro, artilharia.primeiro, assistente.primeiro, dispatch, loading)
+      pagarPremiacao(setPremiacao(usuariosPremiados, lista), dispatch, loading)
+      alterarTemporadaApi(dispatch, loading)
       
       setTimeout(() => {
+        alert("Temporada finalizada com sucesso com o "+colocacao.primeiro+" campeão!")
         window.location.reload() 
       }, 2000);
       usuariosPremiados = []
