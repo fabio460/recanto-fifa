@@ -14,7 +14,7 @@ import { CircularProgress, IconButton } from '@mui/material'
 import { Box } from '@mui/system'
 import { getTemporadaApi } from '../../Api/temporadasApi';
 import { deletarJogadorApi } from '../../Api/jogadoresApi';
-import { removeNome } from '../../Uteis';
+import { formatoMonetario, removeNome } from '../../Uteis';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 export default function TelaDeElenco() {
   const [usuario, setUsuario] = useState({})
@@ -191,8 +191,8 @@ export default function TelaDeElenco() {
               <div>
                   {Temporada && <h3 style={{textAlign:"center",color: Temporada === 1 ?"green":"red"}}>Temporada {Temporada}</h3>}
                   <h5>Clube: {usuario.time}</h5>
-                  <h5>Saldo: {usuario.saldo?.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h5>
-                  <h5>Folha: {folhaSalarial?.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h5>
+                  <h5>Saldo: {formatoMonetario(usuario.saldo)}</h5>
+                  <h5>Folha: {formatoMonetario(folhaSalarial)}</h5>
                   <div>
                     {usuario.bugado &&
                       <div style={{display:"flex"}}>
@@ -277,7 +277,7 @@ export default function TelaDeElenco() {
                                     {removeNome(elem.Posicao)}
                                   </td>
                                   <td className='elencoTdOver'>{elem.OVER}</td>
-                                  <td className='elencoTdPreco'>{elem.valor.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</td>
+                                  <td className='elencoTdPreco'>{formatoMonetario(elem.valor)}</td>
                                   <td className='elencoTdClube'>{elem.CLUBE}</td>
                                   <td className='elencoBtns' >
                                     {/* <button onClick={()=> despensar(elem.id)} className='btn btn-danger me-3'>Despensar</button> */}

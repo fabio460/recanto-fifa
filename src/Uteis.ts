@@ -10,32 +10,9 @@ const meuElenco = (time:string)=>{
 } 
 
 
-export const listaDeUsuarios = [
-    {
-        nome:"Fabio",
-        saldo:100,
-        elenco:meuElenco("ATK Mohun Bagan FC"),
-        folha:0
-    },
-    {
-        nome:"Rodrigo",
-        saldo:100,
-        elenco:meuElenco("Villarreal CF"),
-        folha:0
-    },
-    {
-        nome:"Rafael",
-        saldo:200,
-        elenco:meuElenco("Bayer 04 Leverkusen"),
-        folha:0
-    },
-    {
-        nome:"Felipe",
-        saldo:200,
-        elenco:meuElenco("Real Madrid CF"),
-        folha:0
-    },
-]
+export function formatoMonetario(valor:any){
+   return valor.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})
+}
 
 
 export  function buscaUsuarioPeloJogador(jogador:any, Lista:any) {

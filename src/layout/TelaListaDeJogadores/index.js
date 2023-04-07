@@ -18,7 +18,7 @@ import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { listarTodosOsJogadoresApi } from '../../Api/jogadoresApi';
-import { removeNome } from '../../Uteis';
+import { formatoMonetario, removeNome } from '../../Uteis';
 
 export default function TelaListaDeJogadores() {
   const [listaJogadores, setlistaJogadores] = useState([])
@@ -163,9 +163,9 @@ export default function TelaListaDeJogadores() {
             </div>
             <div className='TelaListaJogadoresTituloRigth'>
               <div className='TelaListaJogadoresMenuSaldo'>
-                Saldo {Usuario?.saldo.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}
+                Saldo {formatoMonetario(Usuario?.saldo)}
               </div>
-              <div className='TelaListaDeJogadoresFolha'>Folha {folha}</div>
+              <div className='TelaListaDeJogadoresFolha'>Folha {formatoMonetario(folha)}</div>
               <Paper
                 sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: "100%" }}
               >
