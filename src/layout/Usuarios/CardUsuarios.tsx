@@ -2,6 +2,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { usuarioType } from '../../Types'
+import { formatoMonetario } from '../../Uteis'
 
 interface userType{
    usuario:usuarioType
@@ -81,11 +82,11 @@ export default function CardUsuarios({usuario}:userType) {
       <div className='UsuarioSaldoLabel'>Saldo</div>
       { 
         usuario.saldo < 0 ?
-        <div className='UsuarioSaldo' style={{color:"red"}}> {usuario.saldo.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</div>:
-        <div className='UsuarioSaldo'> {usuario.saldo.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</div>
+        <div className='UsuarioSaldo' style={{color:"red"}}> {formatoMonetario(usuario.saldo)}</div>:
+        <div className='UsuarioSaldo'> {formatoMonetario(usuario.saldo)}</div>
       }
       <div className='UsuarioSaldoLabel'>Folha</div>
-           <div>{contadorFolha(usuario.jogadore,usuario.nome).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</div>
+           <div>{formatoMonetario(contadorFolha(usuario.jogadore,usuario.nome))}</div>
       <button  
         className="btn btn-success w-100 m-1"
         onClick={comprarJogador}
