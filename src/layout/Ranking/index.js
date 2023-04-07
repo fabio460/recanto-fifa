@@ -17,10 +17,10 @@ import { alterarTemporadaApi } from '../../Api/temporadasApi';
 import { pagarFolhaApi, pagarPremiacao, pagarPremioBugadoApi } from '../../Api/pagamentosApi';
 import Carregando from './carregando';
 import { listarEstatisticasApi } from '../../Api/estatisticasApi';
-import Vencedores from './vencedores';
+import Vencedores from '../Graficos/vencedores';
 import { setarStatisticaApi } from '../../Api/estatisticasApi';
-import Artilheiros from './artilheiros';
-import Assistentes from './assistentes';
+import Artilheiros from '../Graficos/artilheiros';
+import Assistentes from '../Graficos/assistentes';
 
 
 export default function Ranking({Lista, temporada}) {
@@ -227,64 +227,7 @@ const [carregando, setCarregando] = useState(false)
                   return<div>{e.nome} - {e.empates}</div>
                 })}
               </div>
-              <div>
-        
-                {/* <Box sx={{ minWidth: 120 }}>
-                  <FormControl fullWidth sx={{ m: "10px 0px", minWidth: "100%" }} size="small">
-                    <InputLabel id="demo-simple-select-label">3 Hash trick</InputLabel>
-                    <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      value={BugadoBronze}
-                      label="BugadoBronze"
-                      onChange={handleBugadoBronze}
-                    >
-                      <MenuItem value={null}>---</MenuItem>
-                      {participantes?.map(item=>{
-                        return  <MenuItem value={item.id}>{item.nome}</MenuItem>
-                      })}
-                    </Select>
-                  </FormControl>
-                </Box>
-                <Box sx={{ minWidth: 120 }}>
-                  <FormControl fullWidth sx={{ m: "", minWidth: "100%" }} size="small">
-                    <InputLabel id="demo-simple-select-label">3 part sem sofrer gols</InputLabel>
-                    <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      value={BugadoPrata}
-                      label="BugadoBronze"
-                      onChange={handleBugadoPrata}
-                    >
-                      <MenuItem value={null}>---</MenuItem>
-                      {participantes?.map(item=>{
-                        return  <MenuItem value={item.id}>{item.nome}</MenuItem>
-                      })}
-                    </Select>
-                  </FormControl>
-                </Box> */}
-                {/* <h5>3 Hash trick consec</h5>
-                <div>
-                  <FormGroup sx={{padding:"10px"}}>
-                    {participantes?.map((item, key)=>{
-                      return (
-                        <FormControlLabel control={<Checkbox onChange={e=>handleChecadoA(item, e.target)}/>} label={item.nome} />
-                        )
-                      })}
-                  </FormGroup>         
-                </div> */}
-              </div>
-              {/* <div><Assistentes/></div> */}
-              {/* <div>
-                <h5>3 part sem sofrer gols</h5>
-                <FormGroup sx={{padding:"10px"}}>
-                  {participantes?.map((item, key)=>{
-                    return (
-                      <FormControlLabel control={<Checkbox onChange={e=>handleChecadoB(item, e.target)}/>} label={item.nome} />
-                      )
-                    })}
-                </FormGroup>
-              </div> */}
+              <div></div>
               <div>
                 <ModalPagarPremiasao finalizarTemporada={finalizarTemporada}/>
                 <ModalPagarFolha pagarFolha={pagarFolha}/>

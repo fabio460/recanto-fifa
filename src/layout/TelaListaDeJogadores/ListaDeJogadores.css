@@ -31,10 +31,8 @@
    color: cadetblue;
 }
 .TelaListaJogadoresMenuSaldo{
-    margin-right: 20px;
     font-size: 22px;
-    color: red;
-    margin-bottom: 20px;
+    color: grey;
     display: flex;
     justify-content: flex-end;
 }
@@ -57,7 +55,17 @@
     flex-direction: column;
     justify-content: space-between;
 }
+.TelaListaDeJogadoresFolha{
+   text-align: end;
+   
+}
 @media (max-width:800px) {
+    .TelaListaDeJogadoresFolha{
+      margin: 0px;
+    }
+    .TelaListaJogadoresMenuSaldo{
+      margin: 0;
+    }
     .td_nome{
        min-width: 180px;
     }

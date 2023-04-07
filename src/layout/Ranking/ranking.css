@@ -3,19 +3,23 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap:30px;
-    
+    border: solid black 1px;
+    border-radius: 5px ;
+    height: 100%;
 }
 .rankingContainer{
    display: grid;
    grid-template-columns: 1fr 3fr;
-   margin: 2%;
+   margin: 2.5%;
+   gap: 30px;
 }
 
 .rankingAside{
-  margin: 2%;
+
   border: 1px black solid;
-  border-radius: 10px;
+  border-radius: 5px;
   padding: 2%;
+  height: 100%;
 }
 .participantesTitulo{
   margin: 1%;
@@ -65,11 +69,7 @@
   height: 100%;
   color: grey;
 }
-.grafico{
-  max-width: 450px;
-  height: 300px;
 
-}
 .XAxis{
   color: red;
 }
@@ -81,6 +81,9 @@
 }
 
 @media (max-width:980px) {
+  .rankingAside{
+    margin: 2%;
+  }
   .grafico{
     width: 95vw;
     margin: auto;
@@ -99,7 +102,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap:30px;
- 
+    margin: 2%;
   }
  }
 

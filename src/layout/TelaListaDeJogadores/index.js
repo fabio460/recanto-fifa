@@ -135,6 +135,9 @@ export default function TelaListaDeJogadores() {
     setPage(1)
     buscarJogador()
   }
+  const folha = Usuario?.jogadore.reduce((acum, item)=>{
+    return acum + item.valor
+  },0)*0.03
 
   return (
     <div>
@@ -162,6 +165,7 @@ export default function TelaListaDeJogadores() {
               <div className='TelaListaJogadoresMenuSaldo'>
                 Saldo {Usuario?.saldo.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}
               </div>
+              <div className='TelaListaDeJogadoresFolha'>Folha {folha}</div>
               <Paper
                 sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: "100%" }}
               >

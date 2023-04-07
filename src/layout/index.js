@@ -9,9 +9,10 @@ import "./index.css"
 import AppBar from './AppBar'
 import Ranking from './Ranking'
 import Usuarios from './Usuarios'
-import Vencedores from './Ranking/vencedores'
-import Artilheiros from './Ranking/artilheiros'
-import Assistentes from './Ranking/assistentes'
+import Vencedores from './Graficos/vencedores'
+import Artilheiros from './Graficos/artilheiros'
+import Assistentes from './Graficos/assistentes'
+import Graficos from './Graficos'
 
 export default function Layout() {
   const [Lista, setLista] = useState([])
@@ -38,29 +39,15 @@ export default function Layout() {
         {
           carregando?
           <div>
-              <Box sx={{ display: 'flex',justifyContent:"center", alignItems:"center", height:"90vh" }}>
-                <CircularProgress />
-              </Box>
-            </div>:
-            <div>
-              <Ranking Lista={Lista} temporada={temporada}/>
-              <h3 className='tituloEstatisticas'>Dados estatísticos</h3>
-              <div className='estatistica'>
-                <div>
-                  <div className='cabecacalhoEstatisticas'>Campeões</div>
-                  <Vencedores/>
-                </div>
-                <div>
-                  <div className='cabecacalhoEstatisticas'>Artilheiros</div>
-                  <Artilheiros/>
-                </div>
-                <div>
-                  <div className='cabecacalhoEstatisticas'>Assintentes</div>
-                  <Assistentes/> 
-                </div>
-              </div>
-              <Usuarios Lista={Lista}/>
-            </div>
+            <Box sx={{ display: 'flex',justifyContent:"center", alignItems:"center", height:"90vh" }}>
+              <CircularProgress />
+            </Box>
+          </div>:
+          <div>
+            <Ranking Lista={Lista} temporada={temporada}/>
+            <Graficos/>
+            <Usuarios Lista={Lista}/>
+          </div>
           }
       </div>
     </div>
