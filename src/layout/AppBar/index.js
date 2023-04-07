@@ -78,7 +78,7 @@ function Appbar() {
   const logo = "https://i.pinimg.com/736x/4b/2f/f6/4b2ff6f57503b821e01e738092fe9214.jpg"
   return (
     <AppBar position="fixed" sx={{bgcolor:"green"}}>
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" sx={{margin:0}}>
         <Toolbar disableGutters>
           {/* <SportsEsportsIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
           <Avatar sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} src={logo}></Avatar>

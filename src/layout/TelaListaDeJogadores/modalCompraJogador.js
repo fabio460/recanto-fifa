@@ -109,11 +109,9 @@ export default function ModalComprar({jogador, idUsuario, Saldo, nomeDoComprador
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          Comprar {jogador.label}
+          Ao comprar {jogador.label}, sua folha almentara para {valorAcrescidoNaFolha.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}
           {/* <p>Seu saldo atual é {Saldo.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</p> */}
-            <div>
-              Sua folha almentara para {valorAcrescidoNaFolha.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}
-            </div>
+      
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
