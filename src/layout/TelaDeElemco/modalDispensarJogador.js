@@ -81,7 +81,8 @@ export default function ModalDispensarJogador({jogador, usuario}) {
         sx={{background:"",width:"100%"}}
       >
         <DialogTitle id="alert-dialog-title">
-           Deseja realmente dispensar o jogador {jogador.label}?
+           Ao dispensar o jogador {jogador.label} voçe receberá {valorGanho.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})} e sua
+           folha reduzirá para {valorDaReducaoDaFolha.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}
         </DialogTitle>
         <DialogContent sx={dialogStyle}>
           <DialogContentText 
@@ -89,9 +90,7 @@ export default function ModalDispensarJogador({jogador, usuario}) {
             sx={{display:"flex",flexDirection:"column"}}
             >
               <div style={{marginTop:"12px"}}>
-                 Essa solicitação não poderá ser revertida.
-                 <div>Você ganhara {valorGanho.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</div>
-                 <div> Sua folha reduzirá para {valorDaReducaoDaFolha.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</div>
+      
               </div>
           </DialogContentText>
         </DialogContent>
