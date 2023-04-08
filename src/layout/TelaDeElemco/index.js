@@ -16,6 +16,7 @@ import { getTemporadaApi } from '../../Api/temporadasApi';
 import { deletarJogadorApi } from '../../Api/jogadoresApi';
 import { formatoMonetario, removeNome } from '../../Uteis';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import SelectPosicoes from './selectPosicoes'
 export default function TelaDeElenco() {
   const [usuario, setUsuario] = useState({})
   const [atualizar, setatualizar] = useState(false)
@@ -29,8 +30,15 @@ export default function TelaDeElenco() {
     cresc:false,
     id:null
   })
-
+  const [posicoes, setPosicoes] = useState([])
+  
   var jogadores = usuario.jogadore
+  const filtrarPosicao = jogadores?.filter(j=>{
+    if (j.Posicao.includes(posicoes)) {
+      return j
+    }
+  })
+  jogadores = filtrarPosicao
   
   async function getUsuarioPorId() {  
     const p = await getUsuariosPorIdApi(id)
@@ -193,6 +201,9 @@ export default function TelaDeElenco() {
                   <h5>Clube: {usuario.time}</h5>
                   <h5>Saldo: {formatoMonetario(usuario.saldo)}</h5>
                   <h5>Folha: {formatoMonetario(folhaSalarial)}</h5>
+                  <div style={{display:"flex", justifyContent:"flex-end"}}>
+                    <SelectPosicoes setPosicoes={setPosicoes}/>
+                  </div>
                   <div>
                     {usuario.bugado &&
                       <div style={{display:"flex"}}>

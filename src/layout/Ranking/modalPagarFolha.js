@@ -15,7 +15,7 @@ export default function ModalPagarFolha({pagarFolha}) {
 
   const handleClose = () => {
       setOpen(false);
-    };
+  };
     
   const confirmar = ()=>{      
     pagarFolha()

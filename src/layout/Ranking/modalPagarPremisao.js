@@ -25,11 +25,11 @@ export default function ModalPagarPremiasao({finalizarTemporada}) {
   return (
     <div>
         <Button 
-        variant='outlined' size='small'
-        sx={{margin:"20px 0px",height:"40px",marginTop:"auto", width:"100%"}}
-        onClick={handleClickOpen}
+          variant='outlined' size='small'
+          sx={{margin:"20px 0px",height:"40px",marginTop:"auto", width:"100%"}}
+          onClick={handleClickOpen}
         >
-        Encerrar temporada
+          Encerrar temporada
         </Button>
       <Dialog
         open={open}
