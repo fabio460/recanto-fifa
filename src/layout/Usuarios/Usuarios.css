@@ -27,6 +27,13 @@
     background-color: green;
     color: white;
 }
+.UsuarioFolhaLabel{
+    width: 100%;
+    text-align: center;
+    background-color: green;
+    color: white;
+    margin-top: 10px;
+}
 
 .bugadosContainer{
    display: flex;

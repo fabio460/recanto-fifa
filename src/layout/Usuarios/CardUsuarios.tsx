@@ -85,10 +85,10 @@ export default function CardUsuarios({usuario}:userType) {
         <div className='UsuarioSaldo' style={{color:"red"}}> {formatoMonetario(usuario.saldo)}</div>:
         <div className='UsuarioSaldo'> {formatoMonetario(usuario.saldo)}</div>
       }
-      <div className='UsuarioSaldoLabel'>Folha</div>
+      <div className='UsuarioFolhaLabel'>Folha</div>
            <div>{formatoMonetario(contadorFolha(usuario.jogadore,usuario.nome))}</div>
       <button  
-        className="btn btn-success w-100 m-1"
+        className="btn btn-success w-100 m-1 mt-3"
         onClick={comprarJogador}
       >Comprar jogador</button>
       <button onClick={selecionarElenco} className="btn btn-success w-100 m-1">Meu elenco</button>

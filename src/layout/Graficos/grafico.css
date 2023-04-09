@@ -20,6 +20,7 @@
 @media (max-width:1730px) {
     .graficos{
         grid-template-columns: 1fr 1fr;
+        width: 90vw;
     }
     .graficoItem{
         margin: 2%;
