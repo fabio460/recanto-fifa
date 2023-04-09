@@ -204,26 +204,28 @@ export default function TelaDeElenco() {
               {/* <TabelaMobile handleClick={handleClick} handleClose={handleClose} id={id} usuario={usuario} open={open} anchorEl/> */}
             </div>
             <div>
-              {
-                Temporada ? 
-                  <div>
-                   {
-                   Temporada === 2 ?
-                      <div className='TextoMercadoAberto'>
-                        <h3>Temporada {Temporada}</h3>
-                        <h5> Mercado de transferência aberto</h5>
-                      </div>:
-                      <div className='TextoMercadoFechado'>
-                        <h3>Temporada {Temporada}</h3>
-                        <h5> Mercado de transferência encerrado</h5>
-                      </div>
-                    }
-                  </div>:
-                  <div style={{textAlign:"center"}}>Carregando temporada...</div> 
-              }
               <Typography>Clube: {usuario.time}</Typography>
               <Typography style={{color:(usuario.saldo < 0 && "red")}}>Saldo: {formatoMonetario(usuario.saldo)}</Typography>
               <Typography>Folha: {formatoMonetario(folhaSalarial)}</Typography>
+              <div>
+                {
+                  Temporada ? 
+                    <div>
+                    {
+                    Temporada === 2 ?
+                        <div className='TextoMercadoAberto'>
+                          <h3>Temporada {Temporada}</h3>
+                          <h5> Mercado de transferência aberto</h5>
+                        </div>:
+                        <div className='TextoMercadoFechado'>
+                          <h3>Temporada {Temporada}</h3>
+                          <h5> Mercado de transferência encerrado</h5>
+                        </div>
+                      }
+                    </div>:
+                    <div style={{textAlign:"center"}}>Carregando temporada...</div> 
+                }
+              </div>
               <div style={{display:"flex", justifyContent:"flex-end"}}>
                 <SelectPosicoes setPosicoes={setPosicoes}/>
               </div>
