@@ -14,6 +14,7 @@ import Artilheiros from './Graficos/artilheiros'
 import Assistentes from './Graficos/assistentes'
 import Graficos from './Graficos'
 
+
 export default function Layout() {
   const [Lista, setLista] = useState([])
   const atualizado = useSelector(state=>state.atualizarTudo.atualizado)
@@ -43,11 +44,11 @@ export default function Layout() {
               <CircularProgress />
             </Box>
           </div>:
-          <div>
+          <Container maxWidth="xl">
             <Ranking Lista={Lista} temporada={temporada}/>
             <Graficos/>
             <Usuarios Lista={Lista}/>
-          </div>
+          </Container>
           }
       </div>
     </div>

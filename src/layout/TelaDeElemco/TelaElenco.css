@@ -54,6 +54,18 @@
 .tabelaDeElencosTH:hover .arrowImg{
     visibility: visible;
 }
+.textoAviso{
+    color: red;
+    font-size: small;
+}
+.TextoMercadoAberto{
+    color: #4caf50;
+    text-align: center;
+}
+.TextoMercadoFechado{
+    color: red;
+    text-align: center;
+}
 @media (max-width:800px) {
     .table{
         width: 600px;

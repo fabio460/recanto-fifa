@@ -1,38 +1,44 @@
 .graficoItem{
     border: 1px black solid;
     border-radius: 5px;
+    width: 100%;
 }
 .graficos{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    margin: 0% 2.5%;
     gap: 20px;
 }
 .graficoItemContent{
     
 }
 .grafico{
-    max-width: 100%;
+    max-width: 500px;
     height: 300px;
-    
+    margin: auto;   
 }
-
+.tituloEstatisticas{
+    margin-top: 30px;
+}
 @media (max-width:1730px) {
     .graficos{
         grid-template-columns: 1fr 1fr;
-        width: 90vw;
+        
     }
     .graficoItem{
-        margin: 2%;
+        
     }
 }
 @media (max-width:1017px) {
     .graficos{
         grid-template-columns: 1fr;
     }
+    .graficoItem{
+      width: 100%;
+      border: none;   
+    }
 }
 @media (max-width:700px) {
    .graficoItem{
-    
+    border: none;
    }
 }

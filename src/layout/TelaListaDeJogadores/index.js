@@ -157,10 +157,28 @@ export default function TelaListaDeJogadores() {
             <div className='TelaListaJogadoresTituloLeft'>
               <h1 style={{marginRight:"20px"}}>
                 <div>Usuario {Usuario?.nome}</div>
-                {Temporada && <h4 style={{color: Temporada === 1 ?"green":"red"}}>Temporada {Temporada}</h4>}
               </h1>
               
             </div>
+              <div>
+                {
+                Temporada ? 
+                  <div>
+                  {
+                    Temporada === 2 ?
+                        <div className='TextoMercadoAberto'>
+                          <h3>Temporada {Temporada}</h3>
+                          <h5> Mercado de transferência aberto</h5>
+                        </div>:
+                        <div className='TextoMercadoFechado'>
+                          <h3>Temporada {Temporada}</h3>
+                          <h5> Mercado de transferência encerrado</h5>
+                        </div>
+                      }
+                    </div>:
+                    <div style={{textAlign:"center"}}>Carregando temporada...</div> 
+                }
+              </div>
             <div className='TelaListaJogadoresTituloRigth'>
               <div className='TelaListaJogadoresMenuSaldo'>
                 Saldo {formatoMonetario(Usuario?.saldo)}

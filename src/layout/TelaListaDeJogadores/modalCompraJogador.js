@@ -37,7 +37,7 @@ export default function ModalComprar({jogador, idUsuario, Saldo, nomeDoComprador
     let invalido =  (/^(?=.*[ a-zA-Z@#$%º¢£&!'"-+/\(\)\ \`\\\|\{\}\[\]\~\^\:\; ])/); 
     let valorComVirgula = valor.replace(",",".")
     const jogadorDisponivel = await getJogadorPeloNomeApi(jogador.label)
-    if (valor >= Saldo) {
+    if (valor >= (Saldo)) {
       alert("Você não tem saldo suficiente")
       setCarregando(false)
     } else {      

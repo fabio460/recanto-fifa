@@ -1,11 +1,11 @@
 .UsuariosContainer{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    margin: 2%;
-  
+    margin: 2% 0;
+    gap: 20px;
 }
 .CardUsuarios{
-    margin:  2%;
+    
     border: black solid 1px;
     border-radius: 5px;
     display: flex;

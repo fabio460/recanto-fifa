@@ -176,7 +176,18 @@ const [carregando, setCarregando] = useState(false)
       {
         temporada && 
         <div>
-          <h1 className='rankingTituloTemporada' style={{color:temporada?.numero ===1 ?"green":"red"}}> Temporada {temporada?.numero}</h1>
+          <h1 className='rankingTituloTemporada' style={{color:temporada?.numero ===1 ?"green":"red"}}></h1>
+          {
+            temporada?.numero === 2 ?
+            <div className='TextoMercadoAberto'>
+              <h1>Temporada {temporada?.numero}</h1>
+              <h5> Mercado de transferência aberto</h5>
+            </div>:
+            <div className='TextoMercadoFechado'>
+              <h1>Temporada {temporada?.numero}</h1>
+              <h5> Mercado de transferência encerrado</h5>
+            </div>
+          }
           <div className='rankingContainer'>
             <div className='rankingAside'>
               <ListaDeParticipantes ListaDeUsuarios={Lista}/>

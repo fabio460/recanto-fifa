@@ -28,58 +28,58 @@ import { listaDeUsuariosApi } from "../../Api/usuariosApi";
 import {useDispatch, useSelector} from 'react-redux'
 import ModalDeletarEstatistica from "./modalDeletarEstatisticas";
 
+
 const regrasStyle = {
-  color:"",
-  "@media (max-width:800px)":{
-    color:"black"
+    color:"",
+    "@media (max-width:800px)":{
+      color:"black"
+    }
   }
-}
 const settings = [<ModalCriarUsuario/>, <ModalDeletarUsuario/>, <ModalDeletarEstatistica/>];
-function Appbar() {
-  const navigate = useNavigate()
-  const [usuarios, setListaDeUsuarios] = React.useState([])
-  const participantes = useSelector(state=>state.participantesReducer.participantes)
-  async function getUsuarios() {
-    const u = await listaDeUsuariosApi  ()
-    setListaDeUsuarios(u)
-  }
-  React.useEffect(()=>{
-    getUsuarios()
-
-  },[])
-
-  const pages = [
-    <ModalColocacao usuarios={usuarios} participantes={participantes}/>,
-    <ModalArtilharia usuarios={usuarios} participantes={participantes}/>,
-    <ModalAssistecia usuarios={usuarios} participantes={participantes}/>,
-    <ModalVitoriasEGols usuarios={usuarios} participantes={participantes}/>,
-    <div onClick= {()=> navigate("/regras")} style={regrasStyle}>Regras</div>,
-    <div onClick={()=>navigate("/historico")}>Historico</div>
-  ];
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
- 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-  const h = useNavigate()
+function ResponsiveAppBar() {
+    const navigate = useNavigate()
+    const [usuarios, setListaDeUsuarios] = React.useState([])
+    const participantes = useSelector(state=>state.participantesReducer.participantes)
+    async function getUsuarios() {
+      const u = await listaDeUsuariosApi  ()
+      setListaDeUsuarios(u)
+    }
+    React.useEffect(()=>{
+      getUsuarios()
   
+    },[])
+  
+    const pages = [
+      <ModalColocacao usuarios={usuarios} participantes={participantes}/>,
+      <ModalArtilharia usuarios={usuarios} participantes={participantes}/>,
+      <ModalAssistecia usuarios={usuarios} participantes={participantes}/>,
+      <ModalVitoriasEGols usuarios={usuarios} participantes={participantes}/>,
+      <div onClick= {()=> navigate("/regras")} style={regrasStyle}>Regras</div>,
+      <div onClick={()=>navigate("/historico")}>Historico</div>
+    ];
+    const [anchorElNav, setAnchorElNav] = React.useState(null);
+    const [anchorElUser, setAnchorElUser] = React.useState(null);
+   
+    const handleOpenNavMenu = (event) => {
+      setAnchorElNav(event.currentTarget);
+    };
+    const handleOpenUserMenu = (event) => {
+      setAnchorElUser(event.currentTarget);
+    };
+  
+    const handleCloseNavMenu = () => {
+      setAnchorElNav(null);
+    };
+  
+    const handleCloseUserMenu = () => {
+      setAnchorElUser(null);
+    };
+    const h = useNavigate()
   const logo = "https://i.pinimg.com/736x/4b/2f/f6/4b2ff6f57503b821e01e738092fe9214.jpg"
   return (
-    <AppBar position="fixed" sx={{bgcolor:"green"}}>
-      <Container maxWidth="xl" sx={{margin:0}}>
-        <Toolbar disableGutters>
+    <AppBar position="fixed">
+      <Container maxWidth="xl">
+      <Toolbar disableGutters>
           {/* <SportsEsportsIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
           <Avatar sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} src={logo}></Avatar>
           <Typography
@@ -143,7 +143,7 @@ function Appbar() {
             component="a"
             href=""
             sx={{
-              mr: 2,
+              mr: 0,
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
               fontFamily: 'monospace',
@@ -202,5 +202,4 @@ function Appbar() {
     </AppBar>
   );
 }
-
-export default Appbar;
+export default ResponsiveAppBar;

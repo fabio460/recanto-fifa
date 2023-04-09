@@ -2,11 +2,10 @@ import React,{useState,useEffect} from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { getUsuariosPorIdApi } from '../../Api/usuariosApi'
-import  flecha from "../imagens/flecha.jpg"
+
 import Menu from '@mui/material/Menu';
 import ModalAtualizarUsuario from './modalAtualizarUsuario'
-import ModalDispensarJogador from './modalDispensarJogador'
-import ModalTransferirJogador from './modalTransferirJogador'
+import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import "./TelaElenco.css"
@@ -19,6 +18,7 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import SelectPosicoes from './selectPosicoes'
 import TabelaDesktop from './tabelaDesktop'
 import TabelaMobile from './tabelaMobile'
+
 export default function TelaDeElenco() {
     const [usuario, setUsuario] = useState({})
     const [atualizar, setatualizar] = useState(false)
@@ -204,14 +204,34 @@ export default function TelaDeElenco() {
               {/* <TabelaMobile handleClick={handleClick} handleClose={handleClose} id={id} usuario={usuario} open={open} anchorEl/> */}
             </div>
             <div>
-              {Temporada && <h3 style={{textAlign:"center",color: Temporada === 1 ?"green":"red"}}>Temporada {Temporada}</h3>}
-              <h5>Clube: {usuario.time}</h5>
-              <h5>Saldo: {formatoMonetario(usuario.saldo)}</h5>
-              <h5>Folha: {formatoMonetario(folhaSalarial)}</h5>
+              {
+                Temporada ? 
+                  <div>
+                   {
+                   Temporada === 2 ?
+                      <div className='TextoMercadoAberto'>
+                        <h3>Temporada {Temporada}</h3>
+                        <h5> Mercado de transferência aberto</h5>
+                      </div>:
+                      <div className='TextoMercadoFechado'>
+                        <h3>Temporada {Temporada}</h3>
+                        <h5> Mercado de transferência encerrado</h5>
+                      </div>
+                    }
+                  </div>:
+                  <div style={{textAlign:"center"}}>Carregando temporada...</div> 
+              }
+              <Typography>Clube: {usuario.time}</Typography>
+              <Typography style={{color:(usuario.saldo < 0 && "red")}}>Saldo: {formatoMonetario(usuario.saldo)}</Typography>
+              <Typography>Folha: {formatoMonetario(folhaSalarial)}</Typography>
               <div style={{display:"flex", justifyContent:"flex-end"}}>
                 <SelectPosicoes setPosicoes={setPosicoes}/>
               </div>
             </div>
+            {
+              usuario.saldo < 0 && 
+              <div className='textoAviso'>Dispense jogadores para que o seu saldo seja positivo!</div>
+            }
             <TabelaDesktop ordenarLista={ordenarLista} jogadores={jogadores} usuario={usuario} carregando={carregando} anchorEl={anchorEl}/>
           </div>:
           <Box sx={{ display: 'flex',justifyContent:"center", alignItems:"center", height:"100vh" }}>

@@ -53,15 +53,11 @@ export default function ModalDispensarJogador({jogador, usuario}) {
   const novoValorDoSaldo = usuario.saldo + valorGanho
   const Confirmar = async()=>{
       setCarregando({status:true, jogador: jogador.label})
-      const temporada = await getTemporadaApi()
-      if (temporada.numero === 2) {                
-        deletarJogadorApi(jogador.id)
-        adicionarSaldoApi(usuario.id,novoValorDoSaldo)
-        alert("Jogador "+jogador.label+" libarado, você recebeu "+valorGanho.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}))
-        handleClose()
-      } else {
-        alert("Voçê só pode dispensar jogadores na temporada 2")
-      }
+      const temporada = await getTemporadaApi()               
+      deletarJogadorApi(jogador.id)
+      adicionarSaldoApi(usuario.id,novoValorDoSaldo)
+      alert("Jogador "+jogador.label+" libarado, você recebeu "+valorGanho.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}))
+      handleClose()
   }
 
   return (

@@ -10,7 +10,6 @@
 .rankingContainer{
    display: grid;
    grid-template-columns: 1fr 3fr;
-   margin: 2.5%;
    gap: 30px;
 }
 

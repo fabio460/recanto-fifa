@@ -1,6 +1,6 @@
 export const dimencao ={
     top: 0,
-    right: 10,
-    left: -15,
+    right: 20,
+    left: -35,
     bottom: 0,
   }
