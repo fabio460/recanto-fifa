@@ -181,7 +181,7 @@ export default function TelaListaDeJogadores() {
               </div>
             <div className='TelaListaJogadoresTituloRigth'>
               <div className='TelaListaJogadoresMenuSaldo'>
-                Saldo {formatoMonetario(Usuario?.saldo)}
+                <Typography style={{color:(Usuario?.saldo < 0 && "red")}}>Saldo: {formatoMonetario(Usuario?.saldo)}</Typography>
               </div>
               <div className='TelaListaDeJogadoresFolha'>Folha {formatoMonetario(folha)}</div>
               <Paper
