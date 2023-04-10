@@ -149,7 +149,7 @@ export default function TelaDeElenco() {
           carregando ? 
           <div className='TelaDeElencoContainer'>
             <div className='TelaDeElencoHeader'>
-              <h4>Usuario: {usuario?.nome}</h4>
+              <h4 className='TelaDeElencoHeaderNome'>Elenco do {usuario?.nome}</h4>
               <div className='TelaDeElencoHeaderDesktop'>
                 <div style={{display:"flex", alignItems:"center"}}>
                   <button 
@@ -201,7 +201,6 @@ export default function TelaDeElenco() {
                   </MenuItem>
                 </Menu>
               </div>
-              {/* <TabelaMobile handleClick={handleClick} handleClose={handleClose} id={id} usuario={usuario} open={open} anchorEl/> */}
             </div>
             <div>
               <Typography>Clube: {usuario.time}</Typography>
@@ -214,7 +213,7 @@ export default function TelaDeElenco() {
                     {
                     Temporada === 2 ?
                         <div className='TextoMercadoAberto'>
-                          <h3>Temporada {Temporada}</h3>
+                         
                           <h5> Mercado de transferência aberto</h5>
                         </div>:
                         <div className='TextoMercadoFechado'>

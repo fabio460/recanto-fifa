@@ -12,7 +12,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import { useDispatch } from 'react-redux/es/exports';
-import AutoComplete from '../TelaListaDeJogadores/AutoComplete';
+import AutoComplete from '../CompraDeJogadores/AutoComplete';
 import { lista } from '../../Lista'
 import { criarUsuarioApi, deletarUsuarioApi, listaDeUsuariosApi } from '../../Api/usuariosApi';
 import { Autocomplete } from '@mui/material';

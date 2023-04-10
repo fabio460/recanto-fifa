@@ -1,5 +1,4 @@
-.tabelaDeElencos{
-    
+.tabelaDeElencos{    
     margin: auto;
 }
 
@@ -66,6 +65,9 @@
     color: red;
     text-align: center;
 }
+.TelaDeElencoHeaderNome{
+    color: #1976d2;
+}
 @media (max-width:800px) {
     .table{
         width: 600px;
@@ -88,5 +90,8 @@
     }
     .elencoTdPosicao{
         min-width: 120px;
+    }
+    .TelaDeElencoContainer{
+        padding: 3%;
     }
 }

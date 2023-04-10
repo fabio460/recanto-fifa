@@ -57,27 +57,56 @@
 }
 .TelaListaDeJogadoresFolha{
    text-align: end;
-   
+}
+.CompraDeJogadoresHeaderMobile{
+   display: none;
+}
+.CompraDeJogadoresHeaderDesk{
+   display: flex;
+   justify-content: space-between;
+}
+.CompraDeJogadoresNomeMobile{
+   display: none;
 }
 @media (max-width:800px) {
-    .TelaListaDeJogadoresFolha{
-      margin: 0px;
-    }
-    .TelaListaJogadoresMenuSaldo{
-      margin: 0;
-    }
-    .td_nome{
-       min-width: 180px;
-    }
-    .td_clube{
-       min-width: 260px;
-    }
-    .td_over{
-       min-width: 80px;
-    }
-    .td_posicao{
-       min-width: 120px;
-    }
+   .CompraDeJogadoresNomeMobile{
+     display: flex;
+     justify-content: center;
+     text-align: center;
+     color: #1976d2;
+   }
+   .TelaListaJogadoresTituloLeft{
+     display: none;
+   }
+   .tituloHeader{
+     display: none;
+   }
+   .CompraDeJogadoresHeaderDesk{
+     display: none;
+   }
+   .CompraDeJogadoresHeaderMobile{
+     display: flex;
+     justify-content: space-between;
+   }
+   .TelaListaDeJogadoresFolha{
+     margin: 0px;
+     color: grey;
+   }
+   .TelaListaJogadoresMenuSaldo{
+     margin: 0;
+   }
+   .td_nome{
+      min-width: 180px;
+   }
+   .td_clube{
+      min-width: 260px;
+   }
+   .td_over{
+      min-width: 80px;
+   }
+   .td_posicao{
+      min-width: 120px;
+   }
    .paginacao{
       justify-content: center;
    }

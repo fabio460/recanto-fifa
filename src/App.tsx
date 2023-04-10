@@ -6,7 +6,7 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import Layout from './layout';
 import TelaDeUsuarios from './layout/TelaDeUsuarios';
 import TelaDeElenco from './layout/TelaDeElemco';
-import TelaListaDeJogadores from './layout/TelaListaDeJogadores';
+import TelaListaDeJogadores from './layout/CompraDeJogadores';
 import Regras from './layout/Regras';
 import Historico from './layout/Historico';
 

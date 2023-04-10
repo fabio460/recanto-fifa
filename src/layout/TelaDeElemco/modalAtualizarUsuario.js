@@ -7,7 +7,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import { useDispatch } from 'react-redux/es/exports';
-import AutoComplete from '../TelaListaDeJogadores/AutoComplete';
+import AutoComplete from '../CompraDeJogadores/AutoComplete';
 import { lista } from '../../Lista'
 import { atualizarUsuarioApi, criarUsuarioApi, getUsuariosPorIdApi } from '../../Api/usuariosApi';
 export default function ModalAtualizarUsuario({id, usuario, fechar}) {

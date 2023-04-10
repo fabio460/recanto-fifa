@@ -5,7 +5,7 @@ import InputBase from '@mui/material/InputBase';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
-import "./ListaDeJogadores.css"
+import "./CompraDeJogadores.css"
 import { useNavigate } from 'react-router-dom';
 import ModalComprar from './modalCompraJogador';
 import { getUsuariosPorIdApi } from '../../Api/usuariosApi';
@@ -19,8 +19,8 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { listarTodosOsJogadoresApi } from '../../Api/jogadoresApi';
 import { formatoMonetario, removeNome } from '../../Uteis';
-
-export default function TelaListaDeJogadores() {
+import MenuMobile from './menuMobile'
+export default function CompraDeJogadores() {
   const [listaJogadores, setlistaJogadores] = useState([])
   const [value, setValue] = React.useState("");
   const [Usuario, setUsuario] = useState()
@@ -149,17 +149,22 @@ export default function TelaListaDeJogadores() {
       {
         carregando ? 
         <div className='TelaListaJogadores'>
-          <div style={{display:"flex"}}>
-            <div className='TelaListaJogadoresMenu' onClick={()=>h("/")}>Inicio</div>
-            <div className='TelaListaJogadoresMenu' onClick={()=>h("/elencos")}>Elenco</div>
+          <div className='CompraDeJogadoresHeaderDesk'>
+            <h1>Compra de jogadores</h1>       
+            <div style={{display:"flex"}}>
+              <div className='TelaListaJogadoresMenu' onClick={()=>h("/")}>Inicio</div>
+              <div className='TelaListaJogadoresMenu' onClick={()=>h("/elencos")}>Elenco</div>
+            </div>
           </div>
+          <div className='CompraDeJogadoresHeaderMobile'>
+            <h4>Comprar jogador</h4>
+            <MenuMobile/>
+          </div>
+          <h1 className='CompraDeJogadoresNomeMobile'>{Usuario?.nome}</h1>
           <div className='TelaListaJogadoresTitulo'>
-            <div className='TelaListaJogadoresTituloLeft'>
-              <h1 style={{marginRight:"20px"}}>
+              <h1 className='tituloHeader'>
                 <div>Usuario {Usuario?.nome}</div>
               </h1>
-              
-            </div>
               <div>
                 {
                 Temporada ? 
@@ -167,11 +172,9 @@ export default function TelaListaDeJogadores() {
                   {
                     Temporada === 2 ?
                         <div className='TextoMercadoAberto'>
-                          <h3>Temporada {Temporada}</h3>
                           <h5> Mercado de transferência aberto</h5>
                         </div>:
                         <div className='TextoMercadoFechado'>
-                          <h3>Temporada {Temporada}</h3>
                           <h5> Mercado de transferência encerrado</h5>
                         </div>
                       }
@@ -183,7 +186,9 @@ export default function TelaListaDeJogadores() {
               <div className='TelaListaJogadoresMenuSaldo'>
                 <Typography style={{color:(Usuario?.saldo < 0 && "red")}}>Saldo: {formatoMonetario(Usuario?.saldo)}</Typography>
               </div>
-              <Typography className='TelaListaDeJogadoresFolha'>Folha {formatoMonetario(folha)}</Typography>
+              <div className='TelaListaDeJogadoresFolha'>
+                <Typography >Folha {formatoMonetario(folha)}</Typography>
+              </div>
               <Paper
                 sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: "100%" }}
               >
