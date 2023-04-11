@@ -12,14 +12,14 @@
     
 }
 .grafico{
-    max-width: 500px;
+    max-width: 400px;
     height: 300px;
     margin: auto;   
 }
 .tituloEstatisticas{
     margin-top: 30px;
 }
-@media (max-width:1730px) {
+@media (max-width:1330px) {
     .graficos{
         grid-template-columns: 1fr 1fr;
         
