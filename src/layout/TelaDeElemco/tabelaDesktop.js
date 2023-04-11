@@ -102,6 +102,9 @@ function AlertDialog() {
 }
   return (
     <div className='tabelaDeElencos'>
+      <div>
+        Voçe tem   {jogadores.length} jogadores no elenco
+      </div>
     <table className="table">
         <thead className="thead-dark">
             <tr>

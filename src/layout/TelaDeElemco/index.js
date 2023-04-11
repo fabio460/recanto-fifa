@@ -143,12 +143,7 @@ export default function TelaDeElenco() {
         ordenaPorOver()
         break;
     }
-    var selec = []
-    const deletarEmMassa = (e)=>{
-      
-    }
-    //const deleteEmMassa = useSelector(state=>state.deletarEmMassa.delete)
-
+    
     
     return (
       <div>
@@ -243,7 +238,7 @@ export default function TelaDeElenco() {
               usuario.saldo < 0 && 
               <div className='textoAviso'>Dispense jogadores para que o seu saldo seja positivo!</div>
             }
-            <TabelaDesktop ordenarLista={ordenarLista} jogadores={jogadores} usuario={usuario} carregando={carregando} anchorEl={anchorEl} deletarEmMassa={deletarEmMassa}/>
+            <TabelaDesktop ordenarLista={ordenarLista} jogadores={jogadores} usuario={usuario} carregando={carregando} anchorEl={anchorEl} />
           </div>:
           <Box sx={{ display: 'flex',justifyContent:"center", alignItems:"center", height:"100vh" }}>
              <CircularProgress />
