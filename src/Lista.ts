@@ -14804,7 +14804,7 @@ export const lista = [{label:"A Lan",Posicao:"A Lan ATA PE ME",OVER:"77",CLUBE:"
 {label:"Paulson Junqueira",Posicao:"Paulson Junqueira LE",OVER:"73",CLUBE:"Sport Club Corinthians Paulista"},
 {label:"Pedrão",Posicao:"Pedrão ZAG",OVER:"69",CLUBE:"Portimonense SC"},
 {label:"Pedraza",Posicao:"Pedraza LE ME",OVER:"77",CLUBE:"Villarreal CF"},
-{label:"Pedri",Posicao:"Pedri MC",OVER:"82",CLUBE:"FC Barcelona"},
+{label:"Pedri",Posicao:"Pedri MC",OVER:"85",CLUBE:"FC Barcelona"},
 {label:"Pedrildo Rocha",Posicao:"Pedrildo Rocha PE ME",OVER:"71",CLUBE:"Sport Club Corinthians Paulista"},
 {label:"Pedrinho",Posicao:"Pedrinho MEI MC",OVER:"74",CLUBE:"Gil Vicente FC"},
 {label:"Pedrinho",Posicao:"Pedrinho MD MEI",OVER:"75",CLUBE:"Shakhtar Donetsk"},

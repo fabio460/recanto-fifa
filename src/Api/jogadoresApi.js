@@ -29,7 +29,7 @@ export const deletarJogadorApi = async(id,atualizar,setatualizar)=>{
     })
     .then(res=>res.json())
     .then(res=>{
-       setatualizar(!atualizar)
+       //setatualizar(!atualizar)
     })
 }
 export const adicionarJogadorApi = async(

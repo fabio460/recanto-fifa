@@ -23,6 +23,22 @@
 .elencoBtns{
     display: flex;
     justify-content: flex-end;
+    margin-bottom: -1px;
+    
+}
+.btn-danger{
+    height: 40px;
+
+}
+.elencoTdClube{
+    min-width: 200px;
+    
+}
+.elencoTdNome{
+    min-width: 200px;
+}
+.elencoTdPosicao{
+    min-width: 120px;
 }
 
 .arrowDown{
@@ -67,6 +83,9 @@
 }
 .TelaDeElencoHeaderNome{
     color: #1976d2;
+}
+.btnDeletarEmMassa{
+    height: auto;
 }
 @media (max-width:800px) {
     .table{

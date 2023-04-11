@@ -8,8 +8,10 @@ import loadingReducer from './loadingReducer'
 import pagamentoDeFolhaReducer from './pagamentoDeFolhaReducer'
 import participantesReducer from './participantesReducer'
 import atualizarTudo from './atualizarTudo'
+import deletarEmMassa from './deletarEmMassa'
 export const store = configureStore({
     reducer: {
+        deletarEmMassa,
         atualizarTudo,
         participantesReducer,
         pagamentoDeFolhaReducer,

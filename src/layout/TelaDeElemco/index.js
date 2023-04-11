@@ -18,6 +18,7 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import SelectPosicoes from './selectPosicoes'
 import TabelaDesktop from './tabelaDesktop'
 import TabelaMobile from './tabelaMobile'
+import { Button } from 'react-bootstrap';
 
 export default function TelaDeElenco() {
     const [usuario, setUsuario] = useState({})
@@ -33,7 +34,7 @@ export default function TelaDeElenco() {
       id:null
     })
     const [posicoes, setPosicoes] = useState([])
-    
+    const [selecionados, setSelecionados] = useState([])
     var jogadores = usuario.jogadore
     const filtrarPosicao = jogadores?.filter(j=>{
       if (j.Posicao.includes(posicoes)) {
@@ -142,7 +143,13 @@ export default function TelaDeElenco() {
         ordenaPorOver()
         break;
     }
+    var selec = []
+    const deletarEmMassa = (e)=>{
+      
+    }
+    //const deleteEmMassa = useSelector(state=>state.deletarEmMassa.delete)
 
+    
     return (
       <div>
         {
@@ -225,7 +232,10 @@ export default function TelaDeElenco() {
                     <div style={{textAlign:"center"}}>Carregando temporada...</div> 
                 }
               </div>
-              <div style={{display:"flex", justifyContent:"flex-end"}}>
+              <div style={{display:"flex", justifyContent:"space-between", alignItems:"center"}}>
+                <div>
+                  <Button style={{display:selecionados.length === 0 && "none"}}>despensar</Button>
+                </div>
                 <SelectPosicoes setPosicoes={setPosicoes}/>
               </div>
             </div>
@@ -233,7 +243,7 @@ export default function TelaDeElenco() {
               usuario.saldo < 0 && 
               <div className='textoAviso'>Dispense jogadores para que o seu saldo seja positivo!</div>
             }
-            <TabelaDesktop ordenarLista={ordenarLista} jogadores={jogadores} usuario={usuario} carregando={carregando} anchorEl={anchorEl}/>
+            <TabelaDesktop ordenarLista={ordenarLista} jogadores={jogadores} usuario={usuario} carregando={carregando} anchorEl={anchorEl} deletarEmMassa={deletarEmMassa}/>
           </div>:
           <Box sx={{ display: 'flex',justifyContent:"center", alignItems:"center", height:"100vh" }}>
              <CircularProgress />
