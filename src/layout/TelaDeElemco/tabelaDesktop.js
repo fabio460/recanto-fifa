@@ -8,7 +8,7 @@ import { Button } from 'react-bootstrap'
 import { deletarJogadorApi } from '../../Api/jogadoresApi'
 import { adicionarSaldoApi } from '../../Api/usuariosApi'
 import { CircularProgress } from '@mui/material'
-
+import Chip from '@mui/material/Chip';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -103,12 +103,17 @@ function AlertDialog() {
   return (
     <div className='tabelaDeElencos'>
       <div>
-        Voçe tem   {jogadores.length} jogadores no elenco
+        Total de  {jogadores.length} jogadores exibidos
       </div>
     <table className="table">
         <thead className="thead-dark">
             <tr>
-                <th></th>
+                <th>
+                  {
+                    listaDeSelecionados.length > 0 && 
+                       <div className='listaDeSelecionadosQuantidade'>{listaDeSelecionados.length}</div>
+                    }
+                </th>
                 <th id={1} onClick={ordenarLista} scope="col" className='tabelaDeElencosTH'>
                   Nome 
                   <img src={flecha} className='arrowImg arrowDown' id='1'/>
